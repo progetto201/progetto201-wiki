@@ -1,0 +1,108 @@
+---
+layout: compress
+---
+<!DOCTYPE html>
+<html lang="{{ page.language | default: site.language }}">
+
+<head>
+    {% comment %} 
+    <!-- Set the set of characters to utf-8 --> 
+    {% endcomment %}
+    <meta charset="UTF-8">
+
+    {% comment %} 
+    <!-- Set the viewport to be responsive on mobile --> 
+    {% endcomment %}
+    <meta name=viewport content="width=device-width, initial-scale=1">
+
+    {% comment %} 
+    <!-- Set the description of the page (if not defined set the website description) --> 
+    {% endcomment %}
+    <meta name="description" content="{{ page.description | default: site.description }}">
+
+    {% comment %} 
+    <!-- Set the title (browser tab title / result on search engines):
+         - set "fulltitle" as the default title (title of the website)
+         - if the title of the page is defined, overwrite "fulltitle" with "<title of page> - <title of website>"
+         - put "fulltitle" in the "title" tag
+    --> 
+    {% endcomment %}
+
+    {% capture fulltitle %}{{ site.title }}{% endcapture %}
+    {% if page.title %}
+        {% capture fulltitle %}{{ page.title }} - {{ site.title }}{% endcapture %}
+    {% endif %}
+    <title>{{ fulltitle }}</title>
+
+	<!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    {% comment %} 
+    <!-- CSS (main.scss is converted and compressed into main.css) --> 
+    {% endcomment %}
+    <link rel="stylesheet" href="{{'/assets/css/main.css' | absolute_url}}">
+	
+	{% if page.title == "home" %}
+		<link rel='stylesheet' href="{{'/assets/css/home.css' | absolute_url}}">
+	{% endif %}
+	
+	{% if page.containsCode == "true" %}
+		<link rel='stylesheet' href="{{'/assets/css/prism.css' | absolute_url}}">
+	{% endif %}
+</head>
+
+<body>
+     
+    <div id="main">
+
+        {% comment %} 
+        <!-- Include navigation bar with anchors to the other pages --> 
+        {% endcomment %}
+        {% include html/sidenav.html %}
+        
+		<!-- CONTENUTO PAGINA, DESTRA DI SIDENAV -->
+        <div id="rightcolumn">
+            
+            {% include html/navbar.html %}
+            
+			{{ content }}
+			
+            {% comment %} 
+            <!-- Include the footer with copyright, anchors, sitemap link, author,... --> 
+            {% endcomment %}
+            {% include html/footer.html %}
+        </div>
+        
+        
+    </div>
+	
+	<!-- JAVASCRIPT DI MATERIALIZE -->
+    <script type="text/javascript" src="/assets/js/materialize.min.js"></script>
+    
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems);
+        });
+    </script>
+
+    {% if page.containsImage == "true" %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.materialboxed');
+            var instances = M.Materialbox.init(elems);
+        });
+    </script>
+    {% endif %}
+
+	{% if page.title == "home" %}
+		<script type="text/javascript" src="/assets/js/main.js"></script>
+	{% endif%}
+	
+	{% if page.containsCode == "true" %}
+		<script src="/assets/js/prism.js"></script>
+	{% endif %}
+</body>
+
+</html>

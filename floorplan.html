@@ -1,0 +1,224 @@
+---
+permalink: /floorplan.html
+layout: default
+containsImage: "true"
+description: "Personalizza planimetria del progetto201 con Inkscape o CAD"
+---
+
+<!-- CONTAINER CON IL RESTO DELLA PAGINA -->
+<div class="container grow">
+    <h3>Come personalizzare la planimetria</h3>
+    <p>
+        E' possibile personalizzare la planimetria disegnandola con software per l'editing di documenti SVG (Scalable Vector Graphics)
+        come <a href="https://inkscape.org/">Inkscape</a> oppure con software CAD come AutoCAD e convertire il formato
+        in formato SVG.
+    </p>
+
+    <hr>
+
+    <h5>Inkscape</h5>
+    <ol class="collection">
+        <li class="collection-item">
+            <p>
+                Scaricare Inkscape cliccando qui:
+            </p>
+
+            <div class="center-align container">
+                <img class="materialboxed mx-auto w100" src="/assets/img/inkscape/homepage.png" alt="Homepage inkscape">
+            </div>
+            <p>
+                Poi cliccare sul sistema operativo e sul tipo di installer
+                <blockquote>
+                    <p>
+                        Per Windows occorre selezionare prima l'architettura del sistema operativo (32 o 64 bit)
+                        e poi il tipo di installer (exe, msi o windows store).
+                    </p>
+                </blockquote>
+            </p>
+        </li>
+        <li class="collection-item">
+            Procedere con l'installazione.
+        </li>
+        <li class="collection-item">
+            Aprire il programma e iniziare a progettare la propria planimetria.
+            <blockquote>
+                <p>
+                    A questo punto e' possibile personalizzare al massimo la propria planimetria.
+                </p>
+            </blockquote>
+            <blockquote>
+                <p>
+                    Per cominciare con qualcosa di semplice e' possibile posizionare rettangoli per comporre i perimetri delle stanze.
+                </p>
+                <p>
+                    In inkscape puoi cambiare il colore del bordo e del riempimento usando la barra dei colori in basso.
+                    Se clicchi un colore cambiera' il riempimento dell'elemento e se lo clicchi mentre tieni premuto il tasto maiusc cambiera' il colore del bordo.
+                </p>
+                <div class="center-align container">
+                    <img class="materialboxed mx-auto w100" src="/assets/img/inkscape/colors.jfif" alt="Barra dei colori inkscape">
+                </div>
+            </blockquote>
+            <blockquote>
+                A differenza della vecchia versione, il progetto 100+100, qui non occorre creare le aree delle stanze e aggiungergli id e classi.
+            </blockquote>
+        </li>
+        <li class="collection-item">
+            <p>
+                Quando hai finito di creare la tua planimetria vai su file, proprieta' del documento, 
+                nella tab "pagina" vai nella sezione "personalizzata", 
+                clicca sul piu' vicino a "Ridimensiona pagina a contenuto..." e premi il pulsante "Ridimensiona pagina a disegno o selezione"
+            </p>
+            <div class="center-align container">
+                <img class="materialboxed mx-auto w100" src="/assets/img/inkscape/prop_document.jfif" alt="Proprieta' documento inkscape">
+            </div>
+        </li>
+        <li class="collection-item">
+            Chiudi la finestra, clicca su file, salva come..., navigare nel percorso in cui si desidera salvare il file, dagli un nome, assicurati che il file sia salvato come "Inkscape SVG".
+        </li>
+        <li class="collection-item">
+            Sposta il file su Raspberry e posiziona il file svg nella cartella maps "/static/img/maps".
+        </li>
+        <li class="collection-item">
+            <p>
+                Ora dall'interfaccia grafica del progetto201 e' possibile andare nella pagina delle impostazioni cliccando sul pulsante "IMPOSTAZIONI":
+            </p> 
+            <div class="center-align container">
+                <img class="materialboxed mx-auto w100" src="/assets/img/frontend/home.png" alt="Home del progetto201">
+            </div>
+            <p>
+                E selezionare la planimetria cliccandoci sopra nella sezione "Tipo planimetria":
+            </p>
+            <div class="center-align container">
+                <img class="materialboxed mx-auto w100" src="/assets/img/frontend/floorplan.jfif" alt="Tipo planimetria delle impostazioni progetto201">
+            </div>
+            <p>
+                Ora la planimetria selezionata sara' visualizzata nella pagina principale...
+            </p>
+            <div class="center-align container">
+                <img class="materialboxed mx-auto w100" src="/assets/img/frontend/home.png" alt="Home del progetto201">
+            </div>
+            <p>
+                ... E nella sezione "Dati planimetria" delle impostazioni:
+            </p>
+            <div class="center-align container">
+                <img class="materialboxed mx-auto w100" src="/assets/img/frontend/settings_labels.png" alt="Dati planimetria delle impostazioni progetto201">
+            </div>
+        </li>
+
+    </ol>
+
+    <hr>
+
+    <h5>AutoCAD</h5>
+    <ol class="collection">
+        <li class="collection-item">
+            Utilizzare AutoCAD per disegnare la planimetria.
+        </li>
+        <li class="collection-item">
+            AutoCAD non permette di esportare i disegni direttamente in SVG: 
+            occorre utilizzare un convertitore online o passare per un formato intermedio.
+            <blockquote>
+                <p>
+                    Se si ha a disposizione il file dwg ma AutoCAD non e' installato sul computer
+                    e non si vuole utilizzare un convertitore online e' possibile utilizzare "DWG TRUEVIEW",
+                    software di Autodesk che permette di visualizzare e esportare gratuitamente i file dwg.
+                </p>
+                <p>
+                    NOTA: Chrome segnala il download come "non sicuro" ma MalwareBytes indica che il file e' sicuro.
+                </p>
+                <p>
+                    Come dimensioni il file da scaricare occupa quasi 700 MB e installato il software occupa quasi 2 GB
+                </p>
+                
+                <div class="center-align container">
+                    <a href="https://www.autodesk.it/products/dwg" class="waves-effect waves-light btn orange lighten-2">Scaricalo qui</a>
+                </div>
+
+                <p>
+                    Per utilizzarlo eseguire le stesse istruzioni per convertire i file dwg AutoCAD a pdf indicate dopo la guida
+                    per i convertitori online e per la conversione intermedia in dxf.
+                </p>
+                
+            </blockquote>
+            <ul class="collection">
+                <li class="collection-item">
+                    Per i convertitori online e' possibile cercare "dwg to svg converter" su un motore di ricerca.
+                    In generale tutti i convertitori sono simili: e' presente un pulsante per selezionare il file sul computer (potrebbe essere chiamato "Open", "Select File", ...),
+                    una lista di formati di origine e di destinazione (scegliere dwg come formato di origine e svg come formato di destinazione) e un pulsante
+                    per scaricare il file convertito.
+                </li>
+                <li class="collection-item">
+                    <p>
+                        Per non utilizzare convertitori online e' possibile esportare i dwg da AutoCAD in formato "dxf".
+                    </p>
+                    <p>
+                        E' possibile aprire il formato "dxf" utilizzando Inkscape.
+                    </p>
+                    <p>
+                        Sempre su Inkscape vai su file, proprieta' del documento, 
+                        nella tab "pagina" vai nella sezione "personalizzata", 
+                        clicca sul piu' vicino a "Ridimensiona pagina a contenuto..." e premi il pulsante "Ridimensiona pagina a disegno o selezione"
+                    </p>
+                    <div class="center-align container">
+                        <img class="materialboxed mx-auto w100" src="/assets/img/inkscape/prop_document.jfif" alt="Proprieta' documento inkscape">
+                    </div>
+                    <p>
+                        Salvare in svg cliccando su "file", "save as" (salva come), navigare fino al percorso in cui salvare il file e premere salva
+                    </p>
+                        
+                </li>
+                <li class="collection-item">
+                    <p>
+                        E' possibile anche esportare i dwg da AutoCAD in formato "pdf" e convertirlo in SVG con inkscape.
+                    </p>
+                    <ol class="collection">
+                        <li class="collection-item">
+                            Su AutoCAD "stampare" il disegno impostando sulla "stampante" l'opzione "DWG To PDF.pc3" (o simile)
+                            per salvare il disegno come PDF
+                        </li>
+                        <li class="collection-item">
+                            In "Plot area" (area di stampa) selezionare "window" (finestra).
+                            Verra richiesto di selezionare l'area del disegno da "stampare". 
+                        </li>
+                        <li class="collection-item">
+                            In "Plot scale" (scala di stampa) togliere la spunta su "Fit to paper" ("adatta al foglio")
+                            e impostare "Scale" (scala) a "1:1".
+                        </li>
+                        <li class="collection-item">
+                            Cliccare in basso su "Ok", navigare fino al percorso in cui salvare il file e premere salva.
+                        </li>
+                        <li class="collection-item">
+                            Da Inkscape andare su "File", "Import" (importa) e cliccare su "Open" (apri)
+                        </li>
+                        <li class="collection-item">
+                            Si aprira' una finestra in cui occorre togliere due spunte:
+                            la spunta di "Replace PDF fonts by closest-named installed fonts" (Rimpiazza font PDF con il font installato dal nome piu' simile)
+                            e la spunta di "Embed images" (incorpora immagini) e infine cliccare ok
+                        </li>
+                        <li class="collection-item">
+                            <p>
+                                Vai su file, proprieta' del documento, 
+                                nella tab "pagina" vai nella sezione "personalizzata", 
+                                clicca sul piu' vicino a "Ridimensiona pagina a contenuto..." e premi il pulsante "Ridimensiona pagina a disegno o selezione"
+                            </p>
+                            <div class="center-align container">
+                                <img class="materialboxed mx-auto w100" src="/assets/img/inkscape/prop_document.jfif" alt="Proprieta' documento inkscape">
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            Salvare in svg cliccando su "file", "save as" (salva come), navigare fino al percorso in cui salvare il file e premere salva
+                        </li>
+                    </ol>
+                </li>
+                <li class="collection-item">
+                    Adobe Illustrator puo' aprire i file dwg e convertirli in pdf o in svg.
+                    Il software e' a pagamento ma esiste la versione di prova gratuita.
+                </li>
+            </ul>
+            <blockquote>
+                Non sempre la conversione e' perfetta: possono apparire righe che erano state cancellate o che non erano presenti, ...
+                In questo caso provare gli altri metodi di conversione
+            </blockquote>
+        </li>
+    </ol>
+</div>

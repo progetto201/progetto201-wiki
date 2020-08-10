@@ -1,0 +1,50 @@
+--- 
+--- 
+
+@import "materialize.min";
+
+/* COLONNA A DESTRA DELLA SIDENAV */
+#rightcolumn {
+    padding-left: 300px;
+    /* sposta elementi a destra per non farli coprire dalla sidenav */
+    display: flex;
+    /* utilizza flex per .grow */
+    flex-direction: column;
+    /* cambia valore di default da row a column */
+    min-height: 100vh;
+    /* l'altezza minima e' di una pagina */
+}
+
+/* ELEMENTO CHE SI ESPANDE (PARENT DISPLAY FLEX) */
+.grow {
+    flex-grow: 1;
+    /* occupa spazio disponibile */
+}
+
+/* ELEMENTO NASCOSTO */
+.hidden {
+    display: none;
+}
+
+/* MEDIA QUERY PER SCHERMI MEDI */
+@media only screen and (max-width : 992px) {
+
+    /* COLONNA A DESTRA DELLA SIDENAV */
+    #rightcolumn {
+        padding-left: 0;
+        /* rimuovi padding, la sidenav e' nascosta */
+    }
+}
+
+
+.bold {
+    font-weight: bold; /* grassetto */
+}
+
+.mx-auto{
+    margin: 0px auto; /* margine orizzontale automatico */
+}
+
+.w100{
+    width: 100%; /* Occupa tutta lunghezza parent */
+}

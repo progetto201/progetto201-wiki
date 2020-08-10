@@ -1,0 +1,91 @@
+<h3>Documentazione</h3>
+    <p>Per la documentazione dei singoli componenti del sistema di monitoraggio cliccare sulla documentazione desiderata:
+    </p>
+
+    <!-- TABELLA CON I LINK ALLA DOCUMENTAZIONE -->
+    <table class="responsive-table striped">
+        <thead>
+            <tr>
+                <th>Componente</th>
+                <th>README</th>
+                <th>descrizione codice</th>
+                <th>Notazione</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>API</td>
+                <td><a href="https://github.com/progetto201/progetto201-api">README API</a></td>
+                <td><a href="https://progetto201.github.io/progetto201-api/doc/html/files.html">codice API</a></td>
+                <td>L'api si occupa di mettere in comunicazione il database con il lato frontend del sistema, l'interfaccia
+                    grafica,
+                    ed e' programmata in PHP
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    DATACLIENT-DHT22
+                </td>
+                <td>
+                    <a href="https://github.com/progetto201/dataclient-dht22">README dataclient-dht22</a>
+                </td>
+                <td>
+                    <a href="https://progetto201.github.io/dataclient-dht22/doc/html/dataclient-dht22_8ino.html">codice
+                        dataclient-dht22</a>
+                </td>
+                <td>
+                    E' lo sketch scritto in arduino che si occupa di rilevare dati dal sensore e inviarli via MQTT alla
+                    centralina.
+                </td>
+
+            </tr>
+            <tr>
+                <td>MQTT_MANAGER</td>
+                <td>
+                    <a href="https://github.com/progetto201/mqtt_manager">README mqtt_manager</a>
+                </td>
+                <td>
+                    <a href="https://progetto201.github.io/mqtt_manager/">codice mqtt_manager</a>
+                </td>
+                <td>Si occupa di ricevere i dati sulla centralina via MQTT (sia la presentazione dei nodi, sia dati delle
+                    rilevazioni).
+                    E' programmato in Python.
+                </td>
+            </tr>
+            <tr>
+                <td>AUTOINSTALL</td>
+                <td>
+                    <a href="https://github.com/progetto201/progetto201-autoinstall">README autoinstall</a>
+                </td>
+                <td>
+                    Guarda il README
+                </td>
+                <td>Script in bash che installa e configura tutto cio' che e' necessario per far funzionare il sistema di
+                    monitoraggio.
+                    Attualmente scarica e configura apache, PHP, MySQL, unclutter (se in modalita' produzione), PHPMyAdmin
+                    (se in modalita' sviluppo), DNSMASQ e il progetto 100+100.
+                    NOTA: Occorre modificare lo script per fargli installare automaticamente il progetto201
+                </td>
+            </tr>
+            <tr>
+                <td>FRONTEND</td>
+                <td>
+                    <a href="https://github.com/progetto201/progetto201-frontend">README frontend</a>
+                </td>
+                <td>
+                    *
+                </td>
+                <td>
+                    Interfaccia grafica scritta in HTML, CSS, Javascript (framework Vue.js)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        * La documentazione dettagliata della frontend non e' disponibile, ma e' molto simile alla <a
+            href="https://github.com/mario33881/progetto_100/wiki/Webserver_descrizione_navigazione">frontend del progetto
+            100+100 disponibile qui</a>
+        (cambiano gli URL delle richieste e manca la documentazione della creazione e gestione dei label della planimetria)
+    </p>

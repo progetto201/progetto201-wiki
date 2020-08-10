@@ -1,0 +1,49 @@
+/*==============================================================
+
+            CSS PER SOVRAPPORRE SVG E I VIDEO
+
+==============================================================*/
+
+:root {
+    --columns: 1;
+}
+
+/* CONTIENE CONTAINER SVG E IL CONTAINER VIDEO */
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(var(--columns), 1fr);
+    grid-template-rows: 40px;
+}
+
+/* CONTAINER VIDEO */
+#infoi {
+    grid-column-start: 1;
+    grid-column-end: span var(--columns);
+    grid-row-start: 1;
+    grid-row-end: 2;
+    background-color: #eaeaea;
+}
+
+
+/* CONTAINER SVG: in primo piano per posizionarlo sopra ai video */
+#svg-container {
+    grid-column-start: var(--columns);
+    grid-column-end: span 1;
+    grid-row-start: 1;
+    place-self: left;
+    height: 100%;
+    z-index: 60;
+    display: flex;
+}
+
+/* SVG CON TERMOMETRO: usa sfondo bianco opaco e aggiungi un margine */
+#svg-container>svg {
+    height: 90%;
+    margin: auto 3vw; /* centra verticalmente e crea margine a sinistra e destra di 3vw */
+    width: 6vw;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.video {
+    height: 100%;
+}

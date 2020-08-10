@@ -1,0 +1,429 @@
+---
+permalink: /start.html
+layout: default
+containsCode: "true"
+containsImage: "true"
+description: "Guida iniziale progetto201"
+---
+
+<!-- CONTAINER CON IL RESTO DELLA PAGINA -->
+<div class="container grow">
+    <h3>Come iniziare</h3>
+        <p>
+            Anche se questo e' il successore del progetto 100+100 potrebbe essere utile leggere la sua documentazione per capire
+            il funzionamento alla base del progetto201. (a destra e' presente l'indice dei contenuti)
+            <a class="btn orange lighten-2" href="https://github.com/mario33881/progetto_100/wiki">Wiki del progetto 100+100</a>
+        </p>
+
+        <ol class="collection">
+            <li class="collection-item">
+                <p>Installare Raspbian/Raspberry Pi OS su Raspberry Pi (la centralina), configurarlo e aggiornarlo</p>
+                <ul class="collection">
+                    <li class="collection-item">Scaricare dal sito ufficiale l'immagine del sistema operativo (<a href="https://www.raspberrypi.org/downloads/raspberry-pi-os/">Link</a>)
+                        e utilizzare un software per eseguire il flash sulla scheda SD (tipo etcher, <a href="https://www.balena.io/etcher/">link</a> )
+                        OPPURE utilizzare Raspberry Pi Imager, il software consigliato dalla Raspberry Pi foundation ( <a href="https://www.raspberrypi.org/downloads/">Link</a>, personalmente non l'ho testato
+                        ma sembra molto semplice, non occorre neppure scaricare l'immagine, ci pensa lui )
+                    </li>
+                    <li class="collection-item">
+                        Seguire la wizard per la configurazione iniziale che fara' configurare Wi-Fi, password di root, layout della tastiera, ...
+                        e infine far aggiornare il software e far riavviare il raspberry.
+                    </li>
+                </ul>
+            </li>
+            <li class="collection-item">
+                <p>Utilizzare AUTOINSTALL per installare e configurare automaticamente (quasi) tutto quello che serve. Il Raspberry si riavviera' automaticamente un paio di volte</p>
+                <ul class="collection">
+                    <li class="collection-item"> 
+                        <p>Leggere la documentazione e scaricare AUTOINSTALL dal <a class="btn orange lighten-2" href="https://github.com/progetto201/progetto201-autoinstall">repository qui</a></p>
+                        <blockquote>
+                            La documentazione contiene alcuni dei possibili errori e le relative soluzioni e quindi e' consigliato leggerla
+                            poiche' potrebbe essere necessario eseguire debugging/throubleshooting
+                        </blockquote>
+
+                        <blockquote>
+                            La documentazione e' anche utile a capire se ha senso installare e configurare tutti i software...
+                            Ad esempio commentare o cancellare le istruzioni che installano i seguenti software e eventualmente eseguirli successivamente manualmente: 
+                            <ol class="collection">
+                                <li class="collection-item">internalfunctions.sh installa Unclutter, che rende difficile lavorare su raspberry poiche' nasconde il cursore del mouse (utile in ambiente di produzione se si usa uno schermo touch)</li>
+                                <li class="collection-item">internalfunctions.sh imposta il wallpaper del 100+100, se il comando da errore ignorarlo/decommentarlo poiche' il wallpaper non e' fondamentale</li>
+                                <li class="collection-item">internalfunctions.sh importa il database del 100+100, e possibile saltare l'import e eseguirlo dopo con il database del progetto201</li>
+                                <li class="collection-item">automysql.sh modifica il metodo di accesso all'account root di MySQL: se eseguito prima della importazione l'importazione fallira'</li>
+                                <li class="collection-item">internalfunctions.sh scarica dal repository del 100+100 e posiziona nella cartella "/var/www/html"  i file che Apache restituira' ai client web (browser)</li>
+                                <li class="collection-item">
+                                    Valutare se e' necessario "correre al debugging" per errori di PHPMyAdmin: ad esempio se qualcosa va storto durante la sua installazione e' consigliabile saltarla e 
+                                    permettere allo script di installare e configurare servizi piu' importanti prima di cercare di risolvere il problema di PHPMyAdmin.
+                                    PHPMyAdmin NON e' <a href="https://en.wikipedia.org/wiki/Mission_critical">mission critical</a>.
+                                </li>
+                            </ol>
+
+                            <p>Se un comando da errore e' anche possibile commentare tutte le righe precedenti per evitare di ripetere l'intera esecuzione dello script</p>
+                        </blockquote>
+                        
+                        <blockquote>
+                            Ogni script richiamato da AUTOINSTALL ha la sua documentazione
+                        </blockquote>
+                    </li>
+                    <li class="collection-item">
+                        <p>
+                            Aprire lo script "autoinstall.sh" e modificare a piacere i valori delle variabili sotto a "# -- VARIABLES"
+                        </p> 
+                        <blockquote>
+                            SUGGERIMENTO: le variabili piu' importanti sono:
+                            <ol class="collection">
+                                <li class="collection-item">devmode: true installa PHPMyAdmin per avere una UI per gestire i database, false installa Unclutter, software che nasconde il mouse (adatto per schermi touch screen)</li>
+                                <li class="collection-item">mysqlpass: password usato dell'utente MySQL. Verra' utilizzato da PHP per eseguire operazioni sul database del progetto, nome "db100_100"</li>
+                                <li class="collection-item">hostapd_ssid: SSID della rete Wi-Fi generata da Raspberry Pi (identifica la rete)</li>
+                                <li class="collection-item">hostapd_password: password della rete Wi-Fi</li>
+                            </ol>
+                            <p>Le altre possono essere lasciate a valori di default 
+                                <blockquote>
+                                    <p>
+                                        ESEMPIO: anche se vengono create piu' reti wireless con lo stesso range di indirizzi non c'e' pericolo di conflitti di IP... 
+                                        Le reti non si vedono perche' Raspberry si comporta da NAT (IP Masquerade) e quindi l'unico indirizzo IP che puo' andare 
+                                        in conflitto con altri indirizzi e' l'indirizzo dell'interfaccia ethernet "eth0" (rete cablata).
+                                    </p>
+                                    
+                                    <p>
+                                        MIGLIORAMENTO: disattivare, per motivi di sicurezza (riduciamo i diritti dei dispositivi al minimo), il masquerade per isolare i nodi nelle comunicazioni verso l'esterno (verso Internet e rete sulla eth0): <a href="https://www.raspberrypi.org/documentation/configuration/wireless/access-point-routed.md">link documentazione ufficiale</a> 
+                                    </p>
+                                </blockquote>
+                            </p>
+                        </blockquote>
+                    </li>
+                    <li class="collection-item">
+                        Salvare e eseguire lo script da terminale con il comando 
+                        <pre>
+                            <code class="language-bash">
+                                # posizionarsi prima con il terminale nella cartella dello script
+                                ./autoinstall.sh
+                            </code>
+                        </pre>
+                    </li>
+                </ul>
+            </li>
+            <li class="collection-item">
+                <p>
+                    A questo punto dovrebbero essere installati e configurati MySQL, Apache, PHP, DNSMASQ, Hostapd.
+                </p> 
+                <p>
+                    Verificare che tutto funzioni correttamente:
+                    <ul class="collection">
+                        <li class="collection-item">
+                            Provare con un cellulare a collegarsi alla rete Wi-Fi creata da Raspberry:
+                            se funziona significa che Hostapd ha creato la rete ed e' possibile collegarsi senza problemi
+                        </li>
+                        <li class="collection-item">
+                            Provare poi ad aprire il browser su Raspberry e andare sulla pagina "localhost":
+                            se viene visualizzata la pagina di benvenuto di Apache vuol dire che Apache riesce a rispondere alle richieste.
+                            <blockquote>
+                                Se e' stata restituita la pagina del progetto 100+100 vuol dire
+                                che prima di eseguire lo script AUTOINSTALL non sono state commentate quelle istruzioni
+                                di internalfunctions.sh che scaricavano i vecchi file.
+                                Se la pagina viene restituita vuol dire comunque che Apache funziona.
+                            </blockquote>
+                        </li>
+                        <li class="collection-item">
+                            Provare a collegarsi da telefono con il browser alla pagina web restituita da Apache:
+                            se funziona vuol dire che Apache e' accessibile sulla rete locale creata da Raspberry ma soprattutto
+                            che DNSMASQ (funzionante come server DHCP) ha fornito un ip automaticamente.
+                            <blockquote>
+                                Per accedere alla pagina web e' necessario sapere l'indirizzo IP del raspberry: in AUTOINSTALL
+                                era presente la variabile "hostapd_ip", se non e' stata modificata l'ip e' "192.168.4.1",
+                                altrimenti e' il valore della variabile. (Ignorando il CIDR, cio' che e' dopo la slash "/" compresa)
+                                E' possibile anche utilizzare il comando: 
+                                <pre>
+                                    <code class="language-bash">
+                                        # se non dovesse funzionare provare "ip a"
+                                        ifconfig
+                                    </code>
+                                </pre>
+                                E controllare l'ip della "wlan0", l'interfaccia wireless del raspberry.
+                                Se si vuole provare a collegarsi da un computer sulla rete cablata inserire l'ip della interfaccia "eth0".
+                            </blockquote>
+                            <blockquote>
+                                E' possibile accertare il suo funzionamento anche andando da smartphone nella pagina per collegarsi alle reti Wi-Fi
+                                e cercare nei sotto menu' "Indirizzo IP". (provare a ri-cliccare sulla rete, provare a guardare nella sezione avanzate, ...)
+                            </blockquote>
+                        </li>
+                        <li class="collection-item">
+                            <p>
+                                Provare a creare in "/var/www/html", la cartella di Apache, un file PHP e inserire qualcosa di semplice tipo:
+                            </p> 
+
+                            <pre>
+                                <code class="language-php">
+                                    &lt;?php
+                                        echo "hei! Questo e' un test! se vedi solo questa stringa (senza 'php' e i tag) vuol dire che PHP e' installato correttamente";
+                                    ?&gt;
+                                </code>
+                            </pre>
+
+                            <p>
+                                E dopo provare a richiederlo da browser: se appare il messaggio senza "&lt;?php", "echo", ";" e "?&gt;" vuol dire che PHP funziona.
+                            </p>
+
+                            <blockquote>
+                                Se era apparsa la pagina del progetto 100+100 ed e' apparsa la planimetria
+                                vuol dire che PHP funziona (e anche MySQL).
+                            </blockquote>
+                        </li>
+                        <li class="collection-item">
+                            Per testare DNSMASQ come server DNS provare a collegarsi alla pagina web inserendo nella barra degli
+                            indirizzi "raspberry" e "raspberry.progetto201.com", dovrebbero funzionare entrambe.
+                        </li>
+                        <li class="collection-item">
+
+                            Provare MySQL cercando di creare un database via PHPMyAdmin (se e' stato installato, e' possibile accedervi alla pagina "localhost/phpmyadmin" su raspberry) 
+                            e poi importare il file sql dalla sezione import:
+                            
+                            <br> <br>
+
+                            <div class="center-align container">
+                                <img class="materialboxed mx-auto" src="/assets/img/phpmyadmin/import.jpg" alt="Pagina importazione">
+                            </div>
+                            
+                            <br><br>
+                            <p>
+                                Cliccare su "Importa", cliccare su "Scegli il file" e cercare sul computer il file .sql del progetto 201.
+                                Infine cliccare su "Esegui".
+                            </p>
+                            
+                            <br>
+                            <hr>
+                            <br>
+
+                            oppure
+                            importando il file .sql del progetto 201 (presente nel repository <a href="https://github.com/progetto201/progetto201-api">progetto201-api</a>) con il comando:
+                            <pre>
+                                <code class="language-bash">
+                                    # sostituisci &lt;path&gt; con il percorso del file sql
+                                    sudo mysql &lt; "&lt;path&gt;"
+                                </code>
+                            </pre>
+                            E provare a eseguire una query:
+                            <pre>
+                                <code class="language-bash">
+                                    sudo mysql -e "SELECT * FROM db100_100.t_options"
+                                </code>
+                            </pre>
+                            Dovrebbe apparire una tabella simile a questa:
+                            <pre>
+                                <code class="language-bash">
+                                    +----+--------------+---------------+---------------+-----------+
+                                    | id | color_scheme | min_timestamp | max_timestamp | map       |
+                                    +----+--------------+---------------+---------------+-----------+
+                                    |  1 | red darken-2 |             0 |             0 | realistic |
+                                    +----+--------------+---------------+---------------+-----------+
+                                </code>
+                            </pre>
+
+                            <blockquote>
+                                Se non si ha i permessi apparira' un errore simile a questo:
+                                <pre>
+                                    <code class="language-bash">
+                                        ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+                                    </code>
+                                </pre>
+                                Se e' stato eseguito lo script AUTOINSTALL senza modifiche
+                                probabilmente automysql.sh ha modificato la password.
+                                Prima occorre accedere con la nuova password:
+                                <pre>
+                                    <code class="language-bash">
+                                        # sostutisci &lt;username&gt; con il nome utente
+                                        # > nota: non c'e' spazio tra il nome utente e la "-u"
+                                        sudo mysql -u&lt;username&gt; -p
+                                    </code>
+                                </pre>
+                                <p>
+                                    Premere invio e verra' chiesta la password.
+                                    E' possibile conoscere la password guardando la variabile "mysqlpass" in autoinstall.sh.
+                                </p>
+                                <p>
+                                    Eseguire la query SQL per ottenere la tabella con i dati:
+                                </p>
+                                <pre>
+                                    <code class="language-sql">
+                                        SELECT * FROM db100_100.t_options;
+                                    </code>
+                                </pre>
+                                Dovrebbe apparire la tabella indicata sopra.
+                                Uscire dal client mysql digitando "quit" e premendo invio.
+                            </blockquote>
+                        </li>
+                    </ul>
+                </p>
+            </li>
+            <li class="collection-item">
+                Se fino ad ora non e' stata modificata occorre modificare la password di MySQL per permettere
+                a PHP di collegarsi al database.
+                <p>
+                    Ci sono due opzioni:
+                </p> 
+                
+                <blockquote>
+                    Entrambe le opzioni fanno la stessa cosa, 
+                    scegliere quella che in quel momento sembra la piu' veloce.
+                    E' possibile fare un copia incolla? Eseguire la query SQL e' molto probabilmente la soluzione piu' veloce.
+                </blockquote>
+
+                <ul class="collection">
+                    <li class="collection-item">
+                        Eseguire automysql.sh di AUTOINSTALL in questo modo:
+                        <pre>
+                            <code class="language-bash">
+                                # posizionarsi prima con il terminale nella cartella dello script e
+                                # sostituire &lt;pass&gt; con la nuova password per l'utente root
+                                ./automysql.sh -mysqlpass &lt;pass&gt;
+                            </code>
+                        </pre>
+                    </li>
+                    <li class="collection-item">
+                        Eseguire la query SQL senza automysql.sh:
+                        <pre>
+                            <code class="language-bash">
+                                # sostituisci &lt;pass&gt; con la nuova password di MySQL dell'utente root
+                                sudo mysql -e "GRANT ALL PRIVILEGES on *.* to 'root'@'localhost' IDENTIFIED BY '&lt;pass&gt;';FLUSH PRIVILEGES;"
+                            </code>
+                        </pre>
+                    </li>
+                </ul>
+            </li>
+            <li class="collection-item">
+                <p>
+                    Installare la frontend e l'api del progetto201.
+                </p>
+                <ul class="collection">
+                    <li class="collection-item">
+                        <p>
+                            Scaricare la backend API dal suo repository: <a href="https://github.com/progetto201/progetto201-api" class="btn orange lighten-2">Clicca qui</a>
+                        </p>
+                        <p>
+                            Posizionare il contenuto della cartella "www" in "/var/www": dovrebbe ora contenere la cartella "credentials" e "html".
+                            La cartella "credentials" contiene il file "credentials.ini" con le credenziali che verranno usate da PHP
+                            per accedere a MySQL e al database. La cartella "html" contiene i file accessibili dai browser che si collegano ad Apache.
+                        </p>
+                        <p>
+                            Modificare il file credentials.ini:
+                            <pre>
+                                <code class="language-ini">
+                                    DB_HOST=localhost
+                                    DB_USER100=user
+                                    DB_PASS100=pwd
+                                </code>
+                            </pre>
+                            Sostituire "user" con lo username (se non sono stati creati altri account usare "root")
+                            e al posto di "pwd" digitare la password.
+                            Puo' essere utile cambiare "DB_HOST" solo se il database si trova su un altro server.
+                            <blockquote>
+                                Per verificare l'installazione dell'API provare ad accedere alla pagina "http://localhost/api/colors/usercolor.php"
+                                dal browser di raspberry.
+                                Se appare un JSON senza errori, simile a questo l'API funziona:
+                                <pre>
+                                    <code class="language-bash">
+                                        {"errors":[],"data":{"id":"6","color_name":"red","color_hex":"#f44336"}}
+                                    </code>
+                                </pre>
+                            </blockquote>
+                        </p>
+                    </li>
+                    <li class="collection-item">
+                        <p>
+                            Scaricare la frontend dal suo repository: <a href="https://github.com/progetto201/progetto201-frontend" class="btn orange lighten-2">Clicca qui</a>
+                        </p>
+                        <p>
+                            Posizionare il contenuto della cartella "www" in "/var/www": adesso nella cartella "/var/www/html"
+                            dovrebbe essere presente un file, "index.html" e due cartelle, "static" e "api" (cartella dell'API)
+                            <blockquote>
+                                <p>
+                                    Per verificare l'installazione della frontend provare ad accedere alla pagina "localhost" dal browser di raspberry.
+                                </p>
+                                <p>
+                                    Dovrebbe apparire una pagina simile a questa:
+                                </p>
+                                <div class="container center-align">
+                                    <img class="materialboxed mx-auto w100" src="/assets/img/frontend/home.png" alt="Home del progetto201">
+                                </div>
+                                
+                            </blockquote>
+                        </p>
+                    </li>
+                </ul>
+            </li>
+            <li class="collection-item">
+                <p>Installare mosquito, broker MQTT per gestire i dati ricevuto via MQTT dai nodi e configurarlo per accettare solo nodi con username e password.
+                    Digita i seguenti comandi oppure copia e incolla tutti i comandi (nota: in alto a destra dell'elemento con il codice e' presente il pulsante copia)
+                </p>
+                <pre>
+                    <code class="language-bash">
+                        # Aggiorniamo i repository di sistema
+                        sudo apt-get update
+
+                        # Installiamo mosquitto
+                        sudo apt-get install mosquitto mosquitto-clients -y
+
+                        # Assicuriamoci che parta all'avvio del OS
+                        sudo systemctl enable mosquitto.service
+
+                        # Creiamo un utente e una password (sostituisci &lt;user&gt; con il nome utente desiderato).
+                        # Il terminale chiedera la password desiderata dopo aver premuto invio
+                        sudo mosquitto_passwd -c /etc/mosquitto/passwd &lt;user&gt;
+
+                        # Occorre configurare il file di configurazione di mosquitto:
+                        # opzione 1:
+                        #  digita:
+                        # 
+                        #         sudo nano /etc/mosquitto/conf.d/default.conf"
+                        #
+                        #  e poi scrivi nel file:
+                        # 
+                        #        allow_anonymous false
+                        #        password_file /etc/mosquitto/passwd
+                        #
+                        # opzione 2: digita questo comando che automatizza i passaggi descritti qui sopra:
+                        sudo printf "allow_anonymous false\npassword_file /etc/mosquitto/passwd" >> "/etc/mosquitto/conf.d/default.conf"
+
+                        # E riavvia mosquitto
+                        sudo systemctl restart mosquitto
+                    </code>
+                </pre>
+            </li>
+            <li class="collection-item">
+                Scaricare lo script MQTT_MANAGER, configurarlo e abilitare la sua esecuzione all'avvio.
+                <blockquote>
+                    TODO: descrivere questa sezione
+                </blockquote>
+            </li>
+            <li class="collection-item">
+                <p>
+                    Scaricare, configurare e caricare lo sketch arduino su un nodo per iniziare a rilevare dati.
+                </p>
+                <p>
+                    In questo caso verranno indicati i passi necessari per caricare
+                    lo sketch DATACLIENT-DHT22 che si occupa di rilevare temperatura e umidita'
+                    utilizzando il sensore DHT22.
+                </p>
+                <blockquote>
+                    TODO: descrivere questa sezione
+                </blockquote>
+            </li>
+            <li class="collection-item">
+                <p>
+                    Aggiungere location sul database e modificare la location del nodo.
+                </p>
+                <blockquote>
+                    Attualmente non e' possibile fare queste operazioni da UI ma sarebbe fattibile.
+                </blockquote>
+                <blockquote>
+                    TODO: descrivere questa sezione
+                </blockquote>
+            </li>
+            <li class="collection-item">
+                <p>
+                    Aggiungere planimetrie e label alla planimetria.
+                </p>
+                <blockquote>
+                    TODO: descrivere questa sezione
+                </blockquote>
+            </li>
+        </ol>
+</div>
