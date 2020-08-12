@@ -26,14 +26,14 @@ Contiene i layout, gli scheletri delle pagine web, utilizzabili per generare
 la pagina finita.
 
     _sass
-Contiene file sass (in questo caso sono file css con l'estensione scss)
-che possono essere importati dalla direttiva sass ```@import <file>;```.
+Contiene file Sass (in questo caso sono file CSS con l'estensione scss)
+che possono essere importati dalla direttiva Sass ```@import <file>;```.
 
     _site
 Contiene il sito web generato. La cartella non e' inclusa nel repository perche' github-pages usa automaticamente jekyll per generare il sito.
 
     assets
-Contiene tutti i file css, immagini, javascript, svg e video
+Contiene tutti i file CSS, immagini, JavaScript, SVG e video
 che vengono utilizzati sul sito web.
 > La cartella non inizia con "_", questo significa che durante la generazione
 > il suo contenuto viene copiato nella cartella ```_site/assets```
@@ -44,7 +44,7 @@ I file invece sono:
 File YAML di configurazione di jekyll, contiene il nome del sito, la lingua,
 eventuali plugin (nessuno in questo caso), il percorso dei post 
 (jekyll e' nato per generare blog, questo sito non contiene post),
-descrizione del sito e specifica di comprimere i file sass per ottimizzarli.
+descrizione del sito e specifica di comprimere i file Sass per ottimizzarli.
 
     .gitignore
 File di git che indica quali file e cartelle ignorare

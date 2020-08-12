@@ -68,3 +68,11 @@ language: "it"
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+# ignore spellchecking script, the README, Gemfiles and .github folder during the build
+exclude:
+    - spellcheck.sh
+    - README.md
+    - Gemfile
+    - Gemfile.lock
+    - .github

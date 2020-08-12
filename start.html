@@ -103,7 +103,7 @@ description: "Guida iniziale progetto201"
             </li>
             <li class="collection-item">
                 <p>
-                    A questo punto dovrebbero essere installati e configurati MySQL, Apache, PHP, DNSMASQ, Hostapd.
+                    A questo punto dovrebbero essere installati e configurati MySQL, Apache, PHP, dnsmasq, Hostapd.
                 </p> 
                 <p>
                     Verificare che tutto funzioni correttamente:
@@ -125,11 +125,11 @@ description: "Guida iniziale progetto201"
                         <li class="collection-item">
                             Provare a collegarsi da telefono con il browser alla pagina web restituita da Apache:
                             se funziona vuol dire che Apache e' accessibile sulla rete locale creata da Raspberry ma soprattutto
-                            che DNSMASQ (funzionante come server DHCP) ha fornito un ip automaticamente.
+                            che dnsmasq (funzionante come server DHCP) ha fornito un IP automaticamente.
                             <blockquote>
                                 Per accedere alla pagina web e' necessario sapere l'indirizzo IP del raspberry: in AUTOINSTALL
-                                era presente la variabile "hostapd_ip", se non e' stata modificata l'ip e' "192.168.4.1",
-                                altrimenti e' il valore della variabile. (Ignorando il CIDR, cio' che e' dopo la slash "/" compresa)
+                                era presente la variabile "hostapd_ip", se non e' stata modificata l'IP e' "192.168.4.1",
+                                altrimenti e' il valore della variabile. (Ignorando il CIDR, il numero che e' dopo la slash "/", slash compresa)
                                 E' possibile anche utilizzare il comando: 
                                 <pre>
                                     <code class="language-bash">
@@ -137,12 +137,12 @@ description: "Guida iniziale progetto201"
                                         ifconfig
                                     </code>
                                 </pre>
-                                E controllare l'ip della "wlan0", l'interfaccia wireless del raspberry.
-                                Se si vuole provare a collegarsi da un computer sulla rete cablata inserire l'ip della interfaccia "eth0".
+                                E controllare l'IP della "wlan0", l'interfaccia wireless del raspberry.
+                                Se si vuole provare a collegarsi da un computer sulla rete cablata inserire l'IP della interfaccia "eth0".
                             </blockquote>
                             <blockquote>
                                 E' possibile accertare il suo funzionamento anche andando da smartphone nella pagina per collegarsi alle reti Wi-Fi
-                                e cercare nei sotto menu' "Indirizzo IP". (provare a ri-cliccare sulla rete, provare a guardare nella sezione avanzate, ...)
+                                e cercare nei sotto menu' "Indirizzo IP". (provare a cliccare di nuovo sulla rete, provare a guardare nella sezione avanzate, ...)
                             </blockquote>
                         </li>
                         <li class="collection-item">
@@ -168,13 +168,13 @@ description: "Guida iniziale progetto201"
                             </blockquote>
                         </li>
                         <li class="collection-item">
-                            Per testare DNSMASQ come server DNS provare a collegarsi alla pagina web inserendo nella barra degli
+                            Per testare dnsmasq come server DNS provare a collegarsi alla pagina web inserendo nella barra degli
                             indirizzi "raspberry" e "raspberry.progetto201.com", dovrebbero funzionare entrambe.
                         </li>
                         <li class="collection-item">
 
                             Provare MySQL cercando di creare un database via PHPMyAdmin (se e' stato installato, e' possibile accedervi alla pagina "localhost/phpmyadmin" su raspberry) 
-                            e poi importare il file sql dalla sezione import:
+                            e poi importare il file SQL dalla sezione import:
                             
                             <br> <br>
 
@@ -247,7 +247,7 @@ description: "Guida iniziale progetto201"
                                     </code>
                                 </pre>
                                 Dovrebbe apparire la tabella indicata sopra.
-                                Uscire dal client mysql digitando "quit" e premendo invio.
+                                Uscire dal client MySQL digitando "quit" e premendo invio.
                             </blockquote>
                         </li>
                     </ul>
