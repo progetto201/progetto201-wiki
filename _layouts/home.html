@@ -6,7 +6,27 @@ layout: default
 
     <!-- WRAPPER PER I VIDEO E IL DOCUMENTO SVG-->
     <div id="svg-video-wrapper" class="wrapper">
-        <div id="svg-container"></div>
+        <div id="svg-container">
+
+            <!-- Elemento nel titolo: freccia verso il basso -->
+            <div style="grid-column-start: var(--columns);grid-column-end: span 1;grid-row-start: 1;place-self: left; 
+            height: 100%;z-index: 60;display: flex;color: white;width: 100%;margin-right: 12vw;" 
+            class="center-align not-selectable"> 
+            
+                <p style="text-align: center;width: 100%;font-size: 100px;color: #29b6f6;margin-top: 50%;margin-bottom: 0;"> 
+                    <i class="material-icons right" style="
+                        margin: auto 0;
+                        width: 100%;
+                        height: 100%;
+                        margin-top: 0%;
+                        font-size: 16vw;
+                        color: white;
+                        text-shadow: 0px 6px rgb(255 255 255 / 75%)
+                    ">expand_more</i> 
+                </p> 
+            </div>
+
+        </div>
         <div id="infoi">
             <video id="" class="video materialboxed" width="100%" autoplay loop muted playsinline src="/assets/video/river.mp4"></video>
             <video id="" class="video materialboxed hidden" width="100%" autoplay loop  playsinline muted src="/assets/video/fireplace.mp4"></video>

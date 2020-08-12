@@ -60,11 +60,11 @@ layout: compress
         {% endcomment %}
         {% include html/sidenav.html %}
         
-		<!-- CONTENUTO PAGINA, DESTRA DI SIDENAV -->
+        <!-- CONTENUTO PAGINA, DESTRA DI SIDENAV -->
         <div id="rightcolumn">
             
             {% include html/navbar.html %}
-            
+
 			{{ content }}
 			
             {% comment %} 
@@ -73,6 +73,12 @@ layout: compress
             {% include html/footer.html %}
         </div>
         
+        <!-- Pulsante per tornare a inizio pagina -->
+        <div id="go-top" class="fixed-action-btn hidden not-selectable">
+            <a class="btn-floating btn-large orange lighten-2">
+              <i class="large material-icons">expand_less</i>
+            </a>
+        </div>
         
     </div>
 	
@@ -82,8 +88,51 @@ layout: compress
     
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            /* Inizializza la sidenav */
             var elems = document.querySelectorAll('.sidenav');
             var instances = M.Sidenav.init(elems);
+
+            /* JAVASCRIPT PULSANTE PER TORNARE A INIZIO PAGINA */
+            var isHidden = true; /* indica se il pulsante e' nascosto */
+            /* seleziona il pulsante */
+            var goTopBtn = document.getElementById("go-top");
+
+            /* imposta evento click del pulsante*/
+            goTopBtn.addEventListener("click", function(){
+                /**
+                 * Quando viene premuto il pulsante scorri a coordinate
+                 * x: 0, y:0 (inizio pagina), con animazione 'smooth'
+                */
+                window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            /* imposta evento scroll (scorri pagina) alla finestra*/
+            window.addEventListener("scroll", function(){
+                /**
+                 * Se l'utente scorre piu' di una pagina di contenuto
+                 * mostra il pulsante, altrimenti nascondilo.
+                */
+                if (window.scrollY > document.documentElement.clientHeight){
+                    /* l'utente scorre piu' di una pagina di contenuto */
+                    if (isHidden){
+                        /* il pulsante e' nascosto, occorre mostralo */
+                        isHidden = false;
+                        goTopBtn.classList = "fixed-action-btn not-selectable";
+                    }
+                }
+                else{
+                    /* l'utente e' a inizio pagina */
+                    if (! isHidden){
+                        /* se l'elemento non e' nascosto, nascondilo */
+                        isHidden = true;
+                        goTopBtn.classList = "fixed-action-btn not-selectable hidden";
+                    }
+                }
+            })
         });
     </script>
 
