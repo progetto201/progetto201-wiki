@@ -151,6 +151,10 @@ layout: compress
 	
 	{% if page.containsCode == "true" %}
 		<script src="/assets/js/prism.js"></script>
+    {% endif %}
+    
+    {% if page.containsCopylinks == "true" %}
+		<script src="/assets/js/copylink.js"></script>
 	{% endif %}
 </body>
 

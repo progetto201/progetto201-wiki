@@ -1,0 +1,69 @@
+{% comment %}
+<!-- 
+    Questo file usa i link provenienti da links.html (id dei tag h4)
+    e i titoli dei tag h4 (provenienti da toc.html) per creare
+    l'indice dei contenuti.
+ -->
+{% endcomment %}
+
+
+{% comment %}
+<!-- Recupera da links.html gli id dei tag -->
+{% endcomment %}
+{% include html/links.html %}
+{% assign links = links_list | split: ";" %}
+
+{% comment %}
+<!-- Includi toc.html che ottiene dalla pagina gli h4 -->
+{% endcomment %}
+
+{% capture toc %}
+{% include html/toc.html html=page h_min=4 h_max=4 %}
+{% endcapture %}
+
+{% comment %}<!-- ========================================================== -->{% endcomment %}
+
+{% comment %}
+<!-- Togli l'html e dividi le stringhe sul carattere newline -->
+{% endcomment %}
+
+{% assign toc_rows = toc | strip_html | split: "\n" %}
+
+{% comment %}<!-- ========================================================== -->{% endcomment %}
+
+{% comment %}
+<!-- Scorri le righe -->
+{% endcomment %}
+
+{% assign i = 2 %}
+
+<ul id="toc" class="collection">
+{% for row in toc_rows %}
+    
+    {% comment %}
+    <!-- Rimuovi spazi, newline, tabs, ... -->
+    {% endcomment %}
+    {% assign stripped_row = row | strip %}
+    
+    {% comment %}
+    <!-- Se la riga non contiene il simbolo percentuale (uso l'else) -->
+    {% endcomment %}
+    {% if stripped_row contains "%" %}
+    {% else %}
+        {% comment %}
+        <!-- Se la riga non e' vuota -->
+        {% endcomment %}
+        {% if stripped_row != "" %}          
+            
+            <a href="#{{links[i]}}">
+                <li class="collection-item">{{ stripped_row }}</li>
+            </a>
+
+            <hr> 
+
+            {% assign i = i | plus: 1 %}
+        {% endif %}
+    {% endif %}
+        
+{% endfor %}
+</ul>

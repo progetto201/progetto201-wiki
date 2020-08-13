@@ -1,0 +1,76 @@
+{% comment %}
+<!--
+    This is portion of the anchor_headings.html file.
+    It is used to make the table of contents in parsedtoc.html .
+
+    Questa e' una porzione del file anchor_headings.html.
+    E' utilizzato per creare l'indice dei contenuti nel file parsedtoc.html .
+-->
+{% endcomment %}
+
+{% comment %}
+Copyright (c) 2018 Vladimir "allejo" Jimenez
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+{% endcomment %}
+
+{% assign links_list = ""%}
+
+
+{% assign minHeader = include.h_min | default: 1 %}
+        {% assign maxHeader = include.h_max | default: 6 %}
+        {% assign beforeHeading = include.beforeHeading %}
+        {% assign nodes = page.content | split: '<h' %}
+      
+        {% capture edited_headings %}{% endcapture %}
+      
+        {% for _node in nodes %}
+          {% capture node %}{{ _node | strip }}{% endcapture %}
+      
+          {% if node == "" %}
+            {% continue %}
+          {% endif %}
+      
+          {% assign nextChar = node | replace: '"', '' | strip | slice: 0, 1 %}
+          {% assign headerLevel = nextChar | times: 1 %}
+      
+          {% if headerLevel == 0 %}
+
+            {% assign firstChunk = node | split: '>' | first %}
+
+            {% unless firstChunk contains '<' %}
+              {% capture node %}<h{{ node }}{% endcapture %}
+            {% endunless %}
+      
+            {% capture edited_headings %}{{ edited_headings }}{{ node }}{% endcapture %}
+            {% continue %}
+          {% endif %}
+      
+          {% capture _closingTag %}</h{{ headerLevel }}>{% endcapture %}
+          {% assign _workspace = node | split: _closingTag %}
+          {% assign _idWorkspace = _workspace[0] | split: 'id="' %}
+          {% assign _idWorkspace = _idWorkspace[1] | split: '"' %}
+          {% assign html_id = _idWorkspace[0] %}
+          
+          {% assign links_list = links_list | append: html_id | append: ";" %}  
+      
+        {% endfor %}

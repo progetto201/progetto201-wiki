@@ -58,7 +58,7 @@ printf "" > "${SCRIPTPATH}/spellcheck.temp"
 # trova in code, file di tipo "file", nome qualsiasi ("*") che finisce con estensione ".html":
 # per ogni file aggiungi il suo percorso al file temporaneo, usa hunspell per trovare gli errori di spelling e inserisci l'output nel file temporaneo
 # > nota: ignora il file compress.html e i file nel percorso _site 
-find "$CODEPATH" -type f -iname "*.html" ! -path "${SCRIPTPATH}/_layouts/compress.html" -exec echo '{}' >> "${SCRIPTPATH}/spellcheck.temp" \; -exec hunspell -d en-GB,it_IT,custom_dict -l -u '{}' >> "${SCRIPTPATH}/spellcheck.temp" \;  -o -path "${SCRIPTPATH}/_site" -prune
+find "$CODEPATH" -type f -iname "*.html" ! -path "${SCRIPTPATH}/_layouts/compress.html" ! -path "${SCRIPTPATH}/_includes/html/anchor_headings.html" ! -path "${SCRIPTPATH}/_includes/html/toc.html" ! -path "${SCRIPTPATH}/_includes/html/links.html" ! -path "${SCRIPTPATH}/_includes/html/parsedtoc.html" -exec echo '{}' >> "${SCRIPTPATH}/spellcheck.temp" \; -exec hunspell -d en-GB,it_IT,custom_dict -l -u '{}' >> "${SCRIPTPATH}/spellcheck.temp" \;  -o -path "${SCRIPTPATH}/_site" -prune
 
 # se rimane 0, il file temporaneo contiene solo i percorsi degli script
 # altrimenti sono presenti anche errori di spelling

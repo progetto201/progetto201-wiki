@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+{% comment %}
+<!-- 
+    Utilizza l'icona in copylink.html per creare 
+    gli anchor tag vicino agli <h4>.
+-->
+{% endcomment %}
+
+{% capture linkcopy %}
+    {% include html/copylink.html %}
+{% endcapture %}
+
+
+{% include html/anchor_headings.html html=content anchorBody=linkcopy %}

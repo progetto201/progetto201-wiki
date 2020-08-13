@@ -1,0 +1,34 @@
+{% comment %}
+<!-- 
+    Questo file si occupa di ricevere un parametro "html",
+    che contiene righe di codice, e per ogni riga
+    toglie gli spazi successivi e precedenti.
+
+    Questo permette di avere un risultato visivo sufficiente
+    anche per quei browser che hanno JavaScript disabilitato
+    e che quindi non possono sfruttare il massimo delle potenzialita'
+    di prism.js
+-->
+
+<!-- Cattura una newline -->
+{% endcomment %}
+{% capture newLine %}
+{% endcapture %}{% capture stripped_code %}{% comment %}
+    <!-- definisci "code" come valore passato dal parametro "html" -->
+    {% endcomment %}{% assign code=include.html %}{% comment %}
+    <!-- Prendi "code", converti righe con <br> e dividi in righe con split su <br> -->
+    {% endcomment %}{% assign code=code | newline_to_br | strip_newlines | split: '<br />' %}{% comment %}
+    
+    <!-- Scorri le righe -->
+    {% endcomment %}{% for line in code %}{% comment %}
+        <!-- Esegui strip delle righe e salva il risultato in stripped_line -->
+        {% endcomment %}{% assign stripped_line = line | strip %}{% comment %}
+        <!-- Se la riga non e' vuota visualizzala aggiungendo alla fine una newline -->
+        {% endcomment %}{% if stripped_line != "" %}{% comment %}
+            {% endcomment %}{{ stripped_line | append: newLine}}{% comment %}
+        {% endcomment %}{% endif %}{% comment %}
+    {% endcomment %}{% endfor %}{% comment %}
+{% endcomment %}{% endcapture %}{% comment %}
+
+<!-- Visualizza il codice -->
+{% endcomment %}{{ stripped_code | strip }}

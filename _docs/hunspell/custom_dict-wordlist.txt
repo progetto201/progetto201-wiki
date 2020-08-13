@@ -1,13 +1,18 @@
 
+Adafruit
+anchorBody
 apparira
 aprira
 arduino
+ArduinoJson
 AutoCAD
 Autodesk
 autoinstall
 AUTOINSTALL
 automysql
 backend
+Benoit
+Blanchon
 br
 cambiera
 Changelog
@@ -15,8 +20,11 @@ CIDR
 cio
 com
 config
+configfile
 containsCode
+containsCopylinks
 containsImage
+copylink
 CSS
 dall
 dataclient
@@ -24,6 +32,7 @@ DATACLIENT
 db
 decommentare
 decommentarlo
+detailpage
 devmode
 DHCP
 dht
@@ -33,6 +42,7 @@ DWG
 DXF
 endcapture
 endcomment
+endfor
 endif
 eth
 ethernet
@@ -43,6 +53,7 @@ floorplan
 frontend
 fulltitle
 Gemfile
+gia
 github
 gitignore
 hostapd
@@ -55,11 +66,15 @@ IoT
 ip
 js
 JSON
+linkcopy
 localhost
 maiusc
 Malwarebytes
 Maric
+microcontrollori
 modalita
+mosquitto
+Mosquitto
 mqtt
 MQTT
 msi
@@ -67,6 +82,9 @@ MySQL
 mysqlpass
 NAT
 navbar
+newLine
+NodeMCU
+parsedtoc
 perche
 permalink
 php
@@ -79,7 +97,9 @@ Pixaline
 plugin
 png
 poiche
+portera
 proprieta
+PubSubClient
 puo
 pwd
 quantita
@@ -105,6 +125,7 @@ umidita
 unclutter
 Unclutter
 upstreamcity
+Url
 verra
 Verra
 Vue

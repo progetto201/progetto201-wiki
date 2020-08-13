@@ -1,22 +1,35 @@
 ---
 permalink: /start.html
-layout: default
+layout: detailpage
 containsCode: "true"
 containsImage: "true"
+containsCopylinks: "true"
 description: "Guida iniziale progetto201"
 ---
 
 <!-- CONTAINER CON IL RESTO DELLA PAGINA -->
 <div class="container grow">
-    <h3>Come iniziare</h3>
+    <h3>Come iniziare</h3> 
         <p>
             Anche se questo e' il successore del progetto 100+100 potrebbe essere utile leggere la sua documentazione per capire
             il funzionamento alla base del progetto201. (a destra e' presente l'indice dei contenuti)
             <a class="btn orange lighten-2" href="https://github.com/mario33881/progetto_100/wiki">Wiki del progetto 100+100</a>
         </p>
 
+        <!-- INDICE DEI CONTENUTI -->
+        <h5>Indice dei contenuti:</h5>
+        <br>
+        
+        {% include html/parsedtoc.html %}
+        
+        <br><hr><br>
+
         <ol class="collection">
+            <!-- SEZIONE: RASPBIAN -->
             <li class="collection-item">
+                <h4 id="raspbian">
+                    Raspbian
+                </h4>
                 <p>Installare Raspbian/Raspberry Pi OS su Raspberry Pi (la centralina), configurarlo e aggiornarlo</p>
                 <ul class="collection">
                     <li class="collection-item">Scaricare dal sito ufficiale l'immagine del sistema operativo (<a href="https://www.raspberrypi.org/downloads/raspberry-pi-os/">Link</a>)
@@ -30,7 +43,12 @@ description: "Guida iniziale progetto201"
                     </li>
                 </ul>
             </li>
+
+            <!-- SEZIONE: AUTOINSTALL -->
             <li class="collection-item">
+                <h4 id="autoinstall">
+                    AUTOINSTALL
+                </h4>
                 <p>Utilizzare AUTOINSTALL per installare e configurare automaticamente (quasi) tutto quello che serve. Il Raspberry si riavviera' automaticamente un paio di volte</p>
                 <ul class="collection">
                     <li class="collection-item"> 
@@ -92,16 +110,25 @@ description: "Guida iniziale progetto201"
                     </li>
                     <li class="collection-item">
                         Salvare e eseguire lo script da terminale con il comando 
-                        <pre>
+                        <pre class="language-bash">
                             <code class="language-bash">
+                                {% capture code %}
                                 # posizionarsi prima con il terminale nella cartella dello script
                                 ./autoinstall.sh
+                                {% endcapture %}
+                                {% include html/code.html html=code %}
                             </code>
                         </pre>
                     </li>
                 </ul>
             </li>
+
+            <!-- SEZIONE: TEST DI AUTOINSTALL -->
             <li class="collection-item">
+                
+                <h4 id="test-autoinstall">
+                    Test di AUTOINSTALL
+                </h4>
                 <p>
                     A questo punto dovrebbero essere installati e configurati MySQL, Apache, PHP, dnsmasq, Hostapd.
                 </p> 
@@ -131,10 +158,13 @@ description: "Guida iniziale progetto201"
                                 era presente la variabile "hostapd_ip", se non e' stata modificata l'IP e' "192.168.4.1",
                                 altrimenti e' il valore della variabile. (Ignorando il CIDR, il numero che e' dopo la slash "/", slash compresa)
                                 E' possibile anche utilizzare il comando: 
-                                <pre>
+                                <pre class="language-bash">
                                     <code class="language-bash">
+                                        {% capture code %}
                                         # se non dovesse funzionare provare "ip a"
                                         ifconfig
+                                        {% endcapture %}
+                                        {% include html/code.html html=code %}
                                     </code>
                                 </pre>
                                 E controllare l'IP della "wlan0", l'interfaccia wireless del raspberry.
@@ -150,11 +180,14 @@ description: "Guida iniziale progetto201"
                                 Provare a creare in "/var/www/html", la cartella di Apache, un file PHP e inserire qualcosa di semplice tipo:
                             </p> 
 
-                            <pre>
+                            <pre class="language-php">
                                 <code class="language-php">
+                                    {% capture code %}
                                     &lt;?php
                                         echo "hei! Questo e' un test! se vedi solo questa stringa (senza 'php' e i tag) vuol dire che PHP e' installato correttamente";
                                     ?&gt;
+                                    {% endcapture %}
+                                    {% include html/code.html html=code %}
                                 </code>
                             </pre>
 
@@ -194,44 +227,59 @@ description: "Guida iniziale progetto201"
 
                             oppure
                             importando il file .sql del progetto 201 (presente nel repository <a href="https://github.com/progetto201/progetto201-api">progetto201-api</a>) con il comando:
-                            <pre>
+                            <pre class="language-bash">
                                 <code class="language-bash">
+                                    {% capture code %}
                                     # sostituisci &lt;path&gt; con il percorso del file sql
                                     sudo mysql &lt; "&lt;path&gt;"
+                                    {% endcapture %}
+                                    {% include html/code.html html=code %}
                                 </code>
                             </pre>
                             E provare a eseguire una query:
-                            <pre>
+                            <pre class="language-bash">
                                 <code class="language-bash">
+                                    {% capture code %}
                                     sudo mysql -e "SELECT * FROM db100_100.t_options"
+                                    {% endcapture %}
+                                    {% include html/code.html html=code %}
                                 </code>
                             </pre>
                             Dovrebbe apparire una tabella simile a questa:
-                            <pre>
+                            <pre class="language-bash">
                                 <code class="language-bash">
+                                    {% capture code %}
                                     +----+--------------+---------------+---------------+-----------+
                                     | id | color_scheme | min_timestamp | max_timestamp | map       |
                                     +----+--------------+---------------+---------------+-----------+
                                     |  1 | red darken-2 |             0 |             0 | realistic |
                                     +----+--------------+---------------+---------------+-----------+
+                                    {% endcapture %}
+                                    {% include html/code.html html=code %}
                                 </code>
                             </pre>
 
                             <blockquote>
                                 Se non si ha i permessi apparira' un errore simile a questo:
-                                <pre>
+                                <pre class="language-bash">
                                     <code class="language-bash">
+                                        {% capture code %}
                                         ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+                                        {% endcapture %}
+                                        {% include html/code.html html=code %}
                                     </code>
                                 </pre>
                                 Se e' stato eseguito lo script AUTOINSTALL senza modifiche
                                 probabilmente automysql.sh ha modificato la password.
                                 Prima occorre accedere con la nuova password:
-                                <pre>
+                                <pre class="language-bash">
                                     <code class="language-bash">
+                                        {% capture code %}
                                         # sostutisci &lt;username&gt; con il nome utente
                                         # > nota: non c'e' spazio tra il nome utente e la "-u"
                                         sudo mysql -u&lt;username&gt; -p
+                                        {% endcapture %}
+                                        {% include html/code.html html=code %}
                                     </code>
                                 </pre>
                                 <p>
@@ -241,9 +289,12 @@ description: "Guida iniziale progetto201"
                                 <p>
                                     Eseguire la query SQL per ottenere la tabella con i dati:
                                 </p>
-                                <pre>
+                                <pre class="language-sql">
                                     <code class="language-sql">
+                                        {% capture code %}
                                         SELECT * FROM db100_100.t_options;
+                                        {% endcapture %}
+                                        {% include html/code.html html=code %}
                                     </code>
                                 </pre>
                                 Dovrebbe apparire la tabella indicata sopra.
@@ -253,9 +304,16 @@ description: "Guida iniziale progetto201"
                     </ul>
                 </p>
             </li>
+
+            <!-- SEZIONE: MODIFICA PASSWORD MYSQL -->
             <li class="collection-item">
-                Se fino ad ora non e' stata modificata occorre modificare la password di MySQL per permettere
-                a PHP di collegarsi al database.
+                <h4 id="modifica-password-mysql">
+                    Modifica password MySQL
+                </h4>
+                <p>
+                    Se fino ad ora non e' stata modificata occorre modificare la password di MySQL per permettere
+                    a PHP di collegarsi al database.
+                </p>
                 <p>
                     Ci sono due opzioni:
                 </p> 
@@ -269,26 +327,37 @@ description: "Guida iniziale progetto201"
                 <ul class="collection">
                     <li class="collection-item">
                         Eseguire automysql.sh di AUTOINSTALL in questo modo:
-                        <pre>
+                        <pre class="language-bash">
                             <code class="language-bash">
+                                {% capture code %}
                                 # posizionarsi prima con il terminale nella cartella dello script e
                                 # sostituire &lt;pass&gt; con la nuova password per l'utente root
                                 ./automysql.sh -mysqlpass &lt;pass&gt;
+                                {% endcapture %}
+                                {% include html/code.html html=code %}
                             </code>
                         </pre>
                     </li>
                     <li class="collection-item">
                         Eseguire la query SQL senza automysql.sh:
-                        <pre>
+                        <pre class="language-bash">
                             <code class="language-bash">
+                                {% capture code %}
                                 # sostituisci &lt;pass&gt; con la nuova password di MySQL dell'utente root
                                 sudo mysql -e "GRANT ALL PRIVILEGES on *.* to 'root'@'localhost' IDENTIFIED BY '&lt;pass&gt;';FLUSH PRIVILEGES;"
+                                {% endcapture %}
+                                {% include html/code.html html=code %}
                             </code>
                         </pre>
                     </li>
                 </ul>
             </li>
+
+            <!-- SEZIONE: FRONTEND E API -->
             <li class="collection-item">
+                <h4 id="frontend-api">
+                    Frontend e API
+                </h4>
                 <p>
                     Installare la frontend e l'api del progetto201.
                 </p>
@@ -304,11 +373,14 @@ description: "Guida iniziale progetto201"
                         </p>
                         <p>
                             Modificare il file credentials.ini:
-                            <pre>
+                            <pre class="language-ini">
                                 <code class="language-ini">
+                                    {% capture code %}
                                     DB_HOST=localhost
                                     DB_USER100=user
                                     DB_PASS100=pwd
+                                    {% endcapture %}
+                                    {% include html/code.html html=code %}
                                 </code>
                             </pre>
                             Sostituire "user" con lo username (se non sono stati creati altri account usare "root")
@@ -318,9 +390,12 @@ description: "Guida iniziale progetto201"
                                 Per verificare l'installazione dell'API provare ad accedere alla pagina "http://localhost/api/colors/usercolor.php"
                                 dal browser di raspberry.
                                 Se appare un JSON senza errori, simile a questo l'API funziona:
-                                <pre>
+                                <pre class="language-bash">
                                     <code class="language-bash">
+                                        {% capture code %}
                                         {"errors":[],"data":{"id":"6","color_name":"red","color_hex":"#f44336"}}
+                                        {% endcapture %}
+                                        {% include html/code.html html=code %}
                                     </code>
                                 </pre>
                             </blockquote>
@@ -349,12 +424,18 @@ description: "Guida iniziale progetto201"
                     </li>
                 </ul>
             </li>
+
+            <!-- SEZIONE: MOSQUITTO -->
             <li class="collection-item">
-                <p>Installare mosquito, broker MQTT per gestire i dati ricevuto via MQTT dai nodi e configurarlo per accettare solo nodi con username e password.
+                <h4 id="mosquitto">
+                    Mosquitto
+                </h4>
+                <p>Installare mosquitto, broker MQTT per gestire i dati ricevuto via MQTT dai nodi e configurarlo per accettare solo nodi con username e password.
                     Digita i seguenti comandi oppure copia e incolla tutti i comandi (nota: in alto a destra dell'elemento con il codice e' presente il pulsante copia)
                 </p>
-                <pre>
+                <pre class="language-bash">
                     <code class="language-bash">
+                        {% capture code %}
                         # Aggiorniamo i repository di sistema
                         sudo apt-get update
 
@@ -384,29 +465,219 @@ description: "Guida iniziale progetto201"
 
                         # E riavvia mosquitto
                         sudo systemctl restart mosquitto
+                        {% endcapture %}
+                        {% include html/code.html html=code %}
                     </code>
                 </pre>
             </li>
+
+            <!-- SEZIONE: MQTT_MANAGER -->
             <li class="collection-item">
-                Scaricare lo script MQTT_MANAGER, configurarlo e abilitare la sua esecuzione all'avvio.
-                <blockquote>
-                    TODO: descrivere questa sezione
-                </blockquote>
+                <h4 id="mqtt-manager">
+                    MQTT_MANAGER
+                </h4>
+                <p>
+                    Scaricare lo script MQTT_MANAGER, configurarlo e abilitare la sua esecuzione all'avvio.
+                </p>
+        
+                <ul class="collection">
+                   
+                    <li class="collection-item">
+                        Scaricare MQTT_MANAGER dal suo repository: <a href="https://github.com/progetto201/mqtt_manager" class="btn orange lighten-2">Clicca qui</a>
+                    </li>
+                    <li class="collection-item">
+                        Installare le dipendenze del software (dopo essersi posizionati nella cartella di mqtt_manager) eseguendo questo comando:
+                        <pre class="language-bash">
+                            <code class="language-bash">
+                                {% capture code %}
+                                pip3 install -r requirements.txt
+                                {% endcapture %}
+                                {% include html/code.html html=code %}
+                            </code>
+                        </pre>
+                    </li>
+                    <li class="collection-item">
+                        <p>
+                            Creare un file ini di configurazione con la seguente struttura:
+                        </p>
+                        
+                        <pre class="language-ini">
+                            <code class="language-ini">
+                                {% capture code %}
+                                [Database]
+                                username = &lt;username DB&gt;
+                                password = &lt;password DB&gt;
+                                host = &lt;dominio/IP DB&gt;
+                                database = &lt;nome DB&gt;
+                                
+                                [MQTT broker]
+                                username = &lt;username MQTT&gt;
+                                password = &lt;password MQTT&gt;
+                                host = &lt;dominio/IP MQTT&gt;
+                                port = &lt;porta MQTT&gt;
+                                {% endcapture %}
+                                {% include html/code.html html=code %}
+                            </code>
+                        </pre>
+                        <p>
+                            Dove:
+                        </p>
+                        <ul class="collection">
+                            <li class="collection-item">username, sezione "[Database]": nome utente per connettersi a MySQL ("root")</li>
+                            <li class="collection-item">password, sezione "[Database]": password per connettersi a MySQL (la password configurata precedentemente)</li>
+                            <li class="collection-item">host, sezione "[Database]": indirizzo IP o nome dominio del server MySQL ("localhost")</li>
+                            <li class="collection-item">database, sezione "[Database]": nome del database ("db100_100")</li>
+                            <li class="collection-item">username, sezione "[MQTT broker]": nome utente per connettersi al broker MQTT (in questo caso a mosquitto, scegliere il nome utente configurato precedentemente)</li>
+                            <li class="collection-item">password, sezione "[MQTT broker]": password per connettersi al broker MQTT</li>
+                            <li class="collection-item">host, sezione "[MQTT broker]": indirizzo IP o nome dominio del server con il broker MQTT ("localhost")</li>
+                            <li class="collection-item">port, sezione "[MQTT broker]": porta in ascolto del broker MQTT ("1883", la porta di default di MQTT)</li>
+                        </ul>
+                        <blockquote>
+                            <p>
+                                Tra parentesi sono specificati i valori da utilizzare se si sta seguendo
+                                questa guida senza alcuna modifica.
+                            </p>
+                            <p>
+                                Se si desidera ad esempio spostare il database su un'altro server
+                                e' possibile modificare la relativa variabile.
+                            </p> 
+                        </blockquote>
+                    </li>
+                    <li class="collection-item">
+                        Specificare allo script di Python il percorso della configurazione modificando la variabile chiamata "configfile_path".
+                        <blockquote>
+                            Meglio specificare il percorso completo, lo script verra' chiamato all'avvio e occorre avere la certezza che il file
+                            possa essere trovato indipendentemente dal percorso di esecuzione dello script.
+                        </blockquote>
+                    </li>
+                    <li class="collection-item">
+                        Impostare l'esecuzione automatica dello script all'avvio del Raspberry Pi:
+                        <pre class="language-bash">
+                            <code class="language-bash">
+                                {% capture code %}
+                                # sostituire &lt;path&gt; con il percorso assoluto/completo dello script mqtt_manager.py
+                                sudo bash -c "echo @python3 &lt;path&gt;" | sudo cat - /etc/xdg/lxsession/LXDE-pi/autostart > temp && sudo mv temp /etc/xdg/lxsession/LXDE-pi/autostart
+                                {% endcapture %}
+                                {% include html/code.html html=code %}
+                            </code>
+                        </pre>
+                        <blockquote>
+                            Il comando qui sopra inserisce nel file al percorso "/etc/xdg/lxsession/LXDE-pi/autostart" l'istruzione "@python3 &lt;path&gt;"
+                        </blockquote>
+                    </li>
+                    <li class="collection-item">
+                        A questo punto quando il broker MQTT, mosquitto, riceve messaggi via MQTT lo script Python riceve il messaggio,
+                        intuisce dal topic ("path" della conversazione, simile alle sottocartelle all'interno degli URL) se si tratta di un nodo
+                        (e se e' appena stato aggiunto o no al sistema) o se si tratta di dati rilevati dai sensori.
+                        Python in base al tipo di dato decide cosa fare con il database.
+                        (aggiungere dati e nodi, aggiornare informazioni sul nodo, ...)
+                    </li>
+                </ul>
             </li>
+
+            <!-- SEZIONE: SKETCH ARDUINO -->
             <li class="collection-item">
+                <h4 id="sketch-arduino">
+                    Sketch Arduino
+                </h4>
                 <p>
                     Scaricare, configurare e caricare lo sketch arduino su un nodo per iniziare a rilevare dati.
                 </p>
                 <p>
                     In questo caso verranno indicati i passi necessari per caricare
-                    lo sketch DATACLIENT-DHT22 che si occupa di rilevare temperatura e umidita'
-                    utilizzando il sensore DHT22.
+                    lo sketch DATACLIENT-DHT22, che si occupa di rilevare temperatura e umidita'
+                    utilizzando il sensore DHT22, su un NodeMCU ma si daranno informazioni generali
+                    per possibili sketch futuri o per microcontrollori diversi dal ESP8266 (montato sul NodeMCU).
                 </p>
-                <blockquote>
-                    TODO: descrivere questa sezione
-                </blockquote>
+                
+                <ul class="collection">
+                    <li class="collection-item">
+                        Se non e' gia' installato, installare l'arduino IDE dal sito ufficiale: <a href="https://www.arduino.cc/en/Main/Software" class="btn orange lighten-2">Clicca qui</a>
+                    </li>
+                    <li class="collection-item">
+                        <p>
+                            Installare i driver dal sito del produttore della scheda su cui installare lo sketch.
+                        </p>
+                        <p>
+                            Per il NodeMCU scaricare i driver da qui: <a href="https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx" class="btn orange lighten-2">Clicca qui</a>
+                        </p>
+                    </li>
+                    <li class="collection-item">
+                        Indicare all'arduino IDE l'URL del repository che permette di gestire la scheda:
+                        <ul class="collection">
+                            <li class="collection-item">
+                                <p>
+                                    Aprire le impostazioni andando su "File -> Impostazioni":
+                                </p>
+                                <div class="center-align container">
+                                    <img class="materialboxed responsive-img mx-auto" src="/assets/img/arduino/opensettings.png" alt="Apri impostazioni da file">
+                                </div>
+                            </li>
+                            <li class="collection-item">
+                                <p>
+                                    Aggiungi questa riga in "Url aggiuntive per il gestore di schede":
+                                </p>
+                                <pre class="language-bash">
+                                    <code class="language-bash">
+                                        {% capture code %}
+                                        http://arduino.esp8266.com/stable/package_esp8266com_index.json
+                                        {% endcapture %}
+                                        {% include html/code.html html=code %}
+                                    </code>
+                                </pre>
+                                <div class="center-align container">
+                                    <img class="materialboxed responsive-img mx-auto" src="/assets/img/arduino/settings.jpg" alt="Impostazioni">
+                                </div>
+                            </li>
+                            <li class="collection-item">
+                                Chiudere la finestra, l'Arduino IDE e infine riaprire l'Arduino IDE.
+                                <blockquote>
+                                    Questo permette all'Arduino IDE di scaricare le informazioni dall'URL
+                                </blockquote>
+                            </li>
+                            <li class="collection-item">
+                                <p>Vai in "Strumenti -> Scheda -> Gestore Schede" e cerca il pacchetto della scheda, per il NodeMCU cercare "esp8266 by ESP8266 Community"</p>
+                                <div class="center-align container">
+                                    <img class="materialboxed responsive-img mx-auto" src="/assets/img/arduino/openboardmanager.png" alt="Apri gestore di schede">
+                                </div>
+                                <p>Installa il pacchetto cliccando su "installa"</p>
+                                <div class="center-align container">
+                                    <img class="materialboxed responsive-img mx-auto" src="/assets/img/arduino/boardmanager.png" alt="Gestore di schede">
+                                </div>
+                            </li>
+                            <li class="collection-item">
+                                Installare le librerie necessarie per lo sketch. Per cercare le librerie andare in "Sketch --> #Include libreria --> Gestione librerie":
+                                <div class="center-align container">
+                                    <img class="materialboxed responsive-img mx-auto" src="/assets/img/arduino/openlibrary.png" alt="Apri gestione librerie">
+                                </div>
+                            </li>
+                            <li class="collection-item">
+                                <p>Per il DATACLIENT-DHT22 sono necessarie le seguenti librerie:</p>
+                                <ol class="collection">
+                                    <li class="collection-item">
+                                        "ArduinoJson by Benoit Blanchon" per gestire oggetti JSON
+                                    </li>
+                                    <li class="collection-item">
+                                        "Adafruit Unified Sensor by Adafruit", libreria necessaria per le altre librerie di sensori di Adafruit
+                                    </li>
+                                    <li class="collection-item">
+                                        "DHT sensor library by Adafruit" per gestire il DHT22
+                                    </li>
+                                    <li class="collection-item">
+                                        "PubSubClient by Nick O'Leary" per connettersi e inviare messaggi al broker MQTT
+                                    </li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </li>
+
+            <!-- SEZIONE: LOCATION DEI NODI -->
             <li class="collection-item">
+                <h4 id="location-nodi">
+                    Location dei nodi
+                </h4>
                 <p>
                     Aggiungere location sul database e modificare la location del nodo.
                 </p>
@@ -417,7 +688,12 @@ description: "Guida iniziale progetto201"
                     TODO: descrivere questa sezione
                 </blockquote>
             </li>
+
+            <!-- SEZIONE: PLANIMETRIA PERSONALIZZATA E LABEL -->
             <li class="collection-item">
+                <h4 id="planimetria-label">
+                    Planimetria personalizzata e label
+                </h4>
                 <p>
                     Aggiungere planimetrie e label alla planimetria.
                 </p>
