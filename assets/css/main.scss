@@ -56,3 +56,27 @@
     -ms-user-select: none;     /* IE10+/Edge */
     user-select: none;         /* Standard */
 }
+
+/* Rimuovi stili della classe per le immagini:
+   con la definizione dei vecchi stili
+   alcune immagini non erano visibili sugli smartphone.
+*/
+.materialboxed {
+    -webkit-transition: unset;
+    transition: unset;
+    -webkit-backface-visibility: unset;
+    backface-visibility: unset;
+}
+
+/* Rimuovi stile per il codice:
+   Sugli smartphone "position: relative" non rende visibili alcuni elementi
+*/
+div.code-toolbar {
+    position: unset!important;
+}
+
+.resp-img {
+    width: auto;
+    max-height: 500px;
+    max-width: 100%;
+}

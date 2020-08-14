@@ -1,4 +1,4 @@
-136 custom_dict-wordlist.txt
+144 custom_dict-wordlist.txt
 
 Adafruit
 anchorBody
@@ -38,6 +38,7 @@ devmode
 DHCP
 dht
 DHT
+DHTPIN
 dnsmasq
 DWG
 DXF
@@ -78,6 +79,10 @@ mosquitto
 Mosquitto
 mqtt
 MQTT
+mqttPassword
+mqttPort
+mqttServer
+mqttUser
 msi
 MySQL
 mysqlpass
@@ -92,6 +97,7 @@ php
 PHP
 phpmyadmin
 PHPMyAdmin
+Pinout
 piu
 Pixabay
 Pixaline
@@ -121,6 +127,7 @@ sql
 ssid
 SSID
 SVG
+timeToWait
 TODO
 umidita
 unclutter
@@ -131,6 +138,7 @@ verra
 Verra
 Vue
 Wi
+WIFI
 wlan
 YAML
 yml

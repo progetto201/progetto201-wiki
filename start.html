@@ -212,7 +212,7 @@ description: "Guida iniziale progetto201"
                             <br> <br>
 
                             <div class="center-align container">
-                                <img class="materialboxed mx-auto" src="/assets/img/phpmyadmin/import.jpg" alt="Pagina importazione">
+                                <img class="materialboxed mx-auto resp-img" src="/assets/img/phpmyadmin/import.jpg" alt="Pagina importazione">
                             </div>
                             
                             <br><br>
@@ -416,7 +416,7 @@ description: "Guida iniziale progetto201"
                                     Dovrebbe apparire una pagina simile a questa:
                                 </p>
                                 <div class="container center-align">
-                                    <img class="materialboxed mx-auto w100" src="/assets/img/frontend/home.png" alt="Home del progetto201">
+                                    <img class="materialboxed mx-auto resp-img" src="/assets/img/frontend/home.png" alt="Home del progetto201">
                                 </div>
                                 
                             </blockquote>
@@ -596,7 +596,7 @@ description: "Guida iniziale progetto201"
                     </li>
                     <li class="collection-item">
                         <p>
-                            Installare i driver dal sito del produttore della scheda su cui installare lo sketch.
+                            Installare i driver dal sito del produttore della scheda su cui caricare lo sketch.
                         </p>
                         <p>
                             Per il NodeMCU scaricare i driver da qui: <a href="https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx" class="btn orange lighten-2">Clicca qui</a>
@@ -610,7 +610,7 @@ description: "Guida iniziale progetto201"
                                     Aprire le impostazioni andando su "File -> Impostazioni":
                                 </p>
                                 <div class="center-align container">
-                                    <img class="materialboxed responsive-img mx-auto" src="/assets/img/arduino/opensettings.png" alt="Apri impostazioni da file">
+                                    <img class="materialboxed mx-auto resp-img" src="/assets/img/arduino/opensettings.png" alt="Apri impostazioni da file">
                                 </div>
                             </li>
                             <li class="collection-item">
@@ -626,7 +626,7 @@ description: "Guida iniziale progetto201"
                                     </code>
                                 </pre>
                                 <div class="center-align container">
-                                    <img class="materialboxed responsive-img mx-auto" src="/assets/img/arduino/settings.jpg" alt="Impostazioni">
+                                    <img class="materialboxed mx-auto resp-img" src="/assets/img/arduino/settings.jpg" alt="Impostazioni">
                                 </div>
                             </li>
                             <li class="collection-item">
@@ -638,20 +638,19 @@ description: "Guida iniziale progetto201"
                             <li class="collection-item">
                                 <p>Vai in "Strumenti -> Scheda -> Gestore Schede" e cerca il pacchetto della scheda, per il NodeMCU cercare "esp8266 by ESP8266 Community"</p>
                                 <div class="center-align container">
-                                    <img class="materialboxed responsive-img mx-auto" src="/assets/img/arduino/openboardmanager.png" alt="Apri gestore di schede">
+                                    <img class="materialboxed mx-auto resp-img" src="/assets/img/arduino/openboardmanager.png" alt="Apri gestore di schede">
                                 </div>
                                 <p>Installa il pacchetto cliccando su "installa"</p>
                                 <div class="center-align container">
-                                    <img class="materialboxed responsive-img mx-auto" src="/assets/img/arduino/boardmanager.png" alt="Gestore di schede">
+                                    <img class="materialboxed mx-auto resp-img" src="/assets/img/arduino/boardmanager.png" alt="Gestore di schede">
                                 </div>
                             </li>
                             <li class="collection-item">
                                 Installare le librerie necessarie per lo sketch. Per cercare le librerie andare in "Sketch --> #Include libreria --> Gestione librerie":
                                 <div class="center-align container">
-                                    <img class="materialboxed responsive-img mx-auto" src="/assets/img/arduino/openlibrary.png" alt="Apri gestione librerie">
+                                    <img class="materialboxed mx-auto resp-img" src="/assets/img/arduino/openlibrary.png" alt="Apri gestione librerie">
                                 </div>
-                            </li>
-                            <li class="collection-item">
+
                                 <p>Per il DATACLIENT-DHT22 sono necessarie le seguenti librerie:</p>
                                 <ol class="collection">
                                     <li class="collection-item">
@@ -667,6 +666,74 @@ description: "Guida iniziale progetto201"
                                         "PubSubClient by Nick O'Leary" per connettersi e inviare messaggi al broker MQTT
                                     </li>
                                 </ol>
+                            </li>
+                            <li class="collection-item">
+                                <p>
+                                    Modifica le variabili dello sketch. Per il DATACLIENT-DHT22 cambiare queste variabili:
+                                </p>
+                                <ul class="collection">
+                                    <li class="collection-item">
+                                        <p>
+                                            "DHTPIN": pin dati del DHT22
+                                        </p> 
+                                        <blockquote>
+                                            <p>
+                                                NOTA: il numero pin nello sketch e il numero sulla scheda non corrispondono
+                                            </p>
+                                            <div class="center-align container">
+                                                <img class="materialboxed mx-auto resp-img" src="/assets/img/arduino/nodemcu-pinout.jpg" alt="Pinout NodeMCU">
+                                            </div>
+                                        </blockquote>
+                                    </li>
+                                    <li class="collection-item">
+                                        "mqttServer": stringa contenente IP/dominio del broker MQTT
+                                    </li>
+                                    <li class="collection-item">
+                                        "mqttPort": porta in ascolto del broker MQTT
+                                    </li>
+                                    <li class="collection-item">
+                                        "mqttUser": utente broker MQTT
+                                    </li>
+                                    <li class="collection-item">
+                                        "mqttPassword": password di mqttUser
+                                    </li>
+                                    <li class="collection-item">
+                                        "timeToWait": tempo tra le letture
+                                    </li>
+                                    <li class="collection-item">
+                                        "WIFI_SSID": SSID access point Wi-Fi
+                                    </li>
+                                    <li class="collection-item">
+                                        "WIFI_PASS": password access point Wi-Fi
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="collection-item">
+                                Cambia la scheda corrente con la scheda su cui caricare lo sketch (per il NodeMCU: "Generic ESP8266 Module") dal menu strumenti.
+                            </li>
+                            <li class="collection-item">
+                                <p>
+                                    In strumenti, seleziona le impostazioni consigliate dal produttore della scheda per poter caricare lo sketch.
+                                </p>
+                                <p>
+                                    Per il NodeMCU selezionare queste impostazioni:
+                                </p> 
+                                <pre class="language-ini">
+                                    <code class="language-ini">
+                                        {% capture code %}
+                                        Flash Mode = QIO
+                                        Flash Frequency = 40MHz
+                                        CPU Frequency = 80MHz
+                                        Flash Size = 4M 1M SPIFFS
+                                        Reset Method = nodemcu
+                                        Upload Speed = 115200
+                                        {% endcapture %}
+                                        {% include html/code.html html=code %}
+                                    </code>
+                                </pre>
+                            </li>
+                            <li class="collection-item">
+                                Selezionare da Strumenti la porta a cui e' connessa la scheda e premere il pulsante Carica per caricare lo sketch.
                             </li>
                         </ul>
                     </li>
