@@ -32,14 +32,105 @@ description: "Guida iniziale progetto201"
                 </h4>
                 <p>Installare Raspbian/Raspberry Pi OS su Raspberry Pi (la centralina), configurarlo e aggiornarlo</p>
                 <ul class="collection">
-                    <li class="collection-item">Scaricare dal sito ufficiale l'immagine del sistema operativo (<a href="https://www.raspberrypi.org/downloads/raspberry-pi-os/">Link</a>)
-                        e utilizzare un software per eseguire il flash sulla scheda SD (tipo etcher, <a href="https://www.balena.io/etcher/">link</a> )
-                        OPPURE utilizzare Raspberry Pi Imager, il software consigliato dalla Raspberry Pi foundation ( <a href="https://www.raspberrypi.org/downloads/">Link</a>, personalmente non l'ho testato
-                        ma sembra molto semplice, non occorre neppure scaricare l'immagine, ci pensa lui )
+                    <li class="collection-item">
+                        <p>
+                            Ci sono due metodi per caricare il sistema operativo sulla scheda SD:
+                        </p>
+                        <blockquote>
+                            Entrambe i metodi cancellano tutto il contenuto della periferica per installarci il sistema operativo,
+                            essere sicuri di selezionare la scheda SD corretta e di non avere file importarti sopra.
+                        </blockquote>
+
+                        <p>Primo metodo: Scaricare dal sito ufficiale l'immagine del sistema operativo (<a href="https://www.raspberrypi.org/downloads/raspberry-pi-os/">Link</a>)</p> 
+
+                        <div class="center-align container">
+                            <img class="materialboxed mx-auto resp-img" src="/assets/img/raspbian/downloadpage.png" alt="Pagina download Raspbian">
+                        </div>
+                        <blockquote>
+                            <p>
+                                Se si desidera utilizzare un monitor collegato a Raspberry Pi per visualizzare l'interfaccia: installare "Raspberry Pi OS (32-bit) with desktop and recommended software"
+                                che include il desktop e altri software utili (ad esempio il browser chromium).
+                            </p>
+                            <p>
+                                Se si desidera affidare la responsabilita' di visualizzare l'interfaccia ad un altro dispositivo e utilizzare Raspberry Pi come puro server 
+                                (e installarci sopra solamente il software necessario) si consiglia
+                                di installare "Raspberry Pi OS (32-bit) Lite"
+                            </p>
+                        </blockquote>
+
+                        <p>
+                            e utilizzare un software per eseguire il flash sulla scheda SD (tipo etcher, <a href="https://www.balena.io/etcher/">link</a> )
+                        </p>
+                        <blockquote>
+                            Consiglio di scompattare il file zip e di eseguire il flash direttamente con l'immagine al suo interno poiche' diverse volte 
+                            che ho provato a flashare il file zip il flash falliva o il sistema operativo non si avviava...
+                        </blockquote>
+                        <div class="center-align container">
+                            <img class="materialboxed mx-auto resp-img" src="/assets/img/raspbian/etcher.png" alt="Raspberry Pi Imager">
+                        </div>
+                        <p>
+                            Premere su "Select Image" e selezionare il file immagine del sistema operativo, cliccare su "Select target" e selezionare la scheda SD di destinazione e infine premere "Flash!"
+                            per iniziare il processo.
+                        </p>
+
+                        <p>
+                            Secondo metodo: utilizzare Raspberry Pi Imager, il software consigliato dalla Raspberry Pi foundation ( <a href="https://www.raspberrypi.org/downloads/">Link</a>).
+                            Con questo metodo non occorre neppure scaricare l'immagine, ci pensa il software.
+                        </p>
+                        <div class="center-align container">
+                            <img class="materialboxed mx-auto resp-img" src="/assets/img/raspbian/rpiimager.png" alt="Raspberry Pi Imager">
+                        </div>
+                        <p>
+                            Premere su "CHOOSE OS" per scegliere il sistema operativo da installare.
+                            Selezionare "Raspberry Pi OS (Other)", perche' la prima opzione include il desktop ma senza software aggiuntivo,
+                            e scegliere "Raspberry Pi OS (lite)" per installare il sistema operativo senza interfaccia (server puro)
+                            oppure "Raspberry Pi OS (full)" per installare il sistema operativo con interfaccia e software aggiuntivo (Raspberry Pi visualizzera' l'interfaccia grafica su un monitor via HDMI).
+                        </p>
+                        <p>
+                            Premere su "CHOOSE SD CARD" per scegliere la scheda SD su cui installare il sistema operativo e premere "WRITE" per iniziare il processo di flash. 
+                        </p>
                     </li>
                     <li class="collection-item">
-                        Seguire la wizard per la configurazione iniziale che fara' configurare Wi-Fi, password di root, layout della tastiera, ...
+                        Se si e' scelto di installare il sistema operativo senza GUI consiglio di lavorare su Raspberry da "remoto" utilizzando SSH in modo da poter copiare e incollare i comandi da questa pagina.
+                        Per abilitarlo subito al primo avvio creare un file chiamato "ssh" (senza estensione, anche vuoto) e inserirlo nella root della scheda SD.
+                        A questo punto utilizzare un client SSH tipo putty (<a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">link</a>) per connettersi a Raspberry Pi via SSH.
+                        <blockquote>
+                            <p>
+                                Occorre conoscere l'indirizzo IP del raspberry e la password.
+                            </p> 
+                            
+                            <p>
+                                Su terminale digitare il seguente comando per visualizzare l'IP delle interfacce:
+                            </p>
+                            <blockquote>
+                                Consiglio di utilizzare fin da subito il cavo Ethernet e non il Wi-Fi poiche' nel momento in cui si creera' la rete Wi-Fi con Hostapd l'interfaccia wireless
+                                sara' occupata e non sara' possibile installare altri software, cercare online soluzioni di problemi, ...
+                                Se si utilizza il cavo occorre guardare l'indirizzo IP della interfaccia "eth0", altrimenti guardare l'interfaccia "wlan0". 
+                            </blockquote>
+
+                            <pre class="language-bash">
+                                <code class="language-bash">
+                                    {% capture code %}
+                                    # se non dovesse funzionare provare "ip a"
+                                    ifconfig
+                                    {% endcapture %}
+                                    {% include html/code.html html=code %}
+                                </code>
+                            </pre>
+
+                            <p>
+                                La password di default e' "raspberry".
+                            </p>
+                            
+                        </blockquote>
+                    </li>
+                    <li class="collection-item">
+                        Se si e' scelto di installare il sistema operativo con la GUI seguire la wizard per la configurazione iniziale che fara' configurare Wi-Fi, password di root, layout della tastiera, ...
                         e infine far aggiornare il software e far riavviare il raspberry.
+                        <blockquote>
+                            Consiglio di utilizzare fin da subito il cavo Ethernet e non il Wi-Fi poiche' nel momento in cui si creera' la rete Wi-Fi con Hostapd l'interfaccia wireless
+                            sara' occupata e non sara' possibile installare altri software, cercare online soluzioni di problemi, ... 
+                        </blockquote>
                     </li>
                 </ul>
             </li>
@@ -751,9 +842,99 @@ description: "Guida iniziale progetto201"
                 <blockquote>
                     Attualmente non e' possibile fare queste operazioni da UI ma sarebbe fattibile.
                 </blockquote>
-                <blockquote>
-                    TODO: descrivere questa sezione
-                </blockquote>
+                <ul class="collection">
+                    <li class="collection-item">
+                        <p>
+                            Aggiungere location nella tabella "t_locations".
+                        </p>
+                        <p>
+                            Con PHPMyAdmin e' possibile utilizzare la GUI per creare un nuovo record con il nome della location. 
+                        </p>
+                        <p>Da linea di comando occorre eseguire una istruzione SQL:</p>
+                        
+                        <pre class="language-bash">
+                            <code class="language-bash">
+                                {% capture code %}
+                                sudo mysql -u&lt;username&gt; -p -e "INSERT INTO db100_100.t_locations (description) VALUES ('&lt;nome_location&gt;');"
+                                {% endcapture %}
+                                {% include html/code.html html=code %}
+                            </code>
+                        </pre>
+                        
+                        <blockquote>
+                            <p>
+                                Sostituire &lt;username&gt; con lo username per connettersi a MySQL (se non impostato diversamente in precedenza e' "root").
+                            </p>
+                            <p>
+                                Sostituire '&lt;nome_location&gt;' con il nome della location (es. 'cucina', 'soggiorno', ...).
+                            </p>
+                            <p>
+                                Dopo aver premuto invio sara' richiesta la password di &lt;username&gt; per accedere a MySQL.
+                            </p>
+                        </blockquote>
+                        
+                        <p>
+                            Verificare che la nuova location sia stata inserita eseguendo il comando:
+                        </p>
+                        <pre class="language-bash">
+                            <code class="language-bash">
+                                {% capture code %}
+                                sudo mysql -u&lt;username&gt; -p -e "SELECT * FROM db100_100.t_locations;"
+                                {% endcapture %}
+                                {% include html/code.html html=code %}
+                            </code>
+                        </pre>
+                        <blockquote>
+                            Come prima specificare lo username, premere invio e inserire la password per MySQL.
+                        </blockquote>
+
+                        <p>
+                            Dovrebbe apparire una tabella con la location "sconosciuta" e la nuova location.
+                        </p>
+                        <p>
+                            Ripetere l'istruzione INSERT per ogni location che si vuole aggiungere al sistema.
+                        </p>
+                        
+                    </li>
+                    <li class="collection-item">
+                        <p>
+                            Modificare la location dei nodi.
+                        </p>
+                        <p>
+                            Dopo aver caricato lo sketch sul nodo MQTT_MANAGER dovrebbe aver ricevuto via MQTT le informazioni del nodo
+                            e queste informazioni sono state memorizzate sul database nella tabella "t_nodi".
+                            Tutti i nodi di default hanno la location impostata a "sconosciuta". (o meglio, id 0 delle location).
+                        </p>
+                        <p>
+                            Da PHPMyAdmin e' possibile modificare il valore del campo "location_id" per farlo corrispondere
+                            all'id della location del nodo.
+                        </p>
+                        <p>
+                            Da linea di comando:
+                        </p>
+                        <pre class="language-bash">
+                            <code class="language-bash">
+                                {% capture code %}
+                                sudo mysql -u&lt;username&gt; -p -e "UPDATE db100_100.t_nodi SET location_id = &lt;id_location&gt; WHERE id = &lt;id_nodo&gt;;"
+                                {% endcapture %}
+                                {% include html/code.html html=code %}
+                            </code>
+                        </pre>
+                        <blockquote>
+                            <p>
+                                Sostituire &lt;username&gt; con lo username per connettersi a MySQL (se non impostato diversamente in precedenza e' "root").
+                            </p>
+                            <p>
+                                Sostituire &lt;id_location&gt; con l'id della location da impostare (id della location nella tabella t_locations)
+                            </p>
+                            <p>
+                                Sostituire &lt;id_nodo&gt; con l'id del nodo (id nella tabella t_nodi).
+                                Per identificare il nodo e' possibile utilizzare l'indirizzo MAC o l'indirizzo IP del nodo per riconoscere il nodo
+                                oppure caricare lo sketch arduino su un nodo alla volta.
+                            </p>
+                        </blockquote>
+                    </li>
+                </ul>
             </li>
 
             <!-- SEZIONE: PLANIMETRIA PERSONALIZZATA E LABEL -->
@@ -764,9 +945,143 @@ description: "Guida iniziale progetto201"
                 <p>
                     Aggiungere planimetrie e label alla planimetria.
                 </p>
-                <blockquote>
-                    TODO: descrivere questa sezione
-                </blockquote>
+                
+                <ul class="collection">
+                    <li class="collection-item">
+                        Per la guida su come personalizzare/aggiungere planimetrie
+                        <a class="btn orange lighten-2" href="/floorplan.html">Clicca qui</a>
+                        o clicca su "Personalizzare planimetria" nella sidenav a sinistra. 
+                        (su smartphone occorre premere il pulsante hamburger <i class="material-icons">menu</i> a sinistra del titolo della pagina
+                        o eseguire uno swipe dal bordo a sinistra della pagina verso destra)
+                    </li>
+                    <li class="collection-item">
+                        <p>
+                            Per aggiungere i label sulla planimetria per renderla interattiva occorre andare sulla pagina impostazioni
+                            del progetto201.
+                        </p>
+                        <p>
+                            Andare nella sezione "Dati planimetria":
+                        </p>
+                        <div class="center-align container">
+                            <img class="materialboxed mx-auto resp-img" src="/assets/img/frontend/settings_labels.png" alt="Label planimetria">
+                        </div>
+                        <p>
+                            e cliccare su "AGGIUNGI" per aggiungere del testo, oppure "AGGIUNGI AREA" per creare una area cliccabile, oppure "AGGIUNGI LETTURA SENSORE" per visualizzare l'ultima rilevazione di un dato di uno specifico nodo.
+                        </p>
+                        <p>
+                            Tenere premuto l'elemento con il pulsante sinistro e muovere il mouse per trascinarlo.
+                            Posizionare l'elemento nella posizione desiderata.
+                        </p>
+                        <p>
+                            Sotto alla planimetria premere il pulsante "MODIFICA" per visualizzare altre impostazioni, "RIMUOVI" per cancellare il label e "SALVA" per salvare le modifiche.
+                        </p>
+                        <div>
+                            Se si preme sul pulsante "AGGIUNGI AREA", si clicca sull'area e poi si clicca su "MODIFICA" appariranno 4 impostazioni:
+                            <ul class="collection">
+                                <li class="collection-item">
+                                    "Modifica id": permette di scegliere un identificativo facile da ricordare per l'elemento
+                                </li>
+                                <li class="collection-item">
+                                    "Modifica lunghezza": modifica la lunghezza dell'area. Per le aree si consiglia di aumentare la loro lunghezza
+                                    per coprire una certa stanza o una certa area di una stanza.
+                                </li>
+                                <li class="collection-item">
+                                    "Modifica altezza": modifica l'altezza dell'area. Per le aree si consiglia di aumentare la loro altezza
+                                    per coprire una certa stanza o una certa area di una stanza.
+                                </li>
+                                <li class="collection-item">
+                                    "Modifica identificativo nodo": permette di selezionare per quale nodo verranno visualizzati i grafici quando
+                                    si preme sopra all'area dalla pagina principale.
+                                    <blockquote>
+                                        Il selettore visualizza id e indirizzo MAC del nodo, sarebbe piu' user friendly visualizzare anche il nome della location.
+                                    </blockquote>
+                                </li>
+                            </ul>
+                            <p>
+                                Premere il pulsante "SALVA" per salvare le modifiche e aggiungere i nuovi label alla planimetria della pagina principale.
+                            </p>
+                        </div>
+                        
+                        <br><hr><br>
+
+                        <div>
+                            Se si preme sul pulsante "AGGIUNGI LETTURA SENSORE", si clicca sull'elemento e poi si clicca su "MODIFICA" appariranno le seguenti impostazioni:
+                            <ul class="collection">
+                                <li class="collection-item">
+                                    "Modifica testo": permette di scegliere un testo da visualizzare prima che il sistema abbia ottenuto dal database l'ultima rilevazione.
+                                    Difficilmente sara' visibile.
+                                </li>
+                                <li class="collection-item">
+                                    "Modifica id": permette di scegliere un identificativo facile da ricordare per l'elemento
+                                </li>
+                                <li class="collection-item">
+                                    "Modifica lunghezza": modifica la lunghezza dell'elemento. Per le rilevazioni si consiglia di rendere l'elemento
+                                    grande quanto basta per farci stare il valore da visualizzare.
+                                </li>
+                                <li class="collection-item">
+                                    "Modifica altezza": modifica l'altezza dell'elemento. Per le rilevazioni si consiglia di rendere l'elemento
+                                    grande quanto basta per farci stare il valore da visualizzare.
+                                </li>
+                                <li class="collection-item">
+                                    "Modifica identificativo nodo": permette di selezionare per quale nodo verranno visualizzate le rilevazioni.
+                                </li>
+                                <li class="collection-item">
+                                    "Modifica dato desiderato dal nodo": permette di selezionare quale dato visualizzare del nodo.
+                                    Questi nomi sono i nomi dei campi delle tabelle dati dei nodi.
+                                    <blockquote>
+                                        I nodi delle tabelle dati seguono questo standard: "t_type&lt;id_tipo_nodo&gt;_data" dove 
+                                        &lt;id_tipo_nodo&gt; e' l'identificativo del tipo di nodo (ad esempio il tipo 0 contiene i dati dai microcontrollori con lo sketch DATACLIENT-DHT22,
+                                        quindi sono microcontrollori che rilevano temperatura e umidita' grazie ad un unico sensore, il DHT22)
+                                    </blockquote>
+                                </li>
+                            </ul>
+                            <p>
+                                Premere il pulsante "SALVA" per salvare le modifiche e aggiungere i nuovi label alla planimetria della pagina principale.
+                            </p>
+                        </div>
+
+                        <br><hr><br>
+
+                        <div>
+                            Se si preme sul pulsante "AGGIUNGI TESTO", si clicca sull'elemento e poi si clicca su "MODIFICA" appariranno le seguenti impostazioni:
+                            <ul class="collection">
+                                <li class="collection-item">
+                                    "Modifica testo": permette di scegliere un testo da visualizzare. Potrebbe essere utile ad esempio per visualizzare "%" vicino alle umidita'.
+                                    <blockquote>
+                                        Se si riesce a far accettare gli unicode al sistema sarebbe possibile visualizzare "&#8451;" vicino alle temperature.
+                                    </blockquote>
+                                </li>
+                                <li class="collection-item">
+                                    "Modifica id": permette di scegliere un identificativo facile da ricordare per l'elemento
+                                </li>
+                                <li class="collection-item">
+                                    "Modifica lunghezza": modifica la lunghezza dell'elemento. Per i testi si consiglia di rendere l'elemento
+                                    grande quanto basta per farci stare il testo da visualizzare.
+                                </li>
+                                <li class="collection-item">
+                                    "Modifica altezza": modifica l'altezza dell'elemento. Per i testi si consiglia di rendere l'elemento
+                                    grande quanto basta per farci stare il testo da visualizzare.
+                                </li>
+                                <li class="collection-item">
+                                    "Modifica identificativo nodo": Non e' utilizzato, si potrebbe nascondere/rimuovere per i testi.
+                                </li>
+                            </ul>
+                            <p>
+                                Premere il pulsante "SALVA" per salvare le modifiche e aggiungere i nuovi label alla planimetria della pagina principale.
+                            </p>
+                        </div>
+
+                        <br><hr><br>
+
+                        <p>
+                            Ora tornando alla pagina principale dovrebbe essere presente la planimetria con sopra i label.
+                            <blockquote>
+                                Provare a cliccare sulle aree per verificare che si apra la pagina dei grafici corretta e provare a vedere se le letture dei sensori
+                                si aggiornano con il passare del tempo.
+                            </blockquote>
+                        </p>
+                    </li>
+                </ul>
             </li>
         </ol>
 </div>

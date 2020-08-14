@@ -80,3 +80,33 @@ div.code-toolbar {
     max-height: 500px;
     max-width: 100%;
 }
+
+
+/* Crea scrollbar con i prefissi dei vari browser */
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  50%)) {
+    // For Google Chrome
+    &::-webkit-scrollbar {
+        width:  $size;
+        height: $size;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+        background: $foreground-color;
+    }
+  
+    &::-webkit-scrollbar-track {
+        background: $background-color;
+    }
+  
+    // For Internet Explorer
+    & {
+        scrollbar-face-color: $foreground-color;
+        scrollbar-track-color: $background-color;
+    }
+}
+
+/* usa la scrollbar personalizzata */
+body{
+    @include scrollbars(15px, #ffb74d, #eeeeee);
+}
+  

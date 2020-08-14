@@ -1,4 +1,4 @@
-144 custom_dict-wordlist.txt
+152 custom_dict-wordlist.txt
 
 Adafruit
 anchorBody
@@ -19,6 +19,7 @@ cambiera
 Changelog
 CIDR
 cio
+cliccabile
 com
 config
 configfile
@@ -26,6 +27,7 @@ containsCode
 containsCopylinks
 containsImage
 copylink
+creera
 CSS
 dall
 dataclient
@@ -51,6 +53,7 @@ ethernet
 exe
 fallira
 fara
+flashare
 floorplan
 frontend
 fulltitle
@@ -112,6 +115,7 @@ pwd
 quantita
 Raspbian
 README
+responsabilita
 restituira
 riavviera
 Rubygem
@@ -124,18 +128,22 @@ sh
 sidenav
 sottocartella
 sql
+ssh
 ssid
 SSID
+sull
 SVG
 timeToWait
 TODO
 umidita
 unclutter
 Unclutter
+unicode
 upstreamcity
 Url
 verra
 Verra
+visualizzera
 Vue
 Wi
 WIFI
