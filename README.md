@@ -4,6 +4,8 @@ Questa e' la wiki del progetto201.
 
 Link: [progetto201.github.io](https://progetto201.github.io/)
 
+Controllo automatico dello spelling: ![Spellcheck](https://github.com/progetto201/progetto201.github.io/workflows/Spellcheck/badge.svg)
+
 ![](_docs/home.png)
 
 ## Introduzione
