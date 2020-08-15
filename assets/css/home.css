@@ -4,46 +4,90 @@
 
 ==============================================================*/
 
-:root {
-    --columns: 1;
+
+.icon-font {
+    font-size: 260px;
 }
 
-/* CONTIENE CONTAINER SVG E IL CONTAINER VIDEO */
-.wrapper {
-    display: grid;
-    grid-template-columns: repeat(var(--columns), 1fr);
-    grid-template-rows: 40px;
+.home-video-container {
+    /* il container del video parte subito dopo la navbar (alta 56px) */
+    width: calc(100%);
+    height: calc(100vh - 56px);
+    top: 56px;
+    left: 0px; 
 }
 
-/* CONTAINER VIDEO */
-#infoi {
-    grid-column-start: 1;
-    grid-column-end: span var(--columns);
-    grid-row-start: 1;
-    grid-row-end: 2;
-    background-color: #eaeaea;
+.home-video {
+    object-fit: cover;    
+    position: absolute;
 }
 
-
-/* CONTAINER SVG: in primo piano per posizionarlo sopra ai video */
-#svg-container {
-    grid-column-start: var(--columns);
-    grid-column-end: span 1;
-    grid-row-start: 1;
-    place-self: left;
-    height: 100%;
-    z-index: 60;
-    display: flex;
-}
-
-/* SVG CON TERMOMETRO: usa sfondo bianco opaco e aggiungi un margine */
-#svg-container>svg {
-    height: 90%;
-    margin: auto 3vw; /* centra verticalmente e crea margine a sinistra e destra di 3vw */
-    width: 6vw;
+#svg-container > svg {
     background-color: rgba(255, 255, 255, 0.5);
+    height: 80vh;
+    width: 80px;
 }
 
-.video {
-    height: 100%;
+.home-title {
+    border-color: rgba(255, 255, 255, 1); 
+    border-style: solid; 
+    border-width: 3px; 
+    text-shadow: 4px 4px 2px rgba(150, 150, 150, 1); 
+    box-shadow: 4px 4px 2px rgba(150, 150, 150, 1);
+}
+
+@media only screen and (min-width: 601px){
+    /* Qui la navbar si ingrandisce in altezza */
+    .home-video-container {
+        height: calc(100vh - 64px);
+        top: 64px;
+    }
+    
+    #svg-container > svg {
+        background-color: rgba(255, 255, 255, 0.5);
+        height: 80vh;
+        width: 133px;
+    }
+    
+    .icon-font {
+        font-size: 260px;
+    }
+
+    .home-title { 
+        border-width: 10px; 
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    /* Da questa media query appare la sidebar, ...*/
+    .home-video-container {
+        /* fai occupare il video tutta la lunghezza meno la lunghezza
+        della sidebar e posiziona l'elemento a 300px da sinistra
+        */
+        width: calc(100% - 300px);
+        left: 300px; 
+    }
+    
+    .home-video {
+        object-fit: cover;    
+        position: absolute;
+    }
+}
+
+
+@media (orientation: landscape) and (max-width: 1050px) {
+    /* se schermo orizzontale e piccolo/medio riduci 
+    la dimensione della freccia verso il basso*/
+    .icon-font{
+        font-size: 140px;
+    }
+}
+
+.on-homevideo {
+    /* posiziona in modo relativo l'elemento e posiziona
+    centrato verticalmente e orizzontalmente il contenuto */
+    position: relative;
+    text-align: center;
+    display: flex;
+    align-items: center;
 }

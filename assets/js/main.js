@@ -1,40 +1,3 @@
-function setWrapperHeight() {
-    /** 
-     * Imposta altezza del wrapper con i container svg e video.
-     * 
-     * seleziona il wrapper e i video, controlla quale video e' visualizzato 
-     * (non ha la classe "hidden"), calcola l'altezza con clientHeight
-     * e imposta fino a un massimo di 1000px l'altezza del wrapper.
-    */
-
-    // seleziona elementi necessari
-    var svgVideoWrapper = document.getElementById("svg-video-wrapper");
-    var videos = document.getElementsByClassName("video");
-    
-    // recupera il video visualizzato
-    var shownVideo = "";
-
-    for (let i = 0; i < videos.length; i++) {
-        const video = videos[i];
-        if (video.classList != "video materialboxed hidden") {
-            shownVideo = video;
-            break;
-        }
-
-    }
-
-    // trova l'altezza del video e impostala al wrapper
-    var videoHeight = shownVideo.clientHeight;
-
-    if (videoHeight < 1000) {
-        svgVideoWrapper.style.gridTemplateRows = videoHeight + "px";
-        shownVideo.style.height = "100%";
-    } else {
-        svgVideoWrapper.style.gridTemplateRows = 1000 + "px";
-        shownVideo.style.height = svgVideoWrapper.style.gridTemplateRows;
-    }
-
-}
 
 
 function changeBar(value, color) {
@@ -127,22 +90,11 @@ function changeBar(value, color) {
 
 document.addEventListener('DOMContentLoaded', function () {
     /**
-     * Quando il DOM si e' caricato inizializza gli elementi 
-     * con classe materialboxed (immagini che possono essere ingrandite cliccandoci sopra),
-     * imposta l'altezza del wrapper SVG e video e mantieni aggiornata l'altezza
-     * quando viene ridimensionata la finestra.
-     * Infine esegue una AJAX request per ottenere il contenuto del file SVG
+     * Quando il DOM si e' caricato la funzione esegue una 
+     * AJAX request per ottenere il contenuto del file SVG
      * con il termometro e imposta un setInterval() per modificare la temperatura del termometro,
      * il video e il colore della barra di navigazione.
     */
-    
-    // inizializza le immagini che possono essere ingrandite cliccandoci sopra
-    var elems = document.querySelectorAll('.materialboxed');
-    var instances = M.Materialbox.init(elems);
-
-    // imposta altezza del wrapper
-    setWrapperHeight();
-    window.addEventListener("resize", setWrapperHeight);
     
     // inizializza oggetto per fare AJAX Request
     var xmlhttp = new XMLHttpRequest();
@@ -205,27 +157,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     }
 
-                    // occorre cambiare video, nascondi il video mostrato e mostra il video nascosto
+                    // occorre cambiare video, cambia src del video
                     if (changeVideo) {
-                        var videos = document.getElementsByClassName("video");
+                        var video = document.getElementsByClassName("home-video")[0];
 
                         if (nChanges == 0) {
-                            for (let i = 0; i < videos.length; i++) {
-                                const video = videos[i];
-                                if (video.classList == "video materialboxed hidden") {
-                                    video.classList = "video materialboxed";
-
-                                } else {
-                                    video.classList = "video materialboxed hidden";
-                                    
-                                }
-
+                            
+                            if (video.src.includes("/assets/video/fireplace.mp4")){
+                                video.src = "/assets/video/river.mp4";
                             }
+                            else{
+                                video.src = "/assets/video/fireplace.mp4";
+                            }
+                            
                         }
 
                         nChanges++;
                         changeVideo = false;
-
                     }
 
                 }, 3000);
