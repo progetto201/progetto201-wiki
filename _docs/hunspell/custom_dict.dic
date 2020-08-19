@@ -1,4 +1,4 @@
-152 custom_dict-wordlist.txt
+162 custom_dict-wordlist.txt
 
 Adafruit
 anchorBody
@@ -8,6 +8,7 @@ arduino
 ArduinoJson
 AutoCAD
 Autodesk
+autodnsmasq
 autoinstall
 AUTOINSTALL
 automysql
@@ -27,8 +28,10 @@ containsCode
 containsCopylinks
 containsImage
 copylink
+cp
 creera
 CSS
+Ctrl
 dall
 dataclient
 DATACLIENT
@@ -53,6 +56,7 @@ ethernet
 exe
 fallira
 fara
+finche
 flashare
 floorplan
 frontend
@@ -62,8 +66,10 @@ gia
 github
 gitignore
 hostapd
+Hostname
 ico
 Imager
+img
 ini
 Inkscape
 internalfunctions
@@ -93,6 +99,7 @@ NAT
 navbar
 newLine
 NodeMCU
+occorrera
 parsedtoc
 perche
 permalink
@@ -100,6 +107,7 @@ php
 PHP
 phpmyadmin
 PHPMyAdmin
+PID
 Pinout
 piu
 Pixabay
@@ -132,6 +140,7 @@ ssh
 ssid
 SSID
 sull
+svg
 SVG
 timeToWait
 TODO
@@ -143,6 +152,7 @@ upstreamcity
 Url
 verra
 Verra
+Videoguida
 visualizzera
 Vue
 Wi
