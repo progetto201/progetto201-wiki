@@ -34,14 +34,26 @@ layout: compress
     {% endif %}
     <title>{{ fulltitle }}</title>
 
-	<!--Import Google Icon Font-->
+    <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
+    <!-- manifest file PWA -->
+    <link rel="manifest" href="/manifest.json">
+
+    {% for image in site.static_files %}
+        {% if image.path contains 'assets/img/icons' %}
+            <link rel="apple-touch-icon" href="{{ site.baseurl }}{{ image.path }}">
+        {% endif %}
+    {% endfor %}
+
+    <meta name="apple-mobile-web-app-status-bar" content="#ffb74d">
+    <meta name="theme-color" content="#ffb74d">
+
     {% comment %} 
     <!-- CSS (main.scss is converted and compressed into main.css) --> 
     {% endcomment %}
     <link rel="stylesheet" href="/assets/css/main.css">
- 
+
 	{% if page.title == "home" %}
 		<link rel='stylesheet' href="/assets/css/home.css">
 	{% endif %}
@@ -81,8 +93,8 @@ layout: compress
         </div>
         
     </div>
-	
-	<!-- JAVASCRIPT DI MATERIALIZE -->
+
+    <!-- JAVASCRIPT DI MATERIALIZE -->
     <script type="text/javascript" src="/assets/js/materialize.min.js"></script>
     
     
@@ -155,7 +167,10 @@ layout: compress
     
     {% if page.containsCopylinks == "true" %}
 		<script src="/assets/js/copylink.js"></script>
-	{% endif %}
+    {% endif %}
+    
+    <!-- PWA -->
+    <script src="/assets/js/app.js"></script>
 </body>
 
 </html>

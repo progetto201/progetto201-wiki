@@ -16,6 +16,64 @@ description: "Guida iniziale progetto201"
             <a class="btn orange lighten-2" href="https://github.com/mario33881/progetto_100/wiki">Wiki del progetto 100+100</a>
         </p>
 
+        <blockquote>
+            <p>
+                Se occorre operare su una rete con restrizioni e su computer con account senza diritti
+                di amministratore consiglio di utilizzare un portatile connesso all'hotspot del proprio telefono:
+                per installare software e per il processo di flash del sistema operativo occorre avere diritti di amministrazione.
+            </p>
+            <p>
+                Utilizzare dispositivi personali aggira molti problemi e spesso velocizza le operazioni.
+            </p>
+        </blockquote>
+
+        <blockquote>
+            <p>
+                Nella guida quando viene indicato di modificare un file e' possibile utilizzare l'editor di testo "nano".
+            </p> 
+            <pre class="language-bash">
+                <code class="language-bash">
+                    {% capture code %}
+                    # Sostituire &lt;percorso_file&gt; con il percorso del file da modificare
+                    nano &lt;percorso_file&gt;
+                    {% endcapture %}
+                    {% include html/code.html html=code %}
+                </code>
+            </pre>
+            <p>
+                Per salvare il file premere Ctrl + X per uscire e specificare di salvare le modifiche digitando "y" e premendo invio. 
+            </p>
+        </blockquote>
+
+        <blockquote>
+            <p>
+                Nella guida quando viene indicato di copiare un file utilizzare il comando "cp".
+            </p>
+            <pre class="language-bash">
+                <code class="language-bash">
+                    {% capture code %}
+                    # Sostituire &lt;orig&gt; con il percorso del file da copiare e 
+                    # &lt;dest&gt; con il percorso della cartella di destinazione
+                    cp &lt;orig&gt; &lt;dest&gt;
+                    {% endcapture %}
+                    {% include html/code.html html=code %}
+                </code>
+            </pre>
+            <p>
+                Per copiare le cartelle usare il comando "cp" con la flag "-r" (recursive, ricorsivo)
+            </p>
+            <pre class="language-bash">
+                <code class="language-bash">
+                    {% capture code %}
+                    # Sostituire &lt;orig&gt; con il percorso della cartella da copiare e 
+                    # &lt;dest&gt; con il percorso della cartella di destinazione
+                    cp -r &lt;orig&gt; &lt;dest&gt;
+                    {% endcapture %}
+                    {% include html/code.html html=code %}
+                </code>
+            </pre>
+        </blockquote>
+
         <!-- INDICE DEI CONTENUTI -->
         <h5>Indice dei contenuti:</h5>
         <br>
@@ -30,7 +88,14 @@ description: "Guida iniziale progetto201"
                 <h4 id="raspbian">
                     Raspbian
                 </h4>
-                <p>Installare Raspbian/Raspberry Pi OS su Raspberry Pi (la centralina), configurarlo e aggiornarlo</p>
+                <p>Installare Raspbian/Raspberry Pi OS su Raspberry Pi (la centralina), configurarlo e aggiornarlo.</p>
+                
+                <h5>Videoguida:</h5>
+                <video class="responsive-video" controls>
+                    <source src="/assets/video/raspbianinstall.mp4" type="video/mp4">
+                </video>
+
+                <h5>Guida testuale:</h5>
                 <ul class="collection">
                     <li class="collection-item">
                         <p>
@@ -39,6 +104,10 @@ description: "Guida iniziale progetto201"
                         <blockquote>
                             Entrambe i metodi cancellano tutto il contenuto della periferica per installarci il sistema operativo,
                             essere sicuri di selezionare la scheda SD corretta e di non avere file importarti sopra.
+                        </blockquote>
+                        <blockquote>
+                            Entrambe i software citati qui sotto (Etcher e Raspberry Pi Imager) effettuano prima il processo di flash
+                            e poi eseguono una verifica per assicurarsi che l'immagine sia stata caricata correttamente sulla scheda SD.
                         </blockquote>
 
                         <p>Primo metodo: Scaricare dal sito ufficiale l'immagine del sistema operativo (<a href="https://www.raspberrypi.org/downloads/raspberry-pi-os/">Link</a>)</p> 
@@ -73,6 +142,8 @@ description: "Guida iniziale progetto201"
                             per iniziare il processo.
                         </p>
 
+                        <hr>
+
                         <p>
                             Secondo metodo: utilizzare Raspberry Pi Imager, il software consigliato dalla Raspberry Pi foundation ( <a href="https://www.raspberrypi.org/downloads/">Link</a>).
                             Con questo metodo non occorre neppure scaricare l'immagine, ci pensa il software.
@@ -89,47 +160,148 @@ description: "Guida iniziale progetto201"
                         <p>
                             Premere su "CHOOSE SD CARD" per scegliere la scheda SD su cui installare il sistema operativo e premere "WRITE" per iniziare il processo di flash. 
                         </p>
+                        <blockquote>
+                            Verra' chiesto se si e' sicuri di cancellare il contenuto della periferica per installare il sistema, premere "YES"
+                        </blockquote>
+
+                        <hr>
+
+                        <p>
+                            Se il processo di flash fallisce provare a formattare la scheda SD, per Windows consiglio il software "SD card formatter":
+                        </p>
+                        <p>
+                            Andare nella <a href="https://www.sdcard.org/downloads/formatter/">pagina download cliccando qui</a>
+                        </p>
+                        <p>
+                            Sotto a "SD Memory Card Formatter Download for Windows/Mac" cliccare su "For Windows", andare in fondo alla pagina e cliccare "Accept".
+                        </p>
+                        <p>
+                            Estrarre l'eseguibile dal file zip e installare il software.
+                        </p>
+                        <div class="center-align container">
+                            <img class="materialboxed mx-auto resp-img" src="/assets/img/raspbian/sdcardformatter.png" alt="SD Card Formatter">
+                        </div>
+                        <p>
+                            Per utilizzare il software scegliere la scheda SD cliccando su "Select card", scegliere un nome qualsiasi del volume sotto a "Volume label"
+                            e cliccare su "Format".
+                        </p>
                     </li>
                     <li class="collection-item">
-                        Se si e' scelto di installare il sistema operativo senza GUI consiglio di lavorare su Raspberry da "remoto" utilizzando SSH in modo da poter copiare e incollare i comandi da questa pagina.
-                        Per abilitarlo subito al primo avvio creare un file chiamato "ssh" (senza estensione, anche vuoto) e inserirlo nella root della scheda SD.
-                        A questo punto utilizzare un client SSH tipo putty (<a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">link</a>) per connettersi a Raspberry Pi via SSH.
                         <blockquote>
-                            <p>
-                                Occorre conoscere l'indirizzo IP del raspberry e la password.
-                            </p> 
-                            
-                            <p>
-                                Su terminale digitare il seguente comando per visualizzare l'IP delle interfacce:
-                            </p>
-                            <blockquote>
-                                Consiglio di utilizzare fin da subito il cavo Ethernet e non il Wi-Fi poiche' nel momento in cui si creera' la rete Wi-Fi con Hostapd l'interfaccia wireless
-                                sara' occupata e non sara' possibile installare altri software, cercare online soluzioni di problemi, ...
-                                Se si utilizza il cavo occorre guardare l'indirizzo IP della interfaccia "eth0", altrimenti guardare l'interfaccia "wlan0". 
-                            </blockquote>
+                            Consiglio fin da subito di collegare Raspberry alla rete locale con il cavo Ethernet e non con il Wi-Fi poiche' nel momento in cui si creera' la rete Wi-Fi con Hostapd l'interfaccia wireless
+                            sara' occupata e non sara' possibile utilizzarla per installare altri software, cercare online soluzioni di problemi, controllare Raspberry via SSH, ...
+                        </blockquote>
 
+                        Se si e' scelto di installare il sistema operativo senza GUI consiglio di lavorare su Raspberry da "remoto" utilizzando SSH in modo da poter copiare e incollare i comandi da questa pagina.
+                        Per abilitarlo subito al primo avvio creare un file chiamato "ssh" (senza estensione, anche vuoto) e inserirlo nella root della scheda SD (il volume si chiama "boot" ed e' formattato in FAT32).
+                        <blockquote>
+                            Se il computer non permette di accedere al volume della scheda SD disconnettere la periferica e reinserirla nel computer.
+                        </blockquote>
+
+                        <p>
+                            Per connettersi via SSH occorre conoscere l'indirizzo IP del raspberry e la password.
+                        </p>
+                        <blockquote>
+                            Se si cerca di connettersi da un computer sulla rete locale (come in questo caso, dobbiamo ancora configurare Raspberry per creare la rete Wi-Fi), 
+                            utilizzare l'IP del Raspberry sulla rete locale,
+                            altrimenti se si e' collegati alla rete di Hostapd utilizzare l'IP del Raspberry della rete Hostapd
+                            <div class="center-align container">
+                                <img class="materialboxed mx-auto resp-img" src="/assets/svg/network.svg" alt="Rete del progetto201">
+                            </div>
+                        </blockquote>
+                        <p>
+                            Se l'indirizzo IP del raspberry e' da impostare staticamente allora si conosce gia' l'IP del raspberry.
+                        </p>
+                        <blockquote>
+                            <p>Per impostare l'indirizzo IP eseguire da terminale il comando:</p>
                             <pre class="language-bash">
                                 <code class="language-bash">
                                     {% capture code %}
-                                    # se non dovesse funzionare provare "ip a"
-                                    ifconfig
+                                    # se non dovesse funzionare provare "ip a add &lt;ip&gt;/&lt;subnet_mask&gt; dev &lt;interface&gt;"
+                                    # > Sostituire &lt;ip&gt; con l'ip, &lt;subnet_mask&gt; con la subnet mask e &lt;interface&gt; con l'interfaccia ("eth0", "wlan0", ...)
+                                    ifconfig &lt;interface&gt; &lt;ip&gt; netmask &lt;subnet_mask&gt;
+                                    {% endcapture %}
+                                    {% include html/code.html html=code %}
+                                </code>
+                            </pre>
+                            <p>
+                                Se occorre impostare l'indirizzo IP potrebbe essere necessario anche impostare il gateway, utilizzare il comando:
+                            </p>
+                            
+                            <pre class="language-bash">
+                                <code class="language-bash">
+                                    {% capture code %}
+                                    # Sostituire &lt;ip_gateway&gt; con l'IP del gateway, &lt;interface&gt; con l'interfaccia ("eth0")
+                                    sudo route add default gw &lt;ip_gateway&gt; &lt;interface&gt;
                                     {% endcapture %}
                                     {% include html/code.html html=code %}
                                 </code>
                             </pre>
 
                             <p>
-                                La password di default e' "raspberry".
+                                E potrebbe essere necessario impostare i server DNS, per fare questo occorre modificare il file "/etc/resolv.conf".
                             </p>
-                            
+                            <p>
+                                Per ogni server DNS da impostare aggiungere una riga come la seguente:
+                            </p>
+                            <pre class="language-ini">
+                                <code class="language-ini">
+                                    {% capture code %}
+                                    # Sostituire &lt;ip_dns&gt; con l'IP del server DNS
+                                    nameserver &lt;ip_dns&gt;
+                                    {% endcapture %}
+                                    {% include html/code.html html=code %}
+                                </code>
+                            </pre>
+
+                            <p>
+                                Il modo piu' semplice per sapere se e' necessario impostare qualcosa e' guardare alle impostazioni dei computer
+                                gia' presenti nella rete locale: 
+                            </p>
+                            <p>
+                                su Windows provare a guardare su 
+                                "Impostazioni Rete e Internet -> Opzioni scheda -> tasto destro sulla interfaccia Ethernet (puo' avere altri nomi), Proprieta' -> clicca su 'Protocollo Internet versione 4' e poi su Proprieta".
+                                Da qui e' possibile vedere il "gateway predefinito" e gli IP dei server DNS. (se presenti, impostarli con i comandi qua sopra)
+                            </p>
                         </blockquote>
+                        <p>
+                            Se l'indirizzo IP e' assegnato dinamicamente sul terminale digitare il seguente comando per visualizzare l'IP delle interfacce:
+                        </p>
+                        
+                        <pre class="language-bash">
+                            <code class="language-bash">
+                                {% capture code %}
+                                # se non dovesse funzionare provare "ip a"
+                                ifconfig
+                                {% endcapture %}
+                                {% include html/code.html html=code %}
+                            </code>
+                        </pre>
+
+                        <p>
+                            L'utente e' "pi" e la password di default e' "raspberry".
+                        </p>
+            
+                        A questo punto utilizzare un client SSH tipo putty (<a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">link</a>) per connettersi a Raspberry Pi via SSH.
+                        <div class="center-align container">
+                            <img class="materialboxed mx-auto resp-img" src="/assets/img/raspbian/putty.png" alt="Putty">
+                        </div>
+                        <p>
+                            Inserire l'indirizzo IP sotto a "Hostname (or IP address)" e assicurarsi che "Port", la porta del servizio SSH, sia 22.
+                        </p>
+                        <p>
+                            Premere su "Open", scrivere "pi" per "Login as", dare invio e poi inserire la password "raspberry" e premere invio.
+                        </p>
                     </li>
                     <li class="collection-item">
                         Se si e' scelto di installare il sistema operativo con la GUI seguire la wizard per la configurazione iniziale che fara' configurare Wi-Fi, password di root, layout della tastiera, ...
                         e infine far aggiornare il software e far riavviare il raspberry.
                         <blockquote>
-                            Consiglio di utilizzare fin da subito il cavo Ethernet e non il Wi-Fi poiche' nel momento in cui si creera' la rete Wi-Fi con Hostapd l'interfaccia wireless
-                            sara' occupata e non sara' possibile installare altri software, cercare online soluzioni di problemi, ... 
+                            Per non collegarsi alla rete Wi-Fi premere su "skip" quando viene richiesto su quale rete si desidera collegarsi.
+                        </blockquote>
+                        <blockquote>
+                            Anche se il sistema operativo ha la GUI puo' comunque risultare piu' comodo utilizzare SSH per controllare il Raspberry Pi
+                            perche' non e' piu' necessario collegare monitor, mouse e tastiera.
                         </blockquote>
                     </li>
                 </ul>
@@ -141,6 +313,14 @@ description: "Guida iniziale progetto201"
                     AUTOINSTALL
                 </h4>
                 <p>Utilizzare AUTOINSTALL per installare e configurare automaticamente (quasi) tutto quello che serve. Il Raspberry si riavviera' automaticamente un paio di volte</p>
+
+                <h5>Videoguida:</h5>
+                <video class="responsive-video" controls>
+                    <source src="/assets/video/autoinstall.mp4" type="video/mp4">
+                </video>
+
+                <h5>Guida testuale:</h5>
+
                 <ul class="collection">
                     <li class="collection-item"> 
                         <p>Leggere la documentazione e scaricare AUTOINSTALL dal <a class="btn orange lighten-2" href="https://github.com/progetto201/progetto201-autoinstall">repository qui</a></p>
@@ -212,6 +392,134 @@ description: "Guida iniziale progetto201"
                         </pre>
                     </li>
                 </ul>
+
+                <br>
+                <hr>
+                <br>
+
+                <blockquote>
+                    Se si desidera uscire dall'interfaccia visualizzata con chromium occorre chiuderlo premendo alt + f4
+                </blockquote>
+
+                <blockquote>
+                    <p>
+                        Se si desidera fermare unclutter per visualizzare di nuovo il cursore fino al prossimo riavvio
+                        occorre conoscere il PID, numero identificativo del processo.
+                    </p>
+                    <p>
+                        Con il seguente comando e' possibile conoscere il PID di unclutter:
+                    </p>
+                    <pre class="language-bash">
+                        <code class="language-bash">
+                            {% capture code %}
+                            # top visualizza i processi e "| grep" serve per vedere 
+                            # se l'output del comando precedente contiene "unclutter"
+                            # > occorre attendere qualche secondo, quando appare premere Ctrl + C per terminare il comando
+                            top | grep unclutter
+                            {% endcapture %}
+                            {% include html/code.html html=code %}
+                        </code>
+                    </pre>
+                    <p>
+                        Il primo numero e' il PID. Eseguire il seguente comando per terminare il processo:
+                    </p>
+                    <pre class="language-bash">
+                        <code class="language-bash">
+                            {% capture code %}
+                            # Sostituire &lt;pid&gt; con il PID di unclutter
+                            kill &lt;pid&gt;
+                            {% endcapture %}
+                            {% include html/code.html html=code %}
+                        </code>
+                    </pre>
+                </blockquote>
+
+                <blockquote>
+                    <p>
+                        Come specificato precedentemente, lo script autoinstall.sh installa di default i vecchi file del progetto 100+100
+                        e per questo motivo ha senso scaricare e modificare manualmente lo script.
+                    </p>
+                    <p>
+                        In futuro sara' possibile automatizzare anche il download con i seguenti comandi (modificare i valori delle variabili prima di eseguire i comandi):
+                    </p>
+                    <blockquote>
+                        E' possibile eseguire i comandi anche adesso ma poi occorrera' cancellare i file in /var/www e il database del progetto 100+100.
+                    </blockquote>
+                    <pre class="language-bash">
+                        <code class="language-bash">
+                            {% capture code %}
+                            # -- VARIABILI
+
+                            # booleans that differ the scripts result
+                            DEVMODE=false  # development mode
+                            DHCPDNS=true  # true = install and configure dnsmasq
+
+                            # mysql related
+                            MYSQLPASS="mysqlpassword"  # mysql password
+
+                            # chromium related
+                            TOUCHDEVICE="Virtual core XTEST pointer"  # touch device name
+
+                            # hostapd related
+                            HOSTAPD_ID="192.168.4.1/24"  # raspberry ip/cidr
+                            HOSTAPD_SSID="nameofnetwork"  # SSID of the access point
+                            HOSTAPD_PASSWORD="longerthan8charspassword"  # PWD of the access point
+
+                            # dnsmasq related
+                            DHCPRANGE_START="192.168.4.2" # first ip of dhcp range
+                            DHCPRANGE_STOP="192.168.4.20" # last ip of dhcp range
+                            DHCPRANGE_SUBMASK="255.255.255.0" # subnet mask for dhcp
+
+                            DOMAIN="progetto201.com" # domain name
+                                
+                            DNSMASQ_CONF="/etc/dnsmasq.conf" # dnsmasq's config file
+                            DNSMASQ_DNSFILE="/etc/hosts-dns" # dnsmasq's hosts file
+
+                            # -- DOWNLOAD 
+
+                            cd /home/pi/Documents/
+                            git clone https://github.com/progetto201/progetto201-autoinstall.git
+                            cd progetto201-autoinstall
+
+                            # -- MODIFICA FILE
+
+                            sed -i autoinstall.sh -e "s|devmode=false|devmode='${DEVMODE}'|g" \
+                                -e "s|dhcpdns=true|dhcpdns='${DHCPDNS}'|g" \
+                                -e "s|mysqlpass=\"mysqlpassword\"|mysqlpass='${MYSQLPASS}'|g" \
+                                -e "s|touchdevice=\"Virtual core XTEST pointer\"|touchdevice='${TOUCHDEVICE}'|g" \
+                                -e "s|hostapd_ip=\"192.168.4.1/24\"|hostapd_ip='${HOSTAPD_ID}'|g" \
+                                -e "s|hostapd_ssid=\"nameofnetwork\"|hostapd_ssid='${HOSTAPD_SSID}'|g" \
+                                -e "s|hostapd_password=\"longerthan8charspassword\"|hostapd_password='${HOSTAPD_PASSWORD}'|g" \
+                                -e "s|dhcprange_start=\"192.168.4.2\"|dhcprange_start='${DHCPRANGE_START}'|g" \
+                                -e "s|dhcprange_stop=\"192.168.4.20\"|dhcprange_stop='${DHCPRANGE_STOP}'|g" \
+                                -e "s|dhcprange_submask=\"255.255.255.0\"|dhcprange_submask='${DHCPRANGE_SUBMASK}'|g" \
+                                -e "s|domain=\"progetto201.com\"|domain='${DOMAIN}'|g" \
+                                -e "s|dnsmasq_conf=\"/etc/dnsmasq.conf\"|dnsmasq_conf='${DNSMASQ_CONF}'|g" \
+                                -e "s|dnsmasq_dnsfile=\"/etc/hosts-dns\"|dnsmasq_dnsfile='${DNSMASQ_DNSFILE}'|g" \
+                                autoinstall.sh
+
+                            # -- ESEGUI LO SCRIPT
+                            ./autoinstall.sh
+                            {% endcapture %}
+                            {% include html/code.html html=code %}
+                        </code>
+                    </pre>
+                    <p>
+                        ATTENZIONE: i comandi vengono memorizzati in una cronologia visibile con il comando "history"
+                        e quindi le password sono visibili in chiaro.
+                    </p>
+                    <p>
+                        Cancellare la cronologia dei comandi con il comando:
+                    </p>
+                    <pre class="language-bash">
+                        <code class="language-bash">
+                            {% capture code %}
+                            history -c
+                            {% endcapture %}
+                            {% include html/code.html html=code %}
+                        </code>
+                    </pre>
+                </blockquote>
             </li>
 
             <!-- SEZIONE: TEST DI AUTOINSTALL -->
@@ -294,6 +602,11 @@ description: "Guida iniziale progetto201"
                         <li class="collection-item">
                             Per testare dnsmasq come server DNS provare a collegarsi alla pagina web inserendo nella barra degli
                             indirizzi "raspberry" e "raspberry.progetto201.com", dovrebbero funzionare entrambe.
+                            <blockquote>
+                                Se il secondo non funziona provare ad andare nel file "/etc/dnsmasq.conf" e a
+                                spostare/cancellare i commenti a destra delle impostazioni, salvare le modifiche e riavviare Raspberry.
+                                Se funziona occorrera' modificare lo script autodnsmasq.sh per inserire i commenti prima delle impostazioni.
+                            </blockquote>
                         </li>
                         <li class="collection-item">
 
@@ -521,8 +834,8 @@ description: "Guida iniziale progetto201"
                 <h4 id="mosquitto">
                     Mosquitto
                 </h4>
-                <p>Installare mosquitto, broker MQTT per gestire i dati ricevuto via MQTT dai nodi e configurarlo per accettare solo nodi con username e password.
-                    Digita i seguenti comandi oppure copia e incolla tutti i comandi (nota: in alto a destra dell'elemento con il codice e' presente il pulsante copia)
+                <p>Installare mosquitto, broker MQTT per gestire i dati ricevuti via MQTT dai nodi e configurarlo per accettare solo nodi con username e password.
+                    Digita i seguenti comandi oppure copia e incolla.
                 </p>
                 <pre class="language-bash">
                     <code class="language-bash">
@@ -639,6 +952,11 @@ description: "Guida iniziale progetto201"
                         <blockquote>
                             Meglio specificare il percorso completo, lo script verra' chiamato all'avvio e occorre avere la certezza che il file
                             possa essere trovato indipendentemente dal percorso di esecuzione dello script.
+                        </blockquote>
+                        <blockquote>
+                            E' meglio anche modificare il percorso del file di log specificando il percorso completo: 
+                            lo script apre il file nel punto in cui e' stato eseguito lo script e quindi 
+                            dopo il reboot salva il file nella home dell'utente pi ("/home/pi").
                         </blockquote>
                     </li>
                     <li class="collection-item">
@@ -1080,6 +1398,12 @@ description: "Guida iniziale progetto201"
                                 si aggiornano con il passare del tempo.
                             </blockquote>
                         </p>
+                        <blockquote>
+                            La sezione per la modifica delle proprieta' dei label non e' perfetta: puo' capitare che dopo aver cliccato un'area,
+                            cliccare una rilevazione visualizzi l'id impostato per l'area.
+                            Se succede salvare le modifiche, tornare alla pagina principale, ritornare alla pagina delle impostazioni e provare a impostare
+                            le proprieta' un'altra volta.
+                        </blockquote>
                     </li>
                 </ul>
             </li>

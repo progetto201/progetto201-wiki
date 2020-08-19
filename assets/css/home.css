@@ -15,6 +15,7 @@
     height: calc(100vh - 56px);
     top: 56px;
     left: 0px; 
+    background-image: url("/assets/video/river_poster.jpg");
 }
 
 .home-video {
