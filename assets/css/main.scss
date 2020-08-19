@@ -109,4 +109,34 @@ div.code-toolbar {
 body{
     @include scrollbars(15px, #ffb74d, #eeeeee);
 }
-  
+
+/* NOTIFICA DI AGGIORNAMENTO PWA IN BASSO */
+#toast-container {
+    position: fixed;
+    left: 17vw;
+    bottom: 5px;
+    width: 71vw;
+    min-width: unset;
+    max-width: unset;
+    top: unset;
+}
+
+@media only screen and (orientation: portrait) {
+    #toast-container {
+        left: 0;
+        width: 100vw;
+    }
+}
+
+/* RIDUCI FONT PER SCHERMI SUPER PICCOLI (Es. Galaxy Fold in orientazione portrait e JioPhone 2) */
+@media only screen and (max-width: 300px){
+    h3 {
+        font-size: 2.42rem;
+    }
+}
+
+@media only screen and (max-width: 250px){
+    h3 {
+        font-size: 2.00rem;
+    }
+}

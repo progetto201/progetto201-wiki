@@ -1,7 +1,8 @@
 ---
 permalink: /floorplan.html
-layout: default
+layout: detailpage
 containsImage: "true"
+containsCopylinks: "true"
 description: "Personalizza planimetria del progetto201 con Inkscape o CAD"
 ---
 
@@ -14,9 +15,17 @@ description: "Personalizza planimetria del progetto201 con Inkscape o CAD"
         in formato SVG.
     </p>
 
-    <hr>
+    <!-- INDICE DEI CONTENUTI -->
+    <h5>Indice dei contenuti:</h5>
+    <br>
+    
+    {% include html/parsedtoc.html %}
+    
+    <br><hr><br>
 
-    <h5>Inkscape</h5>
+    <h4 id="inkscape">
+        Inkscape
+    </h4>
     <ol class="collection">
         <li class="collection-item">
             <p>
@@ -109,7 +118,9 @@ description: "Personalizza planimetria del progetto201 con Inkscape o CAD"
 
     <hr>
 
-    <h5>AutoCAD</h5>
+    <h4 id="autocad">
+        AutoCAD
+    </h4>
     <ol class="collection">
         <li class="collection-item">
             Utilizzare AutoCAD per disegnare la planimetria.

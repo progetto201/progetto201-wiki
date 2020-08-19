@@ -32,38 +32,44 @@
 {% comment %}<!-- ========================================================== -->{% endcomment %}
 
 {% comment %}
-<!-- Scorri le righe -->
+<!-- Scorri i link e colleziona gli elementi non vuoti -->
 {% endcomment %}
 
-{% assign i = 2 %}
+{% assign linkscsv = "" %}
 
-<ul id="toc" class="collection">
-{% for row in toc_rows %}
-    
-    {% comment %}
-    <!-- Rimuovi spazi, newline, tabs, ... -->
-    {% endcomment %}
-    {% assign stripped_row = row | strip %}
-    
-    {% comment %}
-    <!-- Se la riga non contiene il simbolo percentuale (uso l'else) -->
-    {% endcomment %}
-    {% if stripped_row contains "%" %}
-    {% else %}
-        {% comment %}
-        <!-- Se la riga non e' vuota -->
-        {% endcomment %}
-        {% if stripped_row != "" %}          
-            
-            <a href="#{{links[i]}}">
-                <li class="collection-item">{{ stripped_row }}</li>
-            </a>
-
-            <hr> 
-
-            {% assign i = i | plus: 1 %}
-        {% endif %}
+{% for link in links %}
+    {% if link != "" %}
+        {% assign linkscsv = linkscsv | append: link | append: ";" %}
     {% endif %}
-        
 {% endfor %}
+
+{% assign linkscsv_els = linkscsv | split: ";" %}
+
+
+{% comment %}<!-- ========================================================== -->{% endcomment %}
+
+{% comment %}
+<!-- Scorri gli elementi dell'indice e ignora quelli vuoti -->
+{% endcomment %}
+
+{% assign toccsv = "" %}
+
+{% for toc_row in toc_rows %}
+    
+    {% assign s_toc_row = toc_row | strip | strip %}
+
+    {% if s_toc_row != "" %}
+        {% assign toccsv = toccsv | append: s_toc_row | append: ";" %}
+    {% endif %}
+{% endfor %}
+
+{% assign toccsv_els = toccsv | split: ";" %}
+
+{% comment %}<!-- ========================================================== -->{% endcomment %}
+
+<ul class="collection">
+    {% for toc_el in toccsv_els %}
+        {% assign i = forloop.index0 %}
+        <li class="collection-item"><a href="#{{linkscsv_els[i]}}">{{toc_el}}</a></li>
+    {% endfor %}
 </ul>

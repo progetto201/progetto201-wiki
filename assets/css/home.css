@@ -92,3 +92,10 @@
     display: flex;
     align-items: center;
 }
+
+/* Riduci l'icona della freccia che punta il basso su schermi super piccoli */
+@media only screen and (max-width: 250px){
+    .icon-font {
+        font-size: 104px;
+    }
+}
