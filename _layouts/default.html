@@ -172,8 +172,7 @@ layout: compress
     <!-- PWA -->
     <script src="/assets/js/app.js"></script>
     <script>
-        window['isUpdateAvailable']
-        .then(isAvailable => {
+        window['isUpdateAvailable'].then(isAvailable => {
             if (isAvailable) {
                 /* Se un aggiornamento e' disponibile visualizza il messaggio */
                 M.toast({html: '<p>Nuovo aggiornamento disponibile! Chiudi e riapri la pagina/applicazione per visualizzare le novita\'</p><span onclick="this.parentNode.M_Toast.dismiss()" class="material-icons">close</span>',

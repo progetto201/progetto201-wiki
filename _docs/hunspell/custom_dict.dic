@@ -1,4 +1,4 @@
-162 custom_dict-wordlist.txt
+180 custom_dict-wordlist.txt
 
 Adafruit
 anchorBody
@@ -9,6 +9,7 @@ ArduinoJson
 AutoCAD
 Autodesk
 autodnsmasq
+autohostapd
 autoinstall
 AUTOINSTALL
 automysql
@@ -30,12 +31,14 @@ containsImage
 copylink
 cp
 creera
+CSRF
 CSS
 Ctrl
 dall
 dataclient
 DATACLIENT
 db
+DDNS
 decommentare
 decommentarlo
 detailpage
@@ -61,12 +64,14 @@ flashare
 floorplan
 frontend
 fulltitle
+funzionera
 Gemfile
 gia
 github
 gitignore
 hostapd
 Hostname
+HTTPS
 ico
 Imager
 img
@@ -77,12 +82,15 @@ IoT
 ip
 js
 JSON
+JWT
 linkcopy
 localhost
 maiusc
 Malwarebytes
 Maric
+microcontrollore
 microcontrollori
+microservizi
 modalita
 mosquitto
 Mosquitto
@@ -97,9 +105,11 @@ MySQL
 mysqlpass
 NAT
 navbar
+nell
 newLine
 NodeMCU
 occorrera
+org
 parsedtoc
 perche
 permalink
@@ -112,10 +122,12 @@ Pinout
 piu
 Pixabay
 Pixaline
+planlabels
 plugin
 png
 poiche
 portera
+possibilita
 proprieta
 PubSubClient
 puo
@@ -123,9 +135,11 @@ pwd
 quantita
 Raspbian
 README
+realta
 responsabilita
 restituira
 riavviera
+riavvii
 Rubygem
 sara
 sass
@@ -143,7 +157,10 @@ sull
 svg
 SVG
 timeToWait
+TLS
 TODO
+ubuntu
+ufw
 umidita
 unclutter
 Unclutter
@@ -158,6 +175,7 @@ Vue
 Wi
 WIFI
 wlan
+XSS
 YAML
 yml
 Zenaro

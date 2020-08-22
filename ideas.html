@@ -1,0 +1,747 @@
+---
+permalink: /ideas.html
+layout: detailpage
+containsCopylinks: "true"
+containsCode: "true"
+containsImage: "true"
+description: "Idee e modifiche per il progetto201"
+---
+
+<!-- CONTAINER CON IL RESTO DELLA PAGINA -->
+<div class="container grow">
+    <h3>Idee e modifiche</h3> 
+    <p>
+        Questa pagina include idee, miglioramenti, considerazioni riguardo
+        al progetto201.
+    </p>
+
+    <!-- INDICE DEI CONTENUTI -->
+    <h5>Indice dei contenuti:</h5>
+    <br>
+    
+    {% include html/parsedtoc.html %}
+    
+    <br><hr><br>
+
+    <ul class="collection">
+        <li class="collection-item">
+            <h4 id="autoinstall">
+                Relative a Autoinstall, sistema operativo e sicurezza informatica
+            </h4>
+            
+            <blockquote>
+                Se possibile automatizzare il tutto in autoinstall e "sotto-script".
+            </blockquote>
+
+            <ol class="collection">
+                <li class="collection-item">
+                    Automatizzare l'installazione e la configurazione di Mosquitto, il broker MQTT.
+                    <blockquote>
+                        <p>
+                            Occorre automatizzare <a href="/start.html#mosquitto">questa sezione</a> della pagina "Come iniziare".
+                        </p> 
+                        <p>
+                            NOTA: l'unico passaggio che occorre automatizzare e' quello della creazione dell'utente con la password,
+                            gli altri comandi possono essere utilizzati cosi' come sono.
+                        </p>
+                    </blockquote>
+                </li>
+                <li class="collection-item">
+                    <p>
+                        Impedire a utenti non autorizzati di leggere file contenenti credenziali
+                    </p>
+                    <p>
+                        I file con credenziali non sono modificabili ma sono comunque leggibili da utenti non autorizzati...
+                    </p>
+                    <p>
+                        File a rischio:
+                    </p>
+                    <p>
+                        * ```/var/www/credentials/credentials.ini```: file utilizzato da PHP per accedere al database
+                    </p>
+                    <p>
+                        * ```/etc/hostapd/hostapd.conf```: file utilizzato da hostapd per creare l'access point
+                    </p>
+                    <p>
+                        * file di configurazione dello script python "mqtt_manager" (contiene password di MySQL e del broker MQTT)
+                    </p>
+                    
+                    <p>
+                        Inoltre il file ```/etc/dhcpcd.conf``` e' modificabile da un utente non-root...
+                    </p>
+                    
+                    <p>
+                        Per risolvere il problema eseguire i comandi:
+                    </p>
+                    
+                    <pre class="language-bash">
+                        <code class="language-bash">
+                            {% capture code %}
+                            # passo la proprieta' del file a www-data (account di apache e php)
+                            sudo chown www-data /var/www/credentials/credentials.ini
+                            # permetto la modifica e la lettura solo al proprietario, gli altri non anno alcun tipo di permessi
+                            sudo chmod 600 /var/www/credentials/credentials.ini
+                            
+                            # permetto modifica e lettura al proprietario (root) e permetto da lettura agli altri
+                            sudo chmod 644 /etc/dhcpcd.conf
+                            
+                            # impongo proprieta' e modifica lettura a root
+                            sudo chown root /etc/hostapd/hostapd.conf
+                            sudo chmod 600 /etc/hostapd/hostapd.conf
+                            {% endcapture %}
+                            {% include html/code.html html=code %}
+                        </code>
+                    </pre>
+                </li>
+                <li class="collection-item">
+                    <p>
+                        Imporre l'inserimento della password di root all'utente "pi" quando si esegue un comando sudo.
+                    </p>
+                    <p>
+                        E' possibile imporre la password all'utente ```pi```
+                        utilizzando i seguenti comandi:
+                    </p>
+                    <pre class="language-bash">
+                        <code class="language-bash">
+                            {% capture code %}
+                            echo 'pi ALL=(ALL) PASSWD: ALL' >> ./pi
+                            sudo chown root:root ./pi
+                            sudo mv ./pi /etc/sudoers.d/
+                            {% endcapture %}
+                            {% include html/code.html html=code %}
+                        </code>
+                    </pre>
+                    <p>
+                        Sarebbe da automatizzare, problema: non e' possibile eseguire i comandi prima di autohostapd perche' altrimenti richiederebbe la password e nello stesso tempo autohostapd riavvia il raspberry... 
+                    </p>
+                    <p>
+                        Due possibilita':
+                    </p>
+                    <p>
+                        * La piu' veloce e' modificare autohostapd per impostare l'esecuzione dei comandi dopo l'ultimo riavvio (lo script riavvia Raspberry Pi 2 volte)
+                    </p>
+                    <p>
+                        * La piu' corretta per rispettare il ruolo dei singoli script (uno si occupa solo di Apache e PHP, un altro solo di MySQL, un altro solo di dnsmasq, ...) 
+                        e' specificare da autoinstall di eseguire i comandi dopo 2 riavvii
+                        <blockquote>
+                            O creare un altro script e farlo eseguire da autoinstall
+                        </blockquote>
+                    </p>
+                </li>
+                <li class="collection-item">
+                    <p>
+                        Aprire le porte del router per permettere la connessione dall'esterno da remoto.
+                    </p>
+                    <p>
+                        In alternativa rendere raspberry un server VPN per lo stesso scopo.
+                    </p>
+                    <blockquote>
+                        Prima mettere in atto tutte le misure di sicurezza necessarie. (firewall, HTTPS, password protette, ...)
+                    </blockquote>
+                </li>
+                <li class="collection-item">
+                    <p>
+                        Configurare un DDNS per permettere l'accesso da remoto via nome invece di utilizzare l'IP pubblico (che e' molto probabilmente dinamico)
+                    </p>
+                    <p>
+                        Per evitare di inserire un indirizzo IP possibilmente dinamico occorre utilizzare un servizio DDNS: <a href="https://www.duckdns.org/">duckdns</a> e' molto valido, 
+                        e' facilmente automatizzabile e non elimina i domini in caso di mancato aggiornamento.
+                    </p>
+                    <p>
+                        Occorre accedere sul sito e aggiungere un dominio. Verra' fornito un token per l'autenticazione.
+                    </p>
+                    <p>
+                        Comandi da eseguire:
+                    </p>
+                    <pre class="language-bash">
+                        <code class="language-bash">
+                            {% capture code %}
+                            # dominio ottenuto da duckdns
+                            duckdns_domain="&lt;domain&gt;"
+                            # token di autenticazione (ha un ruolo simile a una password, non condividerlo online)
+                            duckdns_token="&lt;token&gt;"
+                            
+                            # percorso in cui posizionare lo script per mantenere aggiornato duckdns
+                            duckdns_path="/home/pi/duckdns"
+                            duckdns_script="${duckdns_path}/duckA.sh"
+                            duckdns_cronpath="/etc/cron.d/duckdnsa"
+                            
+                            # crea la cartella e lo script per aggiornare la corrispondenza IP pubblico - nome dominio
+                            mkdir "${duckdns_path}"
+                            echo "echo url='https://www.duckdns.org/update?domains=${duckdns_domain}&token=${duckdns_token}&ip=' | curl -k -o '${duckdns_path}/duck.log' -K -" > "${duckdns_script}"
+                            
+                            # modifica i permessi per permettere solo a root di leggere e modificare il file
+                            chmod 700 "${duckdns_script}"
+                            sudo chown root "${duckdns_script}"
+            
+                            echo "*/5 * * * * root '${duckdns_script}' >/dev/null 2>&1" | sudo tee "${duckdns_cronpath}" >/dev/null 2>&1
+                            {% endcapture %}
+                            {% include html/code.html html=code %}
+                        </code>
+                    </pre>
+                </li>
+                <li class="collection-item">
+                    <p>Directory dei file di log</p>
+                    <p>
+                        Lo script autohostapd.sh, essendo eseguito dopo un riavvio, salva parte dei log nella home dell'utente "pi".
+                    </p>
+                    <p>
+                        Imporre allo script il percorso del file di log.
+                    </p>
+                    <blockquote>
+                        Esempio: salvare i file di log nella cartella dello script
+                        oppure creare una cartella nel percorso "/var/log". (Il nome della cartella potrebbe essere ad esempio "autoinstall_logs")
+                    </blockquote>
+                </li>
+                <li class="collection-item">
+                    <p>
+                        SSL/TLS per HTTPS
+                    </p>
+                    <p>
+                        Per cifrare le comunicazioni con il server web e' necessario un certificato. Let's encrypt e' gratuito (piu' informazioni <a href="https://letsencrypt.org/">sul sito ufficiale qui</a>).
+                    </p>
+                    <p>
+                        Comandi:
+                    </p>
+                    <pre class="language-bash">
+                        <code class="language-bash">
+                            {% capture code %}
+                            # email a cui venire contattati in caso di problemi
+                            letsencrypt_email="&lt;email&gt;"
+                            # dominio da registrare (ottenuto da un DDNS o acquistato)
+                            letsencrypt_domain="&lt;domain&gt;"
+                            
+                            # utilizza certbot (occorre installarlo) per configurare apache,
+                            # automaticamente (non interattivo),
+                            # accetta automaticamente i termini di servizio (agree tos),
+                            # specifica la mail e il dominio da utilizzare
+                            sudo certbot --apache \
+                            --non-interactive \
+                            --agree-tos \
+                            --email "{$letsencrypt_email}" \
+                            --domains "{$letsencrypt_domain}"
+                            {% endcapture %}
+                            {% include html/code.html html=code %}
+                        </code>
+                    </pre>
+                </li>
+                <li class="collection-item">
+                    <p>
+                        Modificare le regole del Firewall per permettere solo ai servizi DHCP, DNS, MQTT, HTTPS
+                        di comunicare con altri dispositivi.
+                    </p>
+                    <blockquote>
+                        <p>
+                            Attenzione! Se si blocca il protocollo DHCP i dispositivi non riceveranno piu' IP dinamici,
+                            se si blocca il DNS non funzionera' piu' la conversione dei nomi in IP, ecc...
+                        </p>
+                        <p>
+                            Se non si abilita SSH potrebbe essere impossibile ricollegarsi via SSH al Raspberry.
+                        </p>
+                        <p>
+                            Se qualcosa smette di funzionare dopo aver configurato il firewall assicurarsi che le porte
+                            dei relativi servizi non siano state bloccate.
+                        </p>
+                    </blockquote>
+
+                    <p>
+                        Il metodo piu' semplice di applicare regole sul firewall e' utilizzando ```ufw```.
+                    </p>
+                    <p>
+                        <a href="https://www.raspberrypi.org/documentation/configuration/security.md">Ulteriori informazioni da raspberry.org</a>
+                    </p>
+                    <p>
+                        <a href="https://wiki.ubuntu.com/BasicSecurity/Firewall">Ulteriori informazioni da wiki.ubuntu.com</a> piu' specifico sui servizi
+                    </p>                    
+                </li>
+                <li class="collection-item">
+                    <p>
+                        Unit testing degli script
+                    </p>
+                    <p>
+                        Creare script con <a href="https://github.com/bats-core/bats-core">Bats-core</a> (Bash Automated Testing System) per creare test automatici.
+                    </p>
+                </li>
+                <li class="collection-item">
+                    <p>
+                        Permette solo agli utenti autenticati di visualizzare i dati del sistema di monitoraggio.
+                    </p>
+                    <p>
+                        Per fare questo occorre autenticare l'utente sia per l'API sia per la frontend: niente deve essere accessibile di default.
+                    </p>
+
+                    <p>
+                        Esistono diversi metodi per permettere l'autenticazione degli utenti.
+                    </p>
+                    <p>
+                        Esempi:
+                    </p>
+                    <p>
+                        * Session based: basati sulle sessioni
+                    </p>
+                    <p>
+                        * Token based: basati sui token, come JWT (JSON web token)
+                    </p>
+                    <blockquote>
+                        <p>
+                            Valutare tutti i vantaggi e i rischi dei vari metodi.
+                        </p>
+                        <p>
+                            Esempio: JWT e' un metodo stateless (non viene memorizzato lo stato della autenticazione lato server, avviene la verifica di un segreto) 
+                            e quindi e' molto comodo per architetture software a microservizi (non e' necessario per ogni servizio e operazione verificare lo stato della sessione contattando un database)
+                            ma occorre implementarlo correttamente: e' un metodo a rischio di attacchi XSS e CSRF e occorre attuare delle strategie per renderlo piu' sicuro.
+                        </p>
+                        
+                    </blockquote>
+
+                    <blockquote>
+                        <p>
+                            Un passo aggiuntivo sarebbe quello di permettere di configurare il sistema per funzionare in modalita' diverse.
+                        </p>
+                        <p>
+                            Esempi:
+                        </p>
+                        <p>
+                            1. permettere di visualizzare i dati e di modificare le impostazioni sempre, anche se l'utente non e' autenticato
+                        </p>
+                        <p>
+                            2. Permettere di visualizzare i dati e le impostazioni ma permettere la sola lettura delle impostazioni.
+                            Solo l'utente autenticato e autorizzato puo' modificare le impostazioni.
+                        </p>
+                        <p>
+                            3. Tutto non accessibile di default: solo l'utente autenticato e autorizzato puo' visualizzare i dati e modificare le impostazioni.
+                        </p>
+                    </blockquote>
+
+                    <blockquote>
+                        <p>
+                            Un altro extra sarebbe permettere di creare account diversi con permessi diversi.
+                        </p>
+                        <p>
+                            Esempio:
+                        </p>
+                        <p>
+                            * Permettere ad un account amministratore di modificare le impostazioni, visualizzare i dati
+                            e creare altri account
+                        </p>
+                        <p>
+                            * Permettere agli altri account solo di visualizzare i dati
+                        </p>
+                    </blockquote>
+                </li>
+            </ol>
+        </li>
+        <li class="collection-item">
+            <h4 id="api">Relative alla API</h4>
+            <ol class="collection">
+                <li class="collection-item">
+                    <p>
+                        Alcuni script restituiscono status 500 quando la tabella del database non contiene record
+                        o se non vengono applicate modifiche ai record.
+                    </p>
+                    <p>
+                        Questo non influisce sul funzionamento del sistema, semplicemente il codice di status non e' coerente
+                        con il corretto/normale stato della tabella.
+                    </p>
+                    <p>
+                        Occorre modificare questi script per permettere la restituzione di 0 elementi.
+                    </p>
+                    <blockquote>
+                        Esempio: "options/planlabels.php" restituisce errore quando la tabella t_planlabels e' vuota
+                        o quando l'utente preme il pulsante "Salva" dalla frontend e uno dei label non e' stato modificato.
+                    </blockquote>
+                    <blockquote>
+                        Per trovare gli script guardare sulla tab "Network" degli "Strumenti per sviluppatori" del browser.
+                        Verificare se i status code diversi da 200 sono coerenti (esiste veramente un errore/problema)
+                        oppure se uno status code e' diverso da 200 ma l'operazione ha avuto successo.
+                        In questo ultimo caso: modificare lo script per restituire status code 200 in quel contesto.
+                    </blockquote>
+                </li>
+                <li class="collection-item">
+                    <p>
+                        Aggiungere uno script per permettere all'utente via Frontend la possibilita' di aggiungere,
+                        modificare, togliere delle location dalla tabella t_locations.
+                        <blockquote>
+                            Non permettere all'utente di cancellare la location di default, "sconosciuta"
+                        </blockquote>
+                    </p>
+                    <p>
+                        Inoltre permettere all'utente di modificare la location dei nodi stessi.
+                    </p>
+                </li>
+            </ol>
+        </li>
+        <li class="collection-item">
+            <h4 id="frontend">
+                Relative alla frontend
+            </h4>
+            <ol class="collection">
+                <li class="collection-item">
+                    Documentare completamente la frontend. (anche i label)
+                </li>
+                <li class="collection-item">
+                    Permettere all'utente di aggiungere, modificare e cancellare le location
+                    inviando una HTTP request al relativo script PHP della API.
+                    <blockquote>
+                        La location "sconosciuta" non deve essere modificabile.
+                    </blockquote>
+                </li>
+                <li class="collection-item">
+                    Permettere all'utente di modificare la location di un nodo inviando una HTTP
+                    request al relativo script PHP della API.
+                </li>
+            </ol>
+        </li>
+        <li class="collection-item">
+            <h4 id="mqtt_manager">
+                Relative a mqtt_manager
+            </h4>
+            <ol class="collection">
+                <li class="collection-item">
+                    <p>
+                        Imporre il percorso del file di log nella cartella dello script oppure in una cartella in "/var/log".
+                    </p>
+                    <blockquote>
+                        Dopo il primo riavvio (dopo aver configurato l'avvio automatico dello script) lo script verra' eseguito
+                        nella home dell'utente "pi" e quindi i log verranno scritti in quella cartella.
+                    </blockquote>
+                </li>
+                <li class="collection-item">
+                    Aggiungere un controllo per garantire che tutti i percorsi relativi allo script siano assoluti
+                    per essere certi della posizione dei file.
+                </li>
+            </ol>
+        </li>
+    </ul>
+
+    <hr>
+
+    <h4 id="actuators">Extra: aggiungere attuatori al sistema</h4>
+    <p>
+        Questa e' molto probabilmente l'idea piu' complessa: richiede di modificare mqtt_manager, l'API e la frontend.
+    </p>
+    <p>
+        In realta' se si desidera implementare pochi attuatori e' possibile modificare lo script mqtt_manager
+        per leggere i dati in arrivo e fare un hard-coding (scrivere codice statico, fissare in variabili i valori) di cosa fare in base alle rilevazioni dei sensori.
+    </p>
+    <p>
+        Cio' che e' complicato e' permettere dinamicamente e da interfaccia grafica (la frontend) di aggiungere,
+        togliere e modificare compiti che il sistema deve eseguire in base a quali dati arrivano, da quale nodo arrivano, ...
+    </p>
+
+    <blockquote>
+        In questa sezione parlo di "compiti" (tasks) e di "azioni" (actions).
+        Un "compito", task, riguarda cosa fare quando il sistema riceve una rilevazione. (esempio: quando la temperatura e' X fai l'azione Y)
+        Una "azione", action, riguarda invece cosa puo' fare un nodo (esempio: accendere o spegnere qualcosa).
+    </blockquote>
+
+    <ol class="collection">
+        <li class="collection-item">
+            <p>
+                Per prima cosa occorre modificare il database per permettere al sistema di memorizzare i compiti da svolgere:
+                occorre creare una nuova tabella.
+            </p>
+            <p>
+                Potrebbe chiamarsi "t_tasks" ad esempio...
+            </p>
+            <p>
+                Occorre tenere traccia di diversi campi:
+            </p>
+            <ul class="collection">
+                <li class="collection-item">
+                    L'identificativo del nodo che rileva i dati.
+                </li>
+                <li class="collection-item">
+                    L'identificativo del nodo con l'attuatore.
+                </li>
+                <li class="collection-item">
+                    Un valore di reference. 
+                </li>
+                <li class="collection-item">
+                    Cosa deve essere confrontato con il valore di reference.
+                    Potrebbe essere il nome del campo con il dato proveniente da un sensore.
+                </li>
+                <li class="collection-item">
+                    Che operazione logica fare tra il valore di reference e il valore rilevato.
+                    (maggiore, minore, maggiore uguale, diverso, ...)
+                </li>
+                <li class="collection-item">
+                    <p>
+                        Che azione svolgere quando l'operatore logico restituisce vero.
+                    </p>
+                    <p> 
+                        Es. il valore di temperatura rilevato e' maggiore del reference?
+                        se e' vero esegui l'azione X.
+                    </p>
+                    <blockquote>
+                        <p>
+                            Si potrebbe anche aggiungere un campo su cosa svolgere quando l'operatore logico restituisce falso.
+                        </p>
+                        <p> 
+                            Es. il valore di temperatura rilevato e' maggiore del reference?
+                            se e' falso esegui l'azione Y.
+                        </p>
+                        <p>
+                            A quel punto occorre pero' dare la possibilita' all'utente di creare compiti sia con azioni da eseguire
+                            in caso positivo sia in caso negativo ma anche di creare compiti che abbiano solo azioni da eseguire
+                            con risultato negativo o che abbiano solo azioni da eseguire con risultato positivo.
+                        </p>
+                    </blockquote>
+                </li>
+            </ul>
+        </li>
+        <li class="collection-item">
+            <p>
+                Per come si puo' fare a gestire quali tipi di azioni permettere all'utente di eseguire... Si potrebbe
+                indicare al nodo di presentarsi specificando le sue azioni.
+            </p>
+            <p>
+                Le azioni possono essere salvate in un'altra tabella chiamata ad esempio "t_actions"
+                e ogni azione puo' avere l'id del nodo e un numero o stringa che permette al nodo di capire cosa fare.
+            </p>
+            <p>
+                Se memorizziamo l'id del nodo con l'azione non occorre piu' memorizzare l'id del nodo con il compito in t_tasks...
+            </p>
+        </li>
+        <li class="collection-item">
+            <p>
+                Seguendo cio' che e' stato detto precedentemente quando un nuovo nodo con attuatore viene aggiunto
+                potrebbe essere eseguito qualcosa del genere:
+            </p>
+            <div class="center-align container">
+                <img class="materialboxed mx-auto resp-img" src="/assets/svg/ideas/newactuator.svg" alt="Schema: nuovo attuatore aggiunto al sistema">
+            </div>
+            <blockquote>
+                Legenda: azzurro chiaro indica sketch arduino, e' su una scheda a microcontrollore.
+                Blu indica Python, lo script mqtt_manager.
+            </blockquote>
+            <p>
+                A questo punto so quali azioni puo' eseguire il nodo con l'attuatore.
+            </p>
+            <blockquote>
+                Si potrebbe anche usare degli identificativi al posto di una stringa ma a quel punto
+                e' consigliato aggiungere un descrittore dell'azione.
+                <p>
+                    Esempio: il nodo ha l'azione "accendi" che ha identificativo 1 per il nodo e l'azione "spegni" ha identificativo 0.
+                    Successivamente mandando un "1" indicheremo al nodo di eseguire l'azione "accendi", ...
+                </p>
+            </blockquote>
+
+            <blockquote>
+                Un altro metodo puo' essere semplicemente dire "quando si presenta un nodo di tipo X so che le sue azioni sono Y e Z",
+                senza affidare l'impegno al nodo di indicare quali sono le sue azioni.
+            </blockquote>
+        </li>
+        <li class="collection-item">
+            <p>
+                Adesso occorre sapere dall'utente cosa fare e quando farlo...
+            </p>
+            <p>
+                Idea per permettere all'utente di creare compiti (le ho chiamate azioni nell'interfaccia):
+            </p>
+            <div class="center-align container">
+                <img class="materialboxed mx-auto resp-img" src="/assets/svg/ideas/actionsfrontend.svg" alt="Aggiungi e modifica azioni">
+            </div>
+        </li>
+        <li class="collection-item">
+            Quando l'utente clicca su aggiungi viene eseguita una POST request all'API, PHP, che si occupa di inserire nella tabella
+            t_tasks il nuovo compito.
+        </li>
+        <li class="collection-item">
+            <p>
+                Da ora in poi mqtt_manager quando riceve un dato da un sensore deve verificare se sono presenti dei compiti relativi a quel nodo.
+            </p>
+            
+            <p>
+                Ecco che logica potrebbe adottare:
+            </p>
+            <div class="center-align container">
+                <img class="materialboxed mx-auto resp-img" src="/assets/svg/ideas/execaction.svg" alt="Dato ricevuto, Azione eseguita">
+            </div>
+            <blockquote>
+                Legenda: azzurro chiaro indica sketch arduino, e' su una scheda a microcontrollore.
+                Blu indica Python, lo script mqtt_manager.
+            </blockquote>
+        </li>
+    </ol>
+
+    <p>
+        Idee ancora piu' avanzate sarebbero permettere all'utente di concatenare azioni in base a una condizione, 
+        avere piu' condizioni per una o piu' azioni, avere come condizione il tempo (esempio: alle ore 15 di ogni giorno accendi X) invece di una rilevazione ...
+    </p>
+    <p>
+        Per concatenare le azioni si potrebbe aggiungere un campo aggiuntivo, chiamarlo tipo "callback_task" per ogni compito e dire "se callback_task non e' none, esegui quel task".
+        A quel punto si puo' anche eseguire quel task in base alla sua condizione...
+    </p>
+    <p>
+        Si potrebbero anche creare task solo con condizioni e aggiungere una callback_task...
+    </p>
+    <p>
+        Esempio di compito con azione che richiama compito con azione:
+    </p>
+    <table class="striped responsive-table break-word">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>reading_node_id</th>
+                <th>data_name</th>
+                <th>operator</th>
+                <th>reference</th>
+                <th>positive_action_id</th>
+                <th>negative_action_id</th>
+                <th>callback_task</th>
+            </tr>
+        </thead>
+
+        <tbody>
+             <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>temp</td>
+                <td>greater than</td>
+                <td>28.50</td>
+                <td>1</td>
+                <td>none</td>
+                <td>2</td>
+             </tr>
+            <tr>
+                <td>2</td>
+                <td>5</td>
+                <td>hum</td>
+                <td>lower than</td>
+                <td>25.00</td>
+                <td>none</td>
+                <td>4</td>
+                <td>none</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        In questo caso se il dato "temp" (temperatura) del nodo "1" e' "greater than" (maggiore di) "28.50" (reference, valore di riferimento)
+        esegui l'azione "1" della tabella t_actions (potrebbe essere "accendi ventilatore"), non fare niente in caso contrario e quando hai finito richiama il compito 2 ("callback_task").
+    </p>
+    <p>
+        Adesso il compito 2 viene eseguito: se il dato "hum" (umidita') del nodo "5" e' "lower than" (minore di) "25.00" (reference) non fare niente (positive_action_id = none),
+        in caso contrario esegui l'azione "4" della tabella t_actions (potrebbe essere "apro la finestra") e quando hai finito non fare niente (callback_task = none)
+    </p>
+
+    <hr>
+
+    <p>
+        Se si volesse invece avere due azioni per una condizione si potrebbe idealizzare qualcosa del genere:
+    </p>
+    <table class="striped responsive-table break-word">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>reading_node_id</th>
+                <th>data_name</th>
+                <th>operator</th>
+                <th>reference</th>
+                <th>positive_action_id</th>
+                <th>negative_action_id</th>
+                <th>callback_task</th>
+            </tr>
+        </thead>
+
+        <tbody>
+             <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>temp</td>
+                <td>greater than</td>
+                <td>28.50</td>
+                <td>1</td>
+                <td>none</td>
+                <td>2</td>
+             </tr>
+            <tr>
+                <td>2</td>
+                <td>none</td>
+                <td>none</td>
+                <td>always true</td>
+                <td>none</td>
+                <td>6</td>
+                <td>none</td>
+                <td>none</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        Se la temperatura del nodo 1 e' maggiore di 28.50 (reference), esegui l'azione 1 e richiama il compito 2.
+    </p>
+    <p>
+        Il compito 2 viene eseguito sempre (operator = always true, sempre vero), esegue l'azione 6.
+    </p>
+
+    <hr>
+
+    <p>
+        Se si volesse invece avere due condizioni per una azione invece...:
+    </p>
+    <table class="striped responsive-table break-word">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>reading_node_id</th>
+                <th>data_name</th>
+                <th>operator</th>
+                <th>reference</th>
+                <th>positive_action_id</th>
+                <th>negative_action_id</th>
+                <th>callback_task</th>
+            </tr>
+        </thead>
+
+        <tbody>
+             <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>temp</td>
+                <td>greater than</td>
+                <td>28.50</td>
+                <td>none</td>
+                <td>none</td>
+                <td>2</td>
+             </tr>
+            <tr>
+                <td>2</td>
+                <td>3</td>
+                <td>hum</td>
+                <td>greater than</td>
+                <td>26.70</td>
+                <td>6</td>
+                <td>none</td>
+                <td>none</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        Se la temperatura del nodo 1 e' maggiore di 28.50 richiama il task 2.
+    </p>
+    <p>
+        Il task 2 controlla se l'umidita' del nodo 3 e' maggiore di 26.70 e eventualmente esegue l'azione 6.
+    </p>
+    <blockquote>
+        <p>
+            A questo punto occorre decidere pero' la logica delle callback... Devono essere sempre eseguite alla fine di un compito?
+            devono essere eseguite solo quando la condizione e' vera? solo quando e' falsa? ...
+        </p>
+        <p>
+            Volendo si puo' aggiungere un nuovo campo alla tabella... Qualcosa tipo "callback_condition".
+        </p>
+        <p>
+            Se callback_condition e' "always" il compito successivo viene richiamato sempre.
+        </p>
+        <p>
+            Se callback_condition e' "on true" il compito successivo viene richiamato solo quando la condizione restituita dall'operatore e' vera.
+        </p>
+        <p>
+            Se callback_condition e' "on false" il compito successivo viene richiamato solo quando la condizione restituita dall'operatore e' falsa.
+        </p>
+        <p>
+            Sappiamo gia' di non eseguire il compito successivo quando callback_task e' none.
+        </p>
+    </blockquote>
+</div>

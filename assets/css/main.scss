@@ -140,3 +140,8 @@ body{
         font-size: 2.00rem;
     }
 }
+
+/* Dividi parole per far stare la tabella della pagina "Idee e modifiche" nella pagina */
+.break-word {
+    word-break: break-word;
+}
