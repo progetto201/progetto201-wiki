@@ -59,7 +59,9 @@ layout: compress
 	{% endif %}
 	
 	{% if page.containsCode == "true" %}
-		<link rel='stylesheet' href="/assets/css/prism.css">
+        <link rel='stylesheet' href="/assets/css/prism.css">
+        <!-- cambia tema di prism.js quando si stampa la pagina (tema chiaro) -->
+        <link media="print" rel='stylesheet' href="/assets/css/prism-vs.css">
     {% endif %}
 </head>
 
@@ -169,6 +171,18 @@ layout: compress
 		<script src="/assets/js/copylink.js"></script>
     {% endif %}
     
+    {% if page.containsVideos == "true" %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                /* Show video controllers */
+                var videospeedControllers = document.getElementsByClassName("videospeed-controller");
+                for (let i = 0; i < videospeedControllers.length; i++) {
+                    videospeedControllers[i].classList = "videospeed-controller hide-on-print";
+                }
+            });
+        </script>
+    {% endif %}
+
     <!-- PWA -->
     <script src="/assets/js/app.js"></script>
     <script>

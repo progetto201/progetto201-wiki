@@ -4,6 +4,7 @@ layout: detailpage
 containsCode: "true"
 containsImage: "true"
 containsCopylinks: "true"
+containsVideos: "true"
 description: "Guida iniziale progetto201"
 ---
 
@@ -90,10 +91,11 @@ description: "Guida iniziale progetto201"
                 </h4>
                 <p>Installare Raspbian/Raspberry Pi OS su Raspberry Pi (la centralina), configurarlo e aggiornarlo.</p>
                 
-                <h5>Videoguida:</h5>
+                <h5 class="hide-on-print">Videoguida:</h5>
                 <video class="responsive-video" controls>
                     <source src="/assets/video/raspbianinstall.mp4" type="video/mp4">
                 </video>
+                {% include html/videospeed_control.html %}
 
                 <h5>Guida testuale:</h5>
                 <ul class="collection">
@@ -314,10 +316,11 @@ description: "Guida iniziale progetto201"
                 </h4>
                 <p>Utilizzare AUTOINSTALL per installare e configurare automaticamente (quasi) tutto quello che serve. Il Raspberry si riavviera' automaticamente un paio di volte</p>
 
-                <h5>Videoguida:</h5>
+                <h5 class="hide-on-print">Videoguida:</h5>
                 <video class="responsive-video" controls>
                     <source src="/assets/video/autoinstall.mp4" type="video/mp4">
                 </video>
+                {% include html/videospeed_control.html %}
 
                 <h5>Guida testuale:</h5>
 

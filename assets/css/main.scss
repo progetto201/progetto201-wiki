@@ -23,7 +23,7 @@
 
 /* ELEMENTO NASCOSTO */
 .hidden {
-    display: none;
+    display: none!important;
 }
 
 /* MEDIA QUERY PER SCHERMI MEDI */
@@ -144,4 +144,31 @@ body{
 /* Dividi parole per far stare la tabella della pagina "Idee e modifiche" nella pagina */
 .break-word {
     word-break: break-word;
+}
+
+/* controllo velocita' dei video: aggiungi spazio tra icona e il testo */
+.msg-speed {
+    margin-right: 3px;
+}
+
+@media only screen and (max-width: 630px){
+    /* nascondi "velocita'" sugli schermi piu' piccoli */
+    .msg-speed {
+        display: none;
+    }
+}
+
+/* NASCONDI ELEMENTI QUANDO SI CERCA DI STAMPARE LA PAGINA */
+@media print {
+    #slide-out, video, footer, nav, #go-top, .fixed-action-btn, .copy-link, .hide-on-print {
+        display: none!important;
+    }
+
+    #rightcolumn {
+        padding-left: 0;
+    }
+
+    .container {
+        width: 100%;
+    }
 }

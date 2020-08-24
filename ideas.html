@@ -390,6 +390,15 @@ description: "Idee e modifiche per il progetto201"
                     Permettere all'utente di modificare la location di un nodo inviando una HTTP
                     request al relativo script PHP della API.
                 </li>
+                <li class="collection-item">
+                    Gestire gli errori provenienti dalla backend API.
+                </li>
+                <li class="collection-item">
+                    Utilizzare i Vue file components ( <a href="https://vuejs.org/v2/guide/single-file-components.html"link></a> ).
+                    <blockquote>
+                        Occorre implementare webpack o simili per convertire i file .vue in javascript
+                    </blockquote>
+                </li>
             </ol>
         </li>
         <li class="collection-item">
@@ -409,6 +418,106 @@ description: "Idee e modifiche per il progetto201"
                 <li class="collection-item">
                     Aggiungere un controllo per garantire che tutti i percorsi relativi allo script siano assoluti
                     per essere certi della posizione dei file.
+                </li>
+                <li class="collection-item">
+                    <p>
+                        Per ridurre la quantita' di dati inviati tra l'API e la frontend si potrebbe implementare
+                        i websocket per inviare le ultime rilevazioni alla frontend.
+                        Ad esempio se la frontend richiede all'API delle rilevazioni e l'API risponde con 1000 rilevazioni
+                        attualmente la frontend quando richiedera' di nuovo i dati via Ajax per mantenere aggiornati i grafici l'API rispondera'
+                        con almeno 1000 rilevazioni (se non ne sono arrivate altre).
+                        Implementando i websocket la prima richiesta HTTP verso l'API darebbe sempre 1000 rilevazioni in risposta
+                        ma poi se le ultime rilevazioni arrivano tramite websocket queste arrivano una a una. 
+                    </p>
+                    <p>
+                        Lato frontend occorre utilizzare una libreria per connettersi al server websocket da implementare in mqtt_manager.
+                    </p>
+                    <p>
+                        I websocket ( <a href="https://www.html.it/articoli/introduzione-ai-websocket/">link ad un articolo di html.it</a> )potrebbero anche permettere ai vari client di aggiornare il proprio stato.
+                        Ad esempio se un client modifica il colore della interfaccia gli altri client non cambiano
+                        immediatamente: e' necessario eseguire il refresh della pagina.
+                    </p>
+                    
+                    <blockquote>
+                        Se si implementa una forma di autenticazione dell'utente occorre anche verificare l'autenticazione dei websocket
+                        e attuare tutte le misure di sicurezza necessarie. ( <a href="https://devcenter.heroku.com/articles/websocket-security">link articolo a riguardo</a> )
+                    </blockquote>
+                </li>
+            </ol>
+        </li>
+        <li class="collection-item">
+            <h4 id="sketch-arduino">
+                Relative agli sketch Arduino
+            </h4>
+            <ol class="collection">
+                <li class="collection-item">
+                    <p>
+                        Permettere ai nodi di essere aggiornati/programmati da remoto via aggiornamenti OTA (Over The Air updates).
+                    </p>
+                    <p>
+                        Questo puo' risultare utile se i nodi sono in luoghi lontani e/o difficilmente raggiungibili.
+                    </p>
+                    <p>
+                        Magari vogliamo sistemare un bug dello sketch o aggiornare una libreria che contiene una vulnerabilita' grave.
+                    </p>
+                    <p>
+                        Esistono diversi metodi per poter aggiornare i microcontrollori basati su ESP8266 ( <a href="https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html">link alla documentazione</a> )
+                        ma il metodo piu' adatto a questo scopo e' il metodo con HTTP server su un altro dispositivo (potrebbe essere Raspberry), non il metodo del Web server sul nodo.
+                    </p>
+                    <blockquote>
+                        <p>
+                            Occorre impedire ad utenti non autorizzati di programmare i nodi a distanza.
+                        </p>
+                        <p>
+                            Per fare questo e' necessario poter autenticare nodo e Raspberry e 
+                            utilizzare tecniche di crittografia per proteggere la comunicazione dei segreti (HTTPS)
+                        </p>
+                        <p>
+                            Esempio di codice che verifica gli aggiornamenti attraverso una chiave pubblica: <a href="https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266httpUpdate/examples/httpUpdateSigned/httpUpdateSigned.ino">link</a>.
+                        </p>
+                        <p>
+                            Software per firmare gli aggiornamenti: <a href="https://github.com/esp8266/Arduino/blob/master/tools/signing.py">link</a>
+                        </p>
+                            
+                       
+                    </blockquote>
+                </li>
+                <li class="collection-item">
+                    <p>
+                        Le tabelle t_typeX_options contengono le impostazioni dei nodi.
+                        Attualmente e' possibile modificare solo con istruzioni SQL e per attuare le modifiche
+                        sui nodi occorre riavviare il nodo.
+                    </p>
+                    <p>
+                        Verificare se e' possibile implementare un metodo per riavviare il nodo (magari dopo aver ricevuto un messaggio via MQTT).
+                    </p>
+                    <p>
+                        Si potrebbe inoltre permettere all'utente di cambiare da interfaccia grafica le impostazioni.
+                    </p>
+                    <blockquote>
+                        Occorre gestire dalla API la modifica dei valori sul database.
+                    </blockquote>
+                </li>
+                <li class="collection-item">
+                    <p>
+                        Attualmente tutte le rilevazioni vengono inviate immediatamente via MQTT a Raspberry senza alcun log.
+                    </p>
+                    <p>
+                        Questo significa che tutte le rilevazioni che non vengono inviate correttamente (magari il nodo cerca di inviare le rilevazioni senza essere connesso al broker MQTT o alla rete Wi-Fi)
+                        vengono perse.
+                    </p>
+                    <p>
+                        Sulle schede basate su ESP8266 esisterebbe una memoria chiamata SPIFFS che e' un vero file system.
+                    </p>
+                    <p>
+                        Esistono articoli e forum in cui sconsigliano di sovrascrivere continuamente la memoria poiche' dopo un certo numero di scritture
+                        la memoria diventa inaffidabile... Esistono anche altre risorse che invece dichiarano che con una scrittura al minuto la memoria dura quasi 60 anni 
+                        (considerando solamente il fattore riscrittura della memoria).
+                        ( <a href="https://github.com/pellepl/spiffs/wiki/FAQ#how-long-will-my-spi-flash-live">link a favore di questa tesi</a> )
+                    </p>
+                    <p>
+                        Una alternativa alla memoria SPIFFS sarebbe aggiungere alla scheda un lettore di schede SD e utilizzare la scheda SD per memorizzare i log.
+                    </p>
                 </li>
             </ol>
         </li>
@@ -744,4 +853,11 @@ description: "Idee e modifiche per il progetto201"
             Sappiamo gia' di non eseguire il compito successivo quando callback_task e' none.
         </p>
     </blockquote>
+
+    <hr>
+
+    <p>
+        Per i compiti a tempo si potrebbe creare una nuova tabella che richiama le action di t_action.
+        La tabella potrebbe chiamarsi "t_timed_tasks".
+    </p>
 </div>

@@ -1,6 +1,7 @@
 
 Adafruit
 anchorBody
+andra
 apparira
 aprira
 arduino
@@ -27,6 +28,7 @@ configfile
 containsCode
 containsCopylinks
 containsImage
+containsVideos
 copylink
 cp
 creera
@@ -79,6 +81,7 @@ Inkscape
 internalfunctions
 IoT
 ip
+javascript
 js
 JSON
 JWT
@@ -109,6 +112,7 @@ newLine
 NodeMCU
 occorrera
 org
+OTA
 parsedtoc
 perche
 permalink
@@ -139,6 +143,8 @@ responsabilita
 restituira
 riavviera
 riavvii
+richiedera
+rispondera
 Rubygem
 sara
 sass
@@ -148,6 +154,7 @@ SD
 sh
 sidenav
 sottocartella
+SPIFFS
 sql
 ssh
 ssid
@@ -158,6 +165,7 @@ SVG
 timeToWait
 TLS
 TODO
+typeX
 ubuntu
 ufw
 umidita
@@ -166,11 +174,18 @@ Unclutter
 unicode
 upstreamcity
 Url
+velocita
+Velocita
 verra
 Verra
 Videoguida
+videospeed
 visualizzera
+vue
 Vue
+vulnerabilita
+webpack
+websocket
 Wi
 WIFI
 wlan
