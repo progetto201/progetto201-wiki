@@ -97,7 +97,7 @@ description: "Guida iniziale progetto201"
                 </video>
                 {% include html/videospeed_control.html %}
 
-                <h5>Guida testuale:</h5>
+                <h5 class="hide-on-print">Guida testuale:</h5>
                 <ul class="collection">
                     <li class="collection-item">
                         <p>
@@ -322,7 +322,17 @@ description: "Guida iniziale progetto201"
                 </video>
                 {% include html/videospeed_control.html %}
 
-                <h5>Guida testuale:</h5>
+                <blockquote class="hide-on-print">
+                    Nel video, dopo aver abilitato VNC, si vede l'utilizzo del terminale come se si fosse davanti al desktop 
+                    del Raspberry ma tutti i comandi sono riproducibili anche sulla shell remota via SSH.
+                </blockquote>
+
+                <blockquote class="hide-on-print">
+                    Per scaricare AUTOINSTALL e' stato utilizzato il comando git ma e' possibile anche andare sul repository Github
+                    di AUTOINSTALL, scaricare lo zip ed estrarlo da interfaccia grafica.
+                </blockquote>
+
+                <h5 class="hide-on-print">Guida testuale:</h5>
 
                 <ul class="collection">
                     <li class="collection-item"> 
@@ -533,9 +543,20 @@ description: "Guida iniziale progetto201"
                 </h4>
                 <p>
                     A questo punto dovrebbero essere installati e configurati MySQL, Apache, PHP, dnsmasq, Hostapd.
-                </p> 
+                </p>
+
                 <p>
-                    Verificare che tutto funzioni correttamente:
+                    Verificare che tutto funzioni correttamente.
+                </p>
+                
+                <h5 class="hide-on-print">Videoguida:</h5>
+                <video class="responsive-video" controls>
+                    <source src="/assets/video/testautoinstall.mp4" type="video/mp4">
+                </video>
+                {% include html/videospeed_control.html %}
+
+                <h5 class="hide-on-print">Guida testuale:</h5>
+
                     <ul class="collection">
                         <li class="collection-item">
                             Provare con un cellulare a collegarsi alla rete Wi-Fi creata da Raspberry:
@@ -605,11 +626,6 @@ description: "Guida iniziale progetto201"
                         <li class="collection-item">
                             Per testare dnsmasq come server DNS provare a collegarsi alla pagina web inserendo nella barra degli
                             indirizzi "raspberry" e "raspberry.progetto201.com", dovrebbero funzionare entrambe.
-                            <blockquote>
-                                Se il secondo non funziona provare ad andare nel file "/etc/dnsmasq.conf" e a
-                                spostare/cancellare i commenti a destra delle impostazioni, salvare le modifiche e riavviare Raspberry.
-                                Se funziona occorrera' modificare lo script autodnsmasq.sh per inserire i commenti prima delle impostazioni.
-                            </blockquote>
                         </li>
                         <li class="collection-item">
 
@@ -678,12 +694,16 @@ description: "Guida iniziale progetto201"
                                 </pre>
                                 Se e' stato eseguito lo script AUTOINSTALL senza modifiche
                                 probabilmente automysql.sh ha modificato la password.
-                                Prima occorre accedere con la nuova password:
+                                Prima di eseguire i comandi occorre accedere con la nuova password, 
+                                sostituire nei comandi "sudo mysql" con il seguente comando:
                                 <pre class="language-bash">
                                     <code class="language-bash">
                                         {% capture code %}
                                         # sostutisci &lt;username&gt; con il nome utente
                                         # > nota: non c'e' spazio tra il nome utente e la "-u"
+                                        # > nota 2: dopo "-p" e' possibile aggiungere "-e" e poi una istruzione SQL per eseguirla
+                                        # > nota 3: se si desidera eseguire istruzioni di un file sql dopo "-p" 
+                                        # > inserire "&lt; &lt;path&gt;" dove &lt;path&gt; e' il percorso del file
                                         sudo mysql -u&lt;username&gt; -p
                                         {% endcapture %}
                                         {% include html/code.html html=code %}
@@ -709,7 +729,7 @@ description: "Guida iniziale progetto201"
                             </blockquote>
                         </li>
                     </ul>
-                </p>
+                
             </li>
 
             <!-- SEZIONE: MODIFICA PASSWORD MYSQL -->
@@ -718,7 +738,7 @@ description: "Guida iniziale progetto201"
                     Modifica password MySQL
                 </h4>
                 <p>
-                    Se fino ad ora non e' stata modificata occorre modificare la password di MySQL per permettere
+                    Se fino ad ora non e' stata modificata la password di MySQL occorre modificarla per permettere
                     a PHP di collegarsi al database.
                 </p>
                 <p>
@@ -768,6 +788,29 @@ description: "Guida iniziale progetto201"
                 <p>
                     Installare la frontend e l'api del progetto201.
                 </p>
+
+                <blockquote>
+                    <p>
+                        Prima di spostare/copiare i file del progetto201 cancellare i file in "/var/www/html" con il comando:
+                    </p>
+                    <pre class="language-bash">
+                        <code class="language-bash">
+                            {% capture code %}
+                            sudo rm -rf /var/www/html/*
+                            {% endcapture %}
+                            {% include html/code.html html=code %}
+                        </code>
+                    </pre>
+                </blockquote>
+
+                <h5 class="hide-on-print">Videoguida:</h5>
+                <video class="responsive-video" controls>
+                    <source src="/assets/video/installfrontendapi.mp4" type="video/mp4">
+                </video>
+                {% include html/videospeed_control.html %}
+
+                <h5 class="hide-on-print">Guida testuale:</h5>
+
                 <ul class="collection">
                     <li class="collection-item">
                         <p>

@@ -227,6 +227,11 @@ description: "Idee e modifiche per il progetto201"
                 </li>
                 <li class="collection-item">
                     <p>
+                        SSL/TLS per MQTT per cifrare le comunicazioni tra nodi e broker MQTT.
+                    </p>
+                </li>
+                <li class="collection-item">
+                    <p>
                         Modificare le regole del Firewall per permettere solo ai servizi DHCP, DNS, MQTT, HTTPS
                         di comunicare con altri dispositivi.
                     </p>
@@ -344,7 +349,7 @@ description: "Idee e modifiche per il progetto201"
                         con il corretto/normale stato della tabella.
                     </p>
                     <p>
-                        Occorre modificare questi script per permettere la restituzione di 0 elementi.
+                        Occorre modificare questi script per restituire lo status code 200 quando sono presenti 0 elementi nel database.
                     </p>
                     <blockquote>
                         Esempio: "options/planlabels.php" restituisce errore quando la tabella t_planlabels e' vuota
@@ -394,9 +399,68 @@ description: "Idee e modifiche per il progetto201"
                     Gestire gli errori provenienti dalla backend API.
                 </li>
                 <li class="collection-item">
-                    Utilizzare i Vue file components ( <a href="https://vuejs.org/v2/guide/single-file-components.html"link></a> ).
+                    Utilizzare i Vue file components ( <a href="https://vuejs.org/v2/guide/single-file-components.html">link documentazione</a> ).
                     <blockquote>
                         Occorre implementare webpack o simili per convertire i file .vue in javascript
+                    </blockquote>
+                </li>
+                <li class="collection-item">
+                    <p>
+                        Permettere all'utente di cambiare il colore e la trasparenza dei label.
+                    </p>
+                    <p>
+                        Attualmente tutti i label sono leggermente trasparenti ma in alcuni casi,
+                        ad esempio per le aree, puo' essere utile non rendere visibile dei label
+                        oppure modificare il colore per rispettare l'estetica della planimetria.
+                    </p>
+                    <blockquote>
+                        <p>
+                            Lato frontend occorre aggiungere un color picker per il colore ( <a href="https://mdbootstrap.com/plugins/jquery/color-picker/">link documentazione di mdbootstrap</a> )
+                            e un input per la trasparenza.
+                        </p>
+                        <p>
+                            Lato backend occorre modificare la tabella "t_labels" del database per poter contenere le due nuove proprieta'
+                            e nella API occorre aggiungere e gestire le richieste aventi i due nuovi parametri.
+                        </p>
+                    </blockquote>
+                </li>
+                <li class="collection-item">
+                    <p>
+                        Aggiornare la pagina delle informazioni (contiene informazioni del vecchio 100+100).
+                    </p>
+                    <blockquote>
+                        <p>
+                            Si potrebbe anche rimuovere completamente la pagina e aggiungere una sezione "informazioni"
+                            all'interno della pagina delle impostazioni con un link che punta verso queste pagine e i repository Github.
+                        </p>
+                        <p>
+                            Prima di fare questo occorrerebbe aggiungere una pagina alternativa alle informazioni
+                            per mantenere la struttura della pagina principale (due pulsanti in fondo alla pagina).
+                        </p>
+                        <p>
+                            Una pagina che avrebbe senso aggiungere e' un modo alternativo alla planimetria 
+                            di visualizzare i dati:
+                        </p>
+                        <p>
+                            potrebbe visualizzare delle card che visualizzano i nodi o le stanze... Magari dare la possibilita' all'utente di scegliere...
+                        </p>
+                        <p>
+                            Inoltre, se si riesce ad aggiungere attuatori al sistema, questa pagina puo' essere utile anche
+                            a controllare manualmente gli attuatori.
+                        </p>
+                        <p>
+                            Ecco una immagine che rappresenta questa idea:
+                        </p>
+                        <div class="center-align container">
+                            <img class="materialboxed mx-auto resp-img" src="/assets/svg/ideas/managenodes.svg" alt="Pagina che gestisce i nodi">
+                        </div>
+                        <p>
+                            Cliccando su "GRAFICI" e' possibile visualizzare i grafici delle rilevazioni mentre "DETTAGLI" potrebbe visualizzare altre informazioni 
+                            (ad esempio indirizzo IP, MAC, RSSI, ...)
+                        </p>
+                        <blockquote>
+                            Questo e' solo un esempio, non ha senso solo accendere e spegnere un condizionatore: occorre poter controllare la temperatura...
+                        </blockquote>
                     </blockquote>
                 </li>
             </ol>
@@ -860,4 +924,26 @@ description: "Idee e modifiche per il progetto201"
         Per i compiti a tempo si potrebbe creare una nuova tabella che richiama le action di t_action.
         La tabella potrebbe chiamarsi "t_timed_tasks".
     </p>
+
+    <hr>
+
+    <p>
+        Dopo aver automatizzato gli attuatori si potrebbe dare la possibilita' all'utente di
+        controllarli manualmente.
+    </p>
+    <p>
+        Nella frontend un pulsante puo' permettere di scegliere il controllo manuale o automatico
+        e poi, a seconda del tipo di attuatore (un pulsante va bene solo se e' un attuatore "on/off", ...), 
+        un altro elemento della pagina puo' controllare/visualizzare 
+        (a seconda del tipo di controllo abilitato) lo stato dell'attuatore.
+    </p>
+    <blockquote>
+        Per la visualizzazione dello stato occorre memorizzare lo stato sul database
+        oppure e' necessario ottenere lo stato dal nodo con attuatore ogni volta che il suo stato
+        cambia.
+    </blockquote>
+    <blockquote>
+        Per avere un esempio visivo andare <a href="#frontend">nella sezione frontend</a>
+        e guardare l'immagine con la pagina "Gestisci nodi".
+    </blockquote>
 </div>

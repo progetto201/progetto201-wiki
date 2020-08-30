@@ -90,6 +90,7 @@ localhost
 maiusc
 Malwarebytes
 Maric
+mdbootstrap
 microcontrollore
 microcontrollori
 microservizi
@@ -145,6 +146,7 @@ riavviera
 riavvii
 richiedera
 rispondera
+RSSI
 Rubygem
 sara
 sass
@@ -181,6 +183,7 @@ Verra
 Videoguida
 videospeed
 visualizzera
+VNC
 vue
 Vue
 vulnerabilita
