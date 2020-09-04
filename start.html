@@ -26,6 +26,10 @@ description: "Guida iniziale progetto201"
             <p>
                 Utilizzare dispositivi personali aggira molti problemi e spesso velocizza le operazioni.
             </p>
+            <p>
+                Un'altra valida soluzione per i diritti di amministrazione
+                consiste nell'utilizzare una macchina virtuale.
+            </p>
         </blockquote>
 
         <blockquote>
@@ -883,6 +887,13 @@ description: "Guida iniziale progetto201"
                 <p>Installare mosquitto, broker MQTT per gestire i dati ricevuti via MQTT dai nodi e configurarlo per accettare solo nodi con username e password.
                     Digita i seguenti comandi oppure copia e incolla.
                 </p>
+                <h5 class="hide-on-print">Videoguida:</h5>
+                <video class="responsive-video" controls>
+                    <source src="/assets/video/mosquitto.mp4" type="video/mp4">
+                </video>
+                {% include html/videospeed_control.html %}
+
+                <h5 class="hide-on-print">Guida testuale:</h5>
                 <pre class="language-bash">
                     <code class="language-bash">
                         {% capture code %}
@@ -929,7 +940,15 @@ description: "Guida iniziale progetto201"
                 <p>
                     Scaricare lo script MQTT_MANAGER, configurarlo e abilitare la sua esecuzione all'avvio.
                 </p>
-        
+                
+                <h5 class="hide-on-print">Videoguida:</h5>
+                <video class="responsive-video" controls>
+                    <source src="/assets/video/mqtt_manager.mp4" type="video/mp4">
+                </video>
+                {% include html/videospeed_control.html %}
+
+                <h5 class="hide-on-print">Guida testuale:</h5>
+
                 <ul class="collection">
                    
                     <li class="collection-item">
@@ -1040,11 +1059,18 @@ description: "Guida iniziale progetto201"
                 </p>
                 <p>
                     In questo caso verranno indicati i passi necessari per caricare
-                    lo sketch DATACLIENT-DHT22, che si occupa di rilevare temperatura e umidita'
+                    lo sketch DATACLIENT-DHT22 (<a href="https://github.com/progetto201/dataclient-dht22">link allo sketch</a>), che si occupa di rilevare temperatura e umidita'
                     utilizzando il sensore DHT22, su un NodeMCU ma si daranno informazioni generali
                     per possibili sketch futuri o per microcontrollori diversi dal ESP8266 (montato sul NodeMCU).
                 </p>
                 
+                <h5 class="hide-on-print">Videoguida:</h5>
+                <video class="responsive-video" controls>
+                    <source src="/assets/video/sketch_arduino.mp4" type="video/mp4">
+                </video>
+                {% include html/videospeed_control.html %}
+
+                <h5 class="hide-on-print">Guida testuale:</h5>
                 <ul class="collection">
                     <li class="collection-item">
                         Se non e' gia' installato, installare l'arduino IDE dal sito ufficiale: <a href="https://www.arduino.cc/en/Main/Software" class="btn orange lighten-2">Clicca qui</a>
@@ -1054,7 +1080,7 @@ description: "Guida iniziale progetto201"
                             Installare i driver dal sito del produttore della scheda su cui caricare lo sketch.
                         </p>
                         <p>
-                            Per il NodeMCU scaricare i driver da qui: <a href="https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx" class="btn orange lighten-2">Clicca qui</a>
+                            Per il NodeMCU scaricare i driver da qui: <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers" class="btn orange lighten-2">Clicca qui</a>
                         </p>
                     </li>
                     <li class="collection-item">
@@ -1206,6 +1232,13 @@ description: "Guida iniziale progetto201"
                 <blockquote>
                     Attualmente non e' possibile fare queste operazioni da UI ma sarebbe fattibile.
                 </blockquote>
+                <h5 class="hide-on-print">Videoguida:</h5>
+                <video class="responsive-video" controls>
+                    <source src="/assets/video/nodelocation.mp4" type="video/mp4">
+                </video>
+                {% include html/videospeed_control.html %}
+
+                <h5 class="hide-on-print">Guida testuale:</h5>
                 <ul class="collection">
                     <li class="collection-item">
                         <p>
@@ -1319,6 +1352,13 @@ description: "Guida iniziale progetto201"
                         o eseguire uno swipe dal bordo a sinistra della pagina verso destra)
                     </li>
                     <li class="collection-item">
+                        <h5 class="hide-on-print">Videoguida:</h5>
+                        <video class="responsive-video" controls>
+                            <source src="/assets/video/planlabels.mp4" type="video/mp4">
+                        </video>
+                        {% include html/videospeed_control.html %}
+        
+                        <h5 class="hide-on-print">Guida testuale:</h5>
                         <p>
                             Per aggiungere i label sulla planimetria per renderla interattiva occorre andare sulla pagina impostazioni
                             del progetto201.
